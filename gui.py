@@ -12,7 +12,7 @@ class GUI(object):
 
     pygame.init()
     self.display = pygame.display
-    self.page = self.display.set_mode((self.width,self.height))
+    self.page = self.display.set_mode((self.width,self.height),pygame.RESIZABLE)
     self.display.set_caption(self.title)
 
     self.f = None
@@ -49,6 +49,10 @@ class GUI(object):
       return pygame.key.get_pressed()[k]
     else:
       return pygame.key.get_pressed()
+
+  def Image(self,im,size_x,size_y,x,y):
+    im = pygame.transform.scale(im,(size_x,size_y))
+    self.page.blit(im,(x,y))
 
   def mouseAction(self,k=None):
     if k != None:
