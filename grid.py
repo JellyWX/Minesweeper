@@ -27,24 +27,64 @@ class Grid():
 
 
   def release(self):
+    print('starting release')
     y = 0
-    for row in self.array:
+    for row in range(0,len(self.array)):
       x = 0
-      for item in row:
+      for item in range(0,len(self.array[row])):
         if x < self.cursor_x <= x + 25:
           if y < self.cursor_y <= y + 25:
-            if item[1] == 'c':
-              item[1] = 'u'
-              if item[0] == 'mine':
+            if self.array[row][item][1] == 'c':
+              print('found covered tile. starting uncover.')
+              self.array[row][item][1] = 'u'
+              if self.array[row][item][0] == 'mine':
+                print('gameover')
                 return True
               else:
                 self.release_proc(row,item)
+                return False
 
         x += self.pix
       y += self.pix
 
-  def release_proc(self,x,y):
-    pass
+  def release_proc(self,row,col):
+    #    local_arr = [
+    #      self.array[row-1][col-1][0], self.array[row-1][col][0], self.array[row-1][col+1][0],
+    #      self.array[row][col-1][0], self.array[row][col][0], self.array[row][col+1][0],
+    #      self.array[row+1][col-1][0], self.array[row+1][col][0], self.array[row+1][col+1][0]
+    #    ]
+    if row == 0:
+      row_r = range(0,2)
+    elif row == len(self.array) - 1:
+      row_r = range(-1,1)
+    else:
+      row_r = range(-1,2)
+
+    if col == 0:
+      col_r = range(0,2)
+    elif col == len(self.array[row]) - 1:
+      col_r = range(-1,1)
+    else:
+      col_r = range(-1,2)
+
+    local_arr = []
+
+    for i in row_r:
+      for j in col_r:
+        local_arr.append(self.array[row+i][col+j][0])
+
+    #print(str(local_arr))
+
+    mine_count = 0
+
+    for item in local_arr:
+        if item == 'mine':
+          mine_count += 1
+
+    if mine_count == 0:
+      pass
+    else:
+      self.array[row][col][2] = mine_count
 
   def render(self):
     y = 0
@@ -53,8 +93,13 @@ class Grid():
       for j in i:
         if j[1] == 'c':
           self.gui.Image(self.im['tile'],self.pix,self.pix,x,y)
+        #if j[0] == 'mine':
+        #  self.gui.Text(str('M'),self.pix,True)
+        #  self.gui.showText(x,y)
         elif j[1] == 'u':
           self.gui.Image(self.im['background'],self.pix,self.pix,x,y)
+          self.gui.Text(str(j[2]),self.pix,True)
+          self.gui.showText(x,y)
         if x < self.cursor_x <= x + 25:
           if y < self.cursor_y <= y + 25:
             self.gui.Image(self.im['overlay'],self.pix,self.pix,x,y)

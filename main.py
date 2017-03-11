@@ -11,9 +11,7 @@ images = {
 
 done = False
 
-started = False
-
-grid = Grid(gui,images,30,30,15)
+grid = Grid(gui,images,30,30,25)
 
 while not done:
   for e in gui.event():
@@ -22,7 +20,7 @@ while not done:
       break
     if e.type == pygame.MOUSEBUTTONDOWN:
       if e.button == 1:
-        grid.release()
+        done = grid.release()
 
 
 
