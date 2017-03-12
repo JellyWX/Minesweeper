@@ -25,6 +25,38 @@ class Grid():
         r2 = randint(0,size_x - 1)
       self.array[r][r2][0] = 'mine'
 
+    for row in range(0,len(self.array)):
+      for col in range(0,len(self.array[row])):
+        if row == 0:
+          row_r = range(0,2)
+        elif row == len(self.array) - 1:
+          row_r = range(-1,1)
+        else:
+          row_r = range(-1,2)
+
+        if col == 0:
+          col_r = range(0,2)
+        elif col == len(self.array[row]) - 1:
+          col_r = range(-1,1)
+        else:
+          col_r = range(-1,2)
+
+        local_arr = []
+
+        for i in row_r:
+          for j in col_r:
+            local_arr.append(self.array[row+i][col+j][0])
+
+        mine_count = 0
+
+        for item in local_arr:
+            if item == 'mine':
+              mine_count += 1
+
+        if mine_count > 0:
+          self.array[row][col][2] = mine_count
+        if self.array[row][col][0] == 'mine':
+          self.array[row][col][2] = 'M'
 
 
   def release(self):
@@ -42,7 +74,6 @@ class Grid():
                 print('gameover')
                 return True
               else:
-                self.release_proc(row,item)
                 return False
 
         x += self.pix
@@ -63,42 +94,8 @@ class Grid():
         x += self.pix
       y += self.pix
 
-  def release_proc(self,row,col):
-    if self.array[row][col][1] == 'c':
-      self.array[row][col][1] = 'u'
-    if row == 0:
-      row_r = range(0,2)
-    elif row == len(self.array) - 1:
-      row_r = range(-1,1)
-    else:
-      row_r = range(-1,2)
-
-    if col == 0:
-      col_r = range(0,2)
-    elif col == len(self.array[row]) - 1:
-      col_r = range(-1,1)
-    else:
-      col_r = range(-1,2)
-
-    local_arr = []
-
-    for i in row_r:
-      for j in col_r:
-        local_arr.append(self.array[row+i][col+j][0])
-
-    mine_count = 0
-
-    for item in local_arr:
-        if item == 'mine':
-          mine_count += 1
-
-    if mine_count == 0:
-      pass
-    else:
-      self.array[row][col][2] = mine_count
-
-  def auto_release(self,row,col):
-    try
+  #def auto_release(self,row,col):
+  #  try
 
   def render(self):
     y = 0
