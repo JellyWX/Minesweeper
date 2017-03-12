@@ -11,6 +11,7 @@ images = {
 }
 
 done = False
+started = False
 
 grid = Grid(gui,images,16,16,40)
 
@@ -21,6 +22,10 @@ while not done:
       break
     if e.type == pygame.MOUSEBUTTONUP:
       if e.button == 1:
+        if not started:
+          started = True
+          grid.release()
+          grid.initial()
         done = grid.release()
       elif e.button == 3:
         grid.mark()

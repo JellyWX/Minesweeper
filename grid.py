@@ -8,6 +8,9 @@ class Grid():
     self.gui = gui
     self.im = im
     self.pix = pixel
+    self.mines = mines
+    self.size_x = size_x
+    self.size_y = size_y
 
     self.cursor_x = 0
     self.cursor_y = 0
@@ -17,12 +20,14 @@ class Grid():
       for j in range(0,size_x):
         self.array[i].append(['tile','c',''])
 
-    for i in range(0,mines):
-      r  = randint(0,size_y - 1)
-      r2 = randint(0,size_x - 1)
-      while self.array[r][r2][0] == 'mine':
-        r  = randint(0,size_y - 1)
-        r2 = randint(0,size_x - 1)
+  def initial(self):
+
+    for i in range(0,self.mines):
+      r  = randint(0,self.size_y - 1)
+      r2 = randint(0,self.size_x - 1)
+      while self.array[r][r2][0] == 'mine' or self.array[r][r2][1] == 'u':
+        r  = randint(0,self.size_y - 1)
+        r2 = randint(0,self.size_x - 1)
       self.array[r][r2][0] = 'mine'
 
     for row in range(0,len(self.array)):
@@ -60,24 +65,34 @@ class Grid():
 
 
   def release(self):
-    #print('starting release')
     y = 0
     for row in range(0,len(self.array)):
       x = 0
       for item in range(0,len(self.array[row])):
+
         if x < self.cursor_x <= x + 25:
           if y < self.cursor_y <= y + 25:
+
             if self.array[row][item][1] == 'c':
-              #print('found covered tile. starting uncover.')
               self.array[row][item][1] = 'u'
               if self.array[row][item][0] == 'mine':
                 print('gameover')
                 return True
               else:
+                if self.array[row][item][2] == '':
+                  self.open(row,item)
                 return False
 
         x += self.pix
       y += self.pix
+
+  def open(self,row,col):
+    self.array[row][col][1] = 'u'
+    for i in range(-1,2):
+      for j in range(-1,2):
+        if row != 0 and col != 0 and col != self.size_x - 1 and row != self.size_y - 1:
+          if self.array[row+i][col+j][1] == 'c' and self.array[row+i][col+j][2] != 'M':
+            self.array[row+i][col+j][1] = 'u'
 
   def mark(self):
     y = 0
@@ -93,9 +108,6 @@ class Grid():
 
         x += self.pix
       y += self.pix
-
-  #def auto_release(self,row,col):
-  #  try
 
   def render(self):
     y = 0
