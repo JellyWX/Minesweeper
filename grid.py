@@ -15,7 +15,7 @@ class Grid():
     for i in range(0,size_y):
       self.array.append([])
       for j in range(0,size_x):
-        self.array[i].append(['tile','c',0])
+        self.array[i].append(['tile','c',''])
 
     for i in range(0,mines):
       r  = randint(0,size_y - 1)
@@ -26,8 +26,9 @@ class Grid():
       self.array[r][r2][0] = 'mine'
 
 
+
   def release(self):
-    print('starting release')
+    #print('starting release')
     y = 0
     for row in range(0,len(self.array)):
       x = 0
@@ -35,7 +36,7 @@ class Grid():
         if x < self.cursor_x <= x + 25:
           if y < self.cursor_y <= y + 25:
             if self.array[row][item][1] == 'c':
-              print('found covered tile. starting uncover.')
+              #print('found covered tile. starting uncover.')
               self.array[row][item][1] = 'u'
               if self.array[row][item][0] == 'mine':
                 print('gameover')
@@ -47,12 +48,24 @@ class Grid():
         x += self.pix
       y += self.pix
 
+  def mark(self):
+    y = 0
+    for row in range(0,len(self.array)):
+      x = 0
+      for item in range(0,len(self.array[row])):
+        if x < self.cursor_x <= x + 25:
+          if y < self.cursor_y <= y + 25:
+            if self.array[row][item][1] == 'c':
+              self.array[row][item][1] = 'm'
+            elif self.array[row][item][1] == 'm':
+              self.array[row][item][1] = 'c'
+
+        x += self.pix
+      y += self.pix
+
   def release_proc(self,row,col):
-    #    local_arr = [
-    #      self.array[row-1][col-1][0], self.array[row-1][col][0], self.array[row-1][col+1][0],
-    #      self.array[row][col-1][0], self.array[row][col][0], self.array[row][col+1][0],
-    #      self.array[row+1][col-1][0], self.array[row+1][col][0], self.array[row+1][col+1][0]
-    #    ]
+    if self.array[row][col][1] == 'c':
+      self.array[row][col][1] = 'u'
     if row == 0:
       row_r = range(0,2)
     elif row == len(self.array) - 1:
@@ -73,8 +86,6 @@ class Grid():
       for j in col_r:
         local_arr.append(self.array[row+i][col+j][0])
 
-    #print(str(local_arr))
-
     mine_count = 0
 
     for item in local_arr:
@@ -85,6 +96,9 @@ class Grid():
       pass
     else:
       self.array[row][col][2] = mine_count
+
+  def auto_release(self,row,col):
+    try
 
   def render(self):
     y = 0
@@ -100,6 +114,8 @@ class Grid():
           self.gui.Image(self.im['background'],self.pix,self.pix,x,y)
           self.gui.Text(str(j[2]),self.pix,True)
           self.gui.showText(x,y)
+        elif j[1] == 'm':
+          self.gui.Image(self.im['mark'],self.pix,self.pix,x,y)
         if x < self.cursor_x <= x + 25:
           if y < self.cursor_y <= y + 25:
             self.gui.Image(self.im['overlay'],self.pix,self.pix,x,y)

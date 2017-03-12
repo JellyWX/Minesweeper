@@ -5,26 +5,26 @@ from grid import Grid
 gui = GUI(800,800,'Minesweeper')
 images = {
   'tile' : pygame.image.load('tile.png'),
+  'mark' : pygame.image.load('mark.png'),
   'background' : pygame.image.load('background.png'),
   'overlay' : pygame.image.load('overlay.png')
 }
 
 done = False
 
-grid = Grid(gui,images,30,30,25)
+grid = Grid(gui,images,16,16,40)
 
 while not done:
   for e in gui.event():
     if e.type == pygame.QUIT:
       done = True
       break
-    if e.type == pygame.MOUSEBUTTONDOWN:
+    if e.type == pygame.MOUSEBUTTONUP:
       if e.button == 1:
         done = grid.release()
+      elif e.button == 3:
+        grid.mark()
 
-
-
-  #print(str(pygame.mouse.get_pos()))
 
   grid.cursor_x = pygame.mouse.get_pos()[0]
   grid.cursor_y = pygame.mouse.get_pos()[1]
