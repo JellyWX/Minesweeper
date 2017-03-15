@@ -2,7 +2,7 @@ from random import randint
 
 
 class Grid():
-  def __init__(self,gui,im,size_x,size_y,mines,pixel=25):
+  def __init__(self,gui,im,size_x=16,size_y=16,mines=40,pixel=25):
 
     self.array = []
     self.gui = gui
@@ -12,15 +12,14 @@ class Grid():
     self.size_x = size_x
     self.size_y = size_y
 
-    self.cursor_x = 0
-    self.cursor_y = 0
+    self.cursor_pos = (0,0)
 
     for i in range(0,size_y):
       self.array.append([])
-      for j in range(0,size_x):
+      for _ in range(0,size_x):
         self.array[i].append(['tile','c',''])
 
-  def initial(self):
+  def post_initial(self):
 
     for i in range(0,self.mines):
       r  = randint(0,self.size_y - 1)
@@ -55,8 +54,8 @@ class Grid():
         mine_count = 0
 
         for item in local_arr:
-            if item == 'mine':
-              mine_count += 1
+          if item == 'mine':
+            mine_count += 1
 
         if mine_count > 0:
           self.array[row][col][2] = mine_count
@@ -70,8 +69,7 @@ class Grid():
       x = 0
       for item in range(0,len(self.array[row])):
 
-        if x < self.cursor_x <= x + 25:
-          if y < self.cursor_y <= y + 25:
+        if self.cursor_pos[0] == row and self.cursor_pos[1] == item:
 
             if self.array[row][item][1] == 'c':
               self.array[row][item][1] = 'u'
@@ -99,15 +97,23 @@ class Grid():
     for row in range(0,len(self.array)):
       x = 0
       for item in range(0,len(self.array[row])):
-        if x < self.cursor_x <= x + 25:
-          if y < self.cursor_y <= y + 25:
-            if self.array[row][item][1] == 'c':
-              self.array[row][item][1] = 'm'
-            elif self.array[row][item][1] == 'm':
-              self.array[row][item][1] = 'c'
+        if self.cursor_pos[0] == row and self.cursor_pos[1] == item:
+          if self.array[row][item][1] == 'c':
+            self.array[row][item][1] = 'm'
+          elif self.array[row][item][1] == 'm':
+            self.array[row][item][1] = 'c'
 
         x += self.pix
       y += self.pix
+      
+  def cursor(self,pos_x,pos_y):
+    y = 0
+    for row in range(0,len(self.array)):
+      x = 0
+      for item in range(0,len(self.array[row])):
+        if x < pos_x <= x + self.pix:
+          if y < pos_y <= y + self.pix:
+            self.cursor_pos = (row,item)
 
   def render(self):
     y = 0
@@ -116,17 +122,13 @@ class Grid():
       for j in i:
         if j[1] == 'c':
           self.gui.Image(self.im['tile'],self.pix,self.pix,x,y)
-        #if j[0] == 'mine':
-        #  self.gui.Text(str('M'),self.pix,True)
-        #  self.gui.showText(x,y)
         elif j[1] == 'u':
           self.gui.Image(self.im['background'],self.pix,self.pix,x,y)
           self.gui.Text(str(j[2]),self.pix,True)
           self.gui.showText(x,y)
         elif j[1] == 'm':
           self.gui.Image(self.im['mark'],self.pix,self.pix,x,y)
-        if x < self.cursor_x <= x + 25:
-          if y < self.cursor_y <= y + 25:
-            self.gui.Image(self.im['overlay'],self.pix,self.pix,x,y)
+        if self.array[self.cursor_pos[0]][self.cursor_pos[1]] == j:
+          self.gui.Image(self.im['overlay'],self.pix,self.pix,x,y)
         x += self.pix
       y += self.pix
