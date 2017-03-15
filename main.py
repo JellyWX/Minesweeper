@@ -13,7 +13,7 @@ images = {
 done = False
 started = False
 
-grid = Grid(gui,images,16,16,40)
+grid = Grid(gui,images)
 
 while not done:
   for e in gui.event():
@@ -25,19 +25,17 @@ while not done:
         if not started:
           started = True
           grid.release()
-          grid.initial()
+          grid.post_initial()
         done = grid.release()
       elif e.button == 3:
         grid.mark()
 
 
-  grid.cursor_x = pygame.mouse.get_pos()[0]
-  grid.cursor_y = pygame.mouse.get_pos()[1]
-
+  grid.cursor_pos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
 
   grid.render()
 
-  gui.flip(64)
+  gui.flip(32)
