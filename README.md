@@ -23,3 +23,5 @@ git clone https://github.com/JellyWX/Minesweeper.git -b master
 cd Minesweeper/
 python3 main.py
 ```
+
+On Windows systems, you may have to use `python main.py` rather than `python3 main.py`, depending on how you set up your path. You'll also have to manually install `git` and I recommend using the git shell for it. __If it doesn't work, make sure your python version is Python 3 and that you installed Pygame for Python 3__
