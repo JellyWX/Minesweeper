@@ -105,7 +105,7 @@ class Grid():
 
         x += self.pix
       y += self.pix
-      
+
   def cursor(self,pos_x,pos_y):
     y = 0
     for row in range(0,len(self.array)):
@@ -114,21 +114,24 @@ class Grid():
         if x < pos_x <= x + self.pix:
           if y < pos_y <= y + self.pix:
             self.cursor_pos = (row,item)
+            return
+        x += self.pix
+      y += self.pix
 
   def render(self):
     y = 0
-    for i in self.array:
+    for i in range(0,len(self.array)):
       x = 0
-      for j in i:
-        if j[1] == 'c':
+      for j in range(0,len(self.array[i])):
+        if self.array[i][j][1] == 'c':
           self.gui.Image(self.im['tile'],self.pix,self.pix,x,y)
-        elif j[1] == 'u':
+        elif self.array[i][j][1] == 'u':
           self.gui.Image(self.im['background'],self.pix,self.pix,x,y)
-          self.gui.Text(str(j[2]),self.pix,True)
+          self.gui.Text(str(self.array[i][j][2]),self.pix,True)
           self.gui.showText(x,y)
-        elif j[1] == 'm':
+        elif self.array[i][j][1] == 'm':
           self.gui.Image(self.im['mark'],self.pix,self.pix,x,y)
-        if self.array[self.cursor_pos[0]][self.cursor_pos[1]] == j:
+        if self.cursor_pos == (i,j):
           self.gui.Image(self.im['overlay'],self.pix,self.pix,x,y)
         x += self.pix
       y += self.pix

@@ -31,7 +31,7 @@ while not done:
         grid.mark()
 
 
-  grid.cursor_pos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+  grid.cursor(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
