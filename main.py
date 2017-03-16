@@ -1,14 +1,15 @@
 import pygame
+import os
 from gui import GUI
 from grid import Grid
 
 gui = GUI(800,800,'Minesweeper')
-images = {
-  'tile' : pygame.image.load('tile.png'),
-  'mark' : pygame.image.load('mark.png'),
-  'background' : pygame.image.load('background.png'),
-  'overlay' : pygame.image.load('overlay.png')
-}
+images = {}
+
+for f in os.listdir('assets/images'):
+  if f[-4:] == '.png':
+    print('Loading asset ' + f)
+    images[f[0:-4]] = pygame.image.load('assets/images/' + f)
 
 done = False
 started = False

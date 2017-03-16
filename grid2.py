@@ -38,6 +38,10 @@ class Grid():
         randCol = randint(0,self.size_x - 1)
       self.array[randRow][randCol].mine = True
 
+    for row in self.array:
+      for item in row:
+        item.getBombNeighbours()
+
   def getCursorPos(self,c_x,c_y):
     y = 0
     for row in self.array:
@@ -50,6 +54,24 @@ class Grid():
             return
         x += self.pix
       y += self.pix
+
+  def render(self):
+    for row in self.array:
+      for item in row:
+        self.gui.Image(self.im['background'],self.pix,self.pix,x,y)
+        if item.getCovered:
+          self.gui.Image(self.im['tile'],self.pix,self.pix,x,y)
+        else:
+          if item.getMine():
+            self.gui.Image(self.im['mine'],self.pix,self.pix,x,y)
+          else:
+            try:
+              self.gui.Image(self.im[str(item)],self.pix,self.pix,x,y)
+            except:
+              pass
+
+        if self.array[cursor_y][cursor_x] == item:
+          self.gui.Image(self.im['overlay'])
 
 class Tile():
   def __init__(self,array,pos_x,pos_y,data):
@@ -72,7 +94,9 @@ class Tile():
   def getMine(self):
     return self.mine
 
-  def getBombNeighbours(self):
+  def getBombNeighbours(self,quick=False):
+    if quick:
+      return self.data
     if self.mine:
       return -1
     else:
