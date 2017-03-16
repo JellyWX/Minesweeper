@@ -15,19 +15,18 @@ class Grid():
 
     ## data ##
     self.array    = []
-    self.cursor_x = 0
-    self.cursor_y = 0
+    self.cursor = None
 
-  def drawGrid(self,x,y):
+  def drawGrid(self,x=16,y=16):
     self.size_x = x
     self.size_y = y
 
-    for row in range(size_y):
+    for row in range(y):
       self.array.append([])
-      for item in range(size_x):
+      for item in range(x):
         self.array[row].append(Tile(self,row,item,0))
 
-  def drawMines(self,mines):
+  def drawMines(self,mines=40):
     self.mines = mines
 
     for _ in range(0,mines):
@@ -42,36 +41,39 @@ class Grid():
       for item in row:
         item.getBombNeighbours()
 
-  def getCursorPos(self,c_x,c_y):
+  def setCursorPos(self,c_x,c_y):
     y = 0
     for row in self.array:
       x = 0
       for item in row:
         if x < c_x <= x + self.pix:
           if y < c_y <= y + self.pix:
-            self.cursor_x = item
-            self.cursor_y = row
+            self.cursor = item
             return
         x += self.pix
       y += self.pix
 
   def render(self):
+    y = 0
     for row in self.array:
+      x = 0
       for item in row:
-        self.gui.Image(self.im['background'],self.pix,self.pix,x,y)
+        self.gui.Image(self.images['background'],self.pix,self.pix,x,y)
         if item.getCovered:
-          self.gui.Image(self.im['tile'],self.pix,self.pix,x,y)
-        else:
+          self.gui.Image(self.images['tile'],self.pix,self.pix,x,y)        else:
           if item.getMine():
-            self.gui.Image(self.im['mine'],self.pix,self.pix,x,y)
+            self.gui.Image(self.images['mine'],self.pix,self.pix,x,y)
           else:
             try:
-              self.gui.Image(self.im[str(item)],self.pix,self.pix,x,y)
+              self.gui.Image(self.images[str(item)],self.pix,self.pix,x,y)
             except:
               pass
 
-        if self.array[cursor_y][cursor_x] == item:
-          self.gui.Image(self.im['overlay'])
+        if self.cursor == item:
+          self.gui.Image(self.images['overlay'],self.pix,self.pix,x,y)
+
+        x += self.pix
+      y += self.pix
 
 class Tile():
   def __init__(self,array,pos_x,pos_y,data):
@@ -111,13 +113,13 @@ class Tile():
       return bombs
 
   def __eq__(self,comparitor):
-    return self.id == comparitor.id
+    try:
+      return self.id == comparitor.id
+    except:
+      return False
 
   def __hash__(self):
     return self.id
 
   def __str__(self):
-    if isinstance(self.data,self):
-      return str(self.id)
-    else:
-      return str(self.data)
+    return str(self.data)
