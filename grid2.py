@@ -24,7 +24,7 @@ class Grid():
     for row in range(y):
       self.array.append([])
       for item in range(x):
-        self.array[row].append(Tile(self.array,row,item,0))
+        self.array[row].append(Tile(self,self.array,row,item,0))
 
   def drawMines(self,mines=40):
     self.mines = mines
@@ -32,9 +32,23 @@ class Grid():
     for i in range(0,mines):
       randRow = randint(0,self.size_y - 1)
       randCol = randint(0,self.size_x - 1)
-      while not self.array[randRow][randCol].getMine or not self.array[randRow][randCol].getCovered:
+      local_arr = []
+      for i in range(-1,2):
+        for j in range(-1,2):
+          try:
+            local_arr.append(self.array[randRow+i][randCol+j].getCovered())
+          except IndexError:
+            pass
+      while False in local_arr or self.array[randRow][randCol].getMine():
         randRow = randint(0,self.size_y - 1)
         randCol = randint(0,self.size_x - 1)
+        local_arr = []
+        for i in range(-1,2):
+          for j in range(-1,2):
+            try:
+              local_arr.append(self.array[randRow+i][randCol+j].getCovered())
+            except IndexError:
+              pass
       self.array[randRow][randCol].mine = True
 
     for row in self.array:
@@ -53,8 +67,15 @@ class Grid():
         x += self.pix
       y += self.pix
 
-  def open(self):
-    return self.cursor.reveal()
+  def open(self,cell):
+    if cell.getCovered() and not cell.getMarked():
+      return cell.reveal()
+    else:
+      return False
+
+  def mark(self,cell):
+    if cell.getCovered():
+      cell.mark()
 
   def render(self):
     y = 0
@@ -64,6 +85,8 @@ class Grid():
         self.gui.Image(self.images['background'],self.pix,self.pix,x,y)
         if item.getCovered():
           self.gui.Image(self.images['tile'],self.pix,self.pix,x,y)
+          if item.getMarked():
+            self.gui.Image(self.images['mark'],self.pix,self.pix,x,y)
         else:
           if item.getMine():
             self.gui.Image(self.images['mine'],self.pix,self.pix,x,y)
@@ -81,19 +104,21 @@ class Grid():
       pass
 
 class Tile():
-  def __init__(self,array,pos_x,pos_y,data):
+  def __init__(self,grid,array,pos_x,pos_y,data):
     ## id for comparisons ##
     self.id = uuid.uuid4()
 
     ## metadata ##
     self.row = pos_x
     self.column = pos_y
+    self.grid = grid
     self.array = array
 
     ## data ##
     self.data = data
     self.covered = True
     self.mine = False
+    self.marked = False
 
   def getCovered(self):
     return self.covered
@@ -138,11 +163,36 @@ class Tile():
       self.data = mine_count
       return mine_count
 
+  def getMarked(self):
+    return self.marked
+
+  def mark(self):
+    self.marked = not self.marked
+
   def reveal(self):
     self.covered = False
     if self.mine:
       return True
     else:
+      if self.data == 0:
+        if self.grid.mines > 0:
+          if self.row == 0:
+            row_r = range(0,2)
+          elif self.row == len(self.array) - 1:
+            row_r = range(-1,1)
+          else:
+            row_r = range(-1,2)
+
+          if self.column == 0:
+            col_r = range(0,2)
+          elif self.column == len(self.array[0]) - 1:
+            col_r = range(-1,1)
+          else:
+            col_r = range(-1,2)
+
+          for row in row_r:
+            for col in col_r:
+              self.grid.open(self.array[self.row+row][self.column+col])
       return False
 
   def __eq__(self,comparitor):

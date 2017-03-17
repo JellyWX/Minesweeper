@@ -24,12 +24,17 @@ while not done:
       break
     if e.type == pygame.MOUSEBUTTONUP:
       if e.button == 1:
-        done = grid.open()
         if not started:
+          grid.cursor.covered = False
           grid.drawMines()
+          grid.cursor.covered = True
+          grid.open(grid.cursor)
           started = True
+        done = grid.open(grid.cursor)
+      #elif e.button == 2:
+        #grid.bunch_open(grid.cursor)
       elif e.button == 3:
-        grid.mark()
+        grid.mark(grid.cursor)
 
 
   grid.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
