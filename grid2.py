@@ -24,15 +24,15 @@ class Grid():
     for row in range(y):
       self.array.append([])
       for item in range(x):
-        self.array[row].append(Tile(self,row,item,0))
+        self.array[row].append(Tile(self.array,row,item,0))
 
   def drawMines(self,mines=40):
     self.mines = mines
 
-    for _ in range(0,mines):
+    for i in range(0,mines):
       randRow = randint(0,self.size_y - 1)
       randCol = randint(0,self.size_x - 1)
-      while self.array[randRow][randCol].getMine or not self.array[randRow][randCol].getCovered:
+      while not self.array[randRow][randCol].getMine or not self.array[randRow][randCol].getCovered:
         randRow = randint(0,self.size_y - 1)
         randCol = randint(0,self.size_x - 1)
       self.array[randRow][randCol].mine = True
@@ -53,27 +53,32 @@ class Grid():
         x += self.pix
       y += self.pix
 
+  def open(self):
+    return self.cursor.reveal()
+
   def render(self):
     y = 0
     for row in self.array:
       x = 0
       for item in row:
         self.gui.Image(self.images['background'],self.pix,self.pix,x,y)
-        if item.getCovered:
-          self.gui.Image(self.images['tile'],self.pix,self.pix,x,y)        else:
+        if item.getCovered():
+          self.gui.Image(self.images['tile'],self.pix,self.pix,x,y)
+        else:
           if item.getMine():
             self.gui.Image(self.images['mine'],self.pix,self.pix,x,y)
           else:
-            try:
-              self.gui.Image(self.images[str(item)],self.pix,self.pix,x,y)
-            except:
-              pass
-
-        if self.cursor == item:
-          self.gui.Image(self.images['overlay'],self.pix,self.pix,x,y)
-
+            self.gui.Image(self.images[str(item)],self.pix,self.pix,x,y)
         x += self.pix
       y += self.pix
+
+    try:
+      if self.cursor.getCovered():
+        self.gui.Image(self.images['overlay'],self.pix,self.pix,self.pix*self.cursor.column,self.pix*self.cursor.row)
+      else:
+        self.gui.Image(self.images['overlay_2'],self.pix*3,self.pix*3,self.pix*(self.cursor.column-1),self.pix*(self.cursor.row-1))
+    except:
+      pass
 
 class Tile():
   def __init__(self,array,pos_x,pos_y,data):
@@ -100,17 +105,45 @@ class Tile():
     if quick:
       return self.data
     if self.mine:
+      #print('mine')
+      self.data = -1
       return -1
     else:
-      bombs = 0
-      for y_diff in range(-1,2):
-        for x_diff in range(-1,2):
-          if self.pos_x + x_diff == -1 or self.pos_y + y_diff == -1:
-            continue
-          else:
-            if self.array[self.pos_x + x_diff][self.pos_y + y_diff].getMine: bombs += 1
-      self.data = bombs
-      return bombs
+      if self.row == 0:
+        row_r = range(0,2)
+      elif self.row == len(self.array) - 1:
+        row_r = range(-1,1)
+      else:
+        row_r = range(-1,2)
+
+      if self.column == 0:
+        col_r = range(0,2)
+      elif self.column == len(self.array[0]) - 1:
+        col_r = range(-1,1)
+      else:
+        col_r = range(-1,2)
+
+      local_arr = []
+
+      for i in row_r:
+        for j in col_r:
+          local_arr.append(self.array[self.row+i][self.column+j])
+
+      mine_count = 0
+
+      for item in local_arr:
+        if item.getMine():
+          mine_count += 1
+
+      self.data = mine_count
+      return mine_count
+
+  def reveal(self):
+    self.covered = False
+    if self.mine:
+      return True
+    else:
+      return False
 
   def __eq__(self,comparitor):
     try:
