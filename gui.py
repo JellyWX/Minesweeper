@@ -25,7 +25,7 @@ class GUI(object):
     else:
       raise ValueError
 
-  def Text(self,t,s,anti=False,f='ariel'):
+  def Text(self,t,s,anti=False,f='monospace'):
 
     self.f = pygame.font.SysFont(f, s).render(t,anti,self.color)
 

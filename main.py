@@ -16,11 +16,13 @@ done = False
 started = False
 grid = Grid(gui,images)
 startscreen = StartScreen(gui,images)
+winscreen = WinScreen(gui,images)
 
 render_sequence = [startscreen]
 process_stage = 0
 
 progress = False
+cont = False
 
 keys = []
 
@@ -44,6 +46,8 @@ while not done:
             grid.open(grid.cursor,True)
             started = True
           done = grid.open(grid.cursor,True)
+        if process_stage == 2:
+          cont = winscreen.click()
       elif e.button == 3:
         grid.mark(grid.cursor)
 
@@ -65,7 +69,19 @@ while not done:
     complete = grid.Clock()
 
     if complete:
-      print('well done!')
+      render_sequence = [winscreen]
+      process_stage = 2
+
+  if process_stage == 2:
+    if cont:
+      process_stage = 0
+      startscreen = StartScreen(gui,images)
+      render_sequence = [startscreen]
+      grid = Grid(gui,images)
+      progress = False
+      cont = False
+      started = False
+
 
   for i in render_sequence:
     i.render()

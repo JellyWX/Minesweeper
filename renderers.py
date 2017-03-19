@@ -40,12 +40,16 @@ class StartScreen(Title):
       elif 150 < self.cursor_y < 170:
         self.active_box = 'mines'
       elif 50 < self.cursor_y < 78:
+        self.gui.page.fill((0,0,0))
         return True
+    if 80 < self.cursor_x < 170:
+      if 180 < self.cursor_y < 200:
+        exit()
     return False
 
   def render(self):
     self.gui.Color('FFFFFF')
-    self.gui.Text('Minesweeper',48,True,'monospace')
+    self.gui.Text('Minesweeper',48,True)
     self.gui.showText(0,0)
     self.gui.Image(self.im['tile'],130,28,60,50)
 
@@ -55,27 +59,32 @@ class StartScreen(Title):
 
     self.gui.Rect(60,150,130,20)
 
+    self.gui.Rect(80,180,90,20)
+
     self.gui.Color('000000')
-    self.gui.Text('New Game',22,True,'monospace')
+    self.gui.Text('New Game',22,True)
     self.gui.showText(74,52)
 
-    self.gui.Text('Width :',16,True,'monospace')
+    self.gui.Text('Width :',16,True)
     self.gui.showText(60,100)
 
-    self.gui.Text(self.vars['width'],16,True,'monospace')
+    self.gui.Text(self.vars['width'],16,True)
     self.gui.showText(130,100)
 
-    self.gui.Text('Height:',16,True,'monospace')
+    self.gui.Text('Height:',16,True)
     self.gui.showText(60,125)
 
-    self.gui.Text(self.vars['height'],16,True,'monospace')
+    self.gui.Text(self.vars['height'],16,True)
     self.gui.showText(130,125)
 
-    self.gui.Text('Mines :',16,True,'monospace')
+    self.gui.Text('Mines :',16,True)
     self.gui.showText(60,150)
 
-    self.gui.Text(self.vars['mines'],16,True,'monospace')
+    self.gui.Text(self.vars['mines'],16,True)
     self.gui.showText(130,150)
+
+    self.gui.Text('Exit',16,True)
+    self.gui.showText(80,180)
 
     if len(self.vars['width']) > 3:
       self.vars['width'] = self.vars['width'][:3]
@@ -88,3 +97,33 @@ class StartScreen(Title):
         self.vars['mines'] = str(int(self.vars['width'])*int(self.vars['height']) - 9)
     except ValueError:
       pass
+
+    try:
+      if int(self.vars['mines']) < 1:
+        self.vars['mines'] = '1'
+    except ValueError:
+      pass
+
+class WinScreen(Title):
+  def click(self):
+    if 60 < self.cursor_y < 80:
+      if 0 < self.cursor_x < 100:
+        return True
+      elif 105 < self.cursor_x < 145:
+        exit()
+  def render(self):
+    self.gui.Color('FFFFFF')
+    self.gui.Rect(60,0,100,20)
+
+    self.gui.Rect(0,60,100,20)
+    self.gui.Rect(105,60,40,20)
+
+    self.gui.Color('000000')
+    self.gui.Text('Well Done!',16,True)
+    self.gui.showText(60,0)
+
+    self.gui.Text('Play Again',16,True)
+    self.gui.showText(0,60)
+
+    self.gui.Text('Exit',16,True)
+    self.gui.showText(105,60)
