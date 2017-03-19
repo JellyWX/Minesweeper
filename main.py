@@ -69,6 +69,7 @@ while not done:
     complete = grid.Clock()
 
     if complete:
+      grid.render()
       render_sequence = [winscreen]
       process_stage = 2
 
