@@ -25,8 +25,8 @@ class GUI(object):
     else:
       exit('ValueError: GUI.color only accepts str and tuple as inputs')
 
-  def Text(self,t,s,anti=False):
-    self.f = pygame.font.SysFont('ariel', s).render(t,anti,self.color)
+  def Text(self,t,s,anti=False,f='ariel'):
+    self.f = pygame.font.SysFont(f, s).render(t,anti,self.color)
 
   def Rect(self,x,y,w,h):
     pygame.draw.rect(self.page, self.color, pygame.Rect(x,y,w,h))

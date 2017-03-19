@@ -67,15 +67,54 @@ class Grid():
         x += self.pix
       y += self.pix
 
-  def open(self,cell):
+  def open(self,cell,auto=False):
     if cell.getCovered() and not cell.getMarked():
       return cell.reveal()
+    elif not cell.getCovered() and cell.data > 0 and auto:
+      if cell.row == 0:
+        row_r = range(0,2)
+      elif cell.row == len(self.array) - 1:
+        row_r = range(-1,1)
+      else:
+        row_r = range(-1,2)
+
+      if cell.column == 0:
+        col_r = range(0,2)
+      elif cell.column == len(self.array[0]) - 1:
+        col_r = range(-1,1)
+      else:
+        col_r = range(-1,2)
+
+      local_arr = []
+
+      for i in row_r:
+        for j in col_r:
+          local_arr.append(self.open(self.array[cell.row+i][cell.column+j]))
+
+      if True in local_arr:
+        return True
+      else:
+        return False
     else:
       return False
 
   def mark(self,cell):
     if cell.getCovered():
       cell.mark()
+
+  def Clock(self):
+    marked = 0
+    covered = 0
+    for row in self.array:
+      for item in row:
+        if item.getMarked() and item.getMine():
+          marked += 1
+        if item.getCovered():
+          covered += 1
+    if marked == self.mines and covered == self.mines:
+      return True
+    else:
+      return False
 
   def render(self):
     y = 0
@@ -126,6 +165,9 @@ class Tile():
   def getMine(self):
     return self.mine
 
+  def getMarked(self):
+    return self.marked
+
   def getBombNeighbours(self,quick=False):
     if quick:
       return self.data
@@ -162,9 +204,6 @@ class Tile():
 
       self.data = mine_count
       return mine_count
-
-  def getMarked(self):
-    return self.marked
 
   def mark(self):
     self.marked = not self.marked

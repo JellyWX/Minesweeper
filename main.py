@@ -13,9 +13,10 @@ for f in os.listdir('assets/images'):
 
 done = False
 started = False
-
 grid = Grid(gui,images)
-grid.drawGrid()
+grid.drawGrid(9,9)
+
+render_sequence = [gui]
 
 while not done:
   for e in gui.event():
@@ -26,13 +27,11 @@ while not done:
       if e.button == 1:
         if not started:
           grid.cursor.covered = False
-          grid.drawMines()
+          grid.drawMines(10)
           grid.cursor.covered = True
-          grid.open(grid.cursor)
+          grid.open(grid.cursor,True)
           started = True
-        done = grid.open(grid.cursor)
-      #elif e.button == 2:
-        #grid.bunch_open(grid.cursor)
+        done = grid.open(grid.cursor,True)
       elif e.button == 3:
         grid.mark(grid.cursor)
 
@@ -42,6 +41,12 @@ while not done:
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
 
-  grid.render()
+  complete = grid.Clock()
+
+  if complete:
+    print('well done!')
+
+  for i in render_sequence:
+    i.render()
 
   gui.flip(32)
