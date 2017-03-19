@@ -39,6 +39,9 @@ class StartScreen(Title):
         self.active_box = 'height'
       elif 150 < self.cursor_y < 170:
         self.active_box = 'mines'
+      elif 50 < self.cursor_y < 78:
+        return True
+    return False
 
   def render(self):
     self.gui.Color('FFFFFF')
@@ -81,7 +84,7 @@ class StartScreen(Title):
     if len(self.vars['mines']) > 3:
       self.vars['mines'] = self.vars['mines'][:3]
     try:
-      if int(self.vars['mines']) > ((int(self.vars['width']) * int(self.vars['height'])) - 1):
-        self.vars['mines'] = str(int(self.vars['width'])*int(self.vars['height']) - 1)
+      if int(self.vars['mines']) > ((int(self.vars['width']) * int(self.vars['height'])) - 9):
+        self.vars['mines'] = str(int(self.vars['width'])*int(self.vars['height']) - 9)
     except ValueError:
       pass

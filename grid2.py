@@ -93,7 +93,7 @@ class Grid():
           if self.array[cell.row+i][cell.column+j].getMarked():
             mark_li += 1
 
-      if mark_li < self.array[cell.row][cell.column].data:
+      if mark_li >= self.array[cell.row][cell.column].data:
         for i in row_r:
           for j in col_r:
             local_arr.append(self.open(self.array[cell.row+i][cell.column+j]))

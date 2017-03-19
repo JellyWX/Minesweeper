@@ -15,11 +15,12 @@ for f in os.listdir('assets/images'):
 done = False
 started = False
 grid = Grid(gui,images)
-grid.drawGrid(9,9)
 startscreen = StartScreen(gui,images)
 
 render_sequence = [startscreen]
 process_stage = 0
+
+progress = False
 
 keys = []
 
@@ -34,11 +35,11 @@ while not done:
     if e.type == pygame.MOUSEBUTTONUP:
       if e.button == 1:
         if process_stage == 0:
-          startscreen.click()
+          progress = startscreen.click()
         if process_stage == 1:
           if not started:
             grid.cursor.covered = False
-            grid.drawMines(10)
+            grid.drawMines(int(startscreen.vars['mines']))
             grid.cursor.covered = True
             grid.open(grid.cursor,True)
             started = True
@@ -55,10 +56,16 @@ while not done:
   if process_stage == 0:
     keys = gui.keysDown()
 
-  complete = grid.Clock()
+    if progress:
+      grid.drawGrid(int(startscreen.vars['width']),int(startscreen.vars['height']))
+      render_sequence = [grid]
+      process_stage += 1
 
-  if complete:
-    print('well done!')
+  if process_stage == 1:
+    complete = grid.Clock()
+
+    if complete:
+      print('well done!')
 
   for i in render_sequence:
     i.render()
