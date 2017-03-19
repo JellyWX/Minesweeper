@@ -23,9 +23,10 @@ class GUI(object):
     elif type(hexa) is tuple:
       self.color = hexa
     else:
-      exit('ValueError: GUI.color only accepts str and tuple as inputs')
+      exit('SystemError: ValueError: GUI.color only accepts str and tuple as inputs')
 
   def Text(self,t,s,anti=False,f='ariel'):
+
     self.f = pygame.font.SysFont(f, s).render(t,anti,self.color)
 
   def Rect(self,x,y,w,h):

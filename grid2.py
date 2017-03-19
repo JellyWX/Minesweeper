@@ -86,13 +86,22 @@ class Grid():
         col_r = range(-1,2)
 
       local_arr = []
+      mark_li = 0
 
       for i in row_r:
         for j in col_r:
-          local_arr.append(self.open(self.array[cell.row+i][cell.column+j]))
+          if self.array[cell.row+i][cell.column+j].getMarked():
+            mark_li += 1
 
-      if True in local_arr:
-        return True
+      if mark_li == self.array[cell.row][cell.column].data:
+        for i in row_r:
+          for j in col_r:
+            local_arr.append(self.open(self.array[cell.row+i][cell.column+j]))
+
+        if True in local_arr:
+          return True
+        else:
+          return False
       else:
         return False
     else:

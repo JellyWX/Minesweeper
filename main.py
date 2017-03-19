@@ -16,7 +16,7 @@ started = False
 grid = Grid(gui,images)
 grid.drawGrid(9,9)
 
-render_sequence = [gui]
+render_sequence = [grid.render]
 
 while not done:
   for e in gui.event():
@@ -47,6 +47,6 @@ while not done:
     print('well done!')
 
   for i in render_sequence:
-    i.render()
+    i()
 
   gui.flip(32)
