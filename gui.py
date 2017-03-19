@@ -23,7 +23,7 @@ class GUI(object):
     elif type(hexa) is tuple:
       self.color = hexa
     else:
-      exit('SystemError: ValueError: GUI.color only accepts str and tuple as inputs')
+      raise ValueError
 
   def Text(self,t,s,anti=False,f='ariel'):
 

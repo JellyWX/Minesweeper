@@ -1,5 +1,6 @@
 import pygame
 import os
+from renderers import *
 from gui import GUI
 from grid2 import Grid
 
@@ -15,31 +16,44 @@ done = False
 started = False
 grid = Grid(gui,images)
 grid.drawGrid(9,9)
+startscreen = StartScreen(gui,images)
 
-render_sequence = [grid.render]
+render_sequence = [startscreen]
+process_stage = 0
+
+keys = []
 
 while not done:
   for e in gui.event():
     if e.type == pygame.QUIT:
       done = True
       break
+    if e.type == pygame.KEYUP:
+      for i in render_sequence:
+        i.key_hit(keys)
     if e.type == pygame.MOUSEBUTTONUP:
       if e.button == 1:
-        if not started:
-          grid.cursor.covered = False
-          grid.drawMines(10)
-          grid.cursor.covered = True
-          grid.open(grid.cursor,True)
-          started = True
-        done = grid.open(grid.cursor,True)
+        if process_stage == 0:
+          startscreen.click()
+        if process_stage == 1:
+          if not started:
+            grid.cursor.covered = False
+            grid.drawMines(10)
+            grid.cursor.covered = True
+            grid.open(grid.cursor,True)
+            started = True
+          done = grid.open(grid.cursor,True)
       elif e.button == 3:
         grid.mark(grid.cursor)
 
-
-  grid.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+  for i in render_sequence:
+    i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
+
+  if process_stage == 0:
+    keys = gui.keysDown()
 
   complete = grid.Clock()
 
@@ -47,6 +61,6 @@ while not done:
     print('well done!')
 
   for i in render_sequence:
-    i()
+    i.render()
 
   gui.flip(32)
