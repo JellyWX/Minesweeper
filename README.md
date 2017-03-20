@@ -15,7 +15,7 @@ You can install pygame using `pip3`.
 
 `sudo pip3 install pygame`
 
-This should work similarly on different distros using the supplied package manager to install pip3.
+This should work similarly on different distros; just replace `apt install` with your available package manager.
 
 ## Running Minesweeper
 __Please note this game is not complete and I am aware it is buggy. Put any bugs under the *issues* tab for me to review please.__
