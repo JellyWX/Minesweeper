@@ -1,6 +1,9 @@
 # Minesweeper
 Pygame Minesweeper _for Python Pygame 3.x_
 
+## Running Minesweeper
+This game can be run on Linux by executing the executable file `main`. Either do this from a terminal (recommended) by doing `./main` from the directory, or by right-clicking and selecting `run` from the options. If you want to run it in Python (for debugging or modification), read below:
+
 ## Installing Pygame
 You can install pygame using `pip3`.
 
@@ -12,7 +15,7 @@ You can install pygame using `pip3`.
 
 `sudo pip3 install pygame`
 
-This should work similarly on different distros using the supplied package manager to install pip3.
+This should work similarly on different distros; just replace `apt install` with your available package manager.
 
 ## Running Minesweeper
 __Please note this game is not complete and I am aware it is buggy. Put any bugs under the *issues* tab for me to review please.__
