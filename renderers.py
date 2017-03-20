@@ -86,23 +86,20 @@ class StartScreen(Title):
     self.gui.Text('Exit',16,True)
     self.gui.showText(80,180)
 
-    if len(self.vars['width']) > 3:
-      self.vars['width'] = self.vars['width'][:3]
-    if len(self.vars['height']) > 3:
-      self.vars['height'] = self.vars['height'][:3]
-    if len(self.vars['mines']) > 3:
-      self.vars['mines'] = self.vars['mines'][:3]
-    try:
+    if len(self.vars['width']) > 2:
+      self.vars['width'] = self.vars['width'][:2]
+    if len(self.vars['height']) > 2:
+      self.vars['height'] = self.vars['height'][:2]
+    if len(self.vars['mines']) > 2:
+      self.vars['mines'] = self.vars['mines'][:2]
+    if len(self.vars['mines']) < 1 and self.active_box != 'mines':
+      self.vars['mines'] = '1'
+    else:
       if int(self.vars['mines']) > ((int(self.vars['width']) * int(self.vars['height'])) - 9):
         self.vars['mines'] = str(int(self.vars['width'])*int(self.vars['height']) - 9)
-    except ValueError:
-      pass
-
-    try:
       if int(self.vars['mines']) < 1:
         self.vars['mines'] = '1'
-    except ValueError:
-      pass
+    if self.
 
 class WinScreen(Title):
   def click(self):
