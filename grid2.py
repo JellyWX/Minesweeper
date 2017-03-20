@@ -137,7 +137,8 @@ class Grid():
       self.pix -= 2
 
   def shift(self,x_shift,y_shift):
-    pass
+    self.x_shift -= x_shift
+    self.y_shift -= y_shift
 
   def Clock(self):
     marked = 0
@@ -175,9 +176,9 @@ class Grid():
     if overlay:
       try:
         if self.cursor.getCovered():
-          self.gui.Image(self.images['overlay'],self.pix,self.pix,self.pix*self.cursor.column,self.pix*self.cursor.row)
+          self.gui.Image(self.images['overlay'],self.pix,self.pix,(self.pix*self.cursor.column)+self.x_shift,(self.pix*self.cursor.row)+self.y_shift)
         else:
-          self.gui.Image(self.images['overlay_2'],self.pix*3,self.pix*3,self.pix*(self.cursor.column-1),self.pix*(self.cursor.row-1))
+          self.gui.Image(self.images['overlay_2'],self.pix*3,self.pix*3,(self.pix*(self.cursor.column-1))+self.x_shift,(self.pix*(self.cursor.row-1))+self.y_shift)
       except:
         pass
 

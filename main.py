@@ -29,6 +29,9 @@ loss = False
 
 keys = []
 
+first_click = ()
+release = ()
+
 while not done:
   for e in gui.event():
     if e.type == pygame.QUIT:
@@ -37,10 +40,14 @@ while not done:
     if e.type == pygame.KEYUP:
       for i in render_sequence:
         i.key_hit(keys)
+
     if e.type == pygame.MOUSEBUTTONUP:
+      release = pygame.mouse.get_pos()
       if e.button == 1:
+
         if process_stage == 0:
           progress = startscreen.click()
+
         if process_stage == 1:
           if not grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):
             if not started:
@@ -51,13 +58,16 @@ while not done:
               started = True
             loss = grid.open(grid.cursor,True)
           else:
-            pass
+            grid.shift(first_click[0]-release[0],first_click[1]-release[1])
+
         if process_stage == 2:
           cont = endscreen.click()
       elif e.button == 3:
         if process_stage == 1:
           grid.mark(grid.cursor)
+
     if e.type == pygame.MOUSEBUTTONDOWN:
+      first_click = pygame.mouse.get_pos()
       if process_stage == 1:
         if e.button == 1:
           grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
