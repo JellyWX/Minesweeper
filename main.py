@@ -17,12 +17,15 @@ started = False
 grid = Grid(gui,images)
 startscreen = StartScreen(gui,images)
 winscreen = WinScreen(gui,images)
+lossscreen = LossScreen(gui,images)
+endscreen = lossscreen
 
 render_sequence = [startscreen]
 process_stage = 0
 
 progress = False
 cont = False
+loss = False
 
 keys = []
 
@@ -45,9 +48,9 @@ while not done:
             grid.cursor.covered = True
             grid.open(grid.cursor,True)
             started = True
-          win = grid.open(grid.cursor,True)
+          loss = grid.open(grid.cursor,True)
         if process_stage == 2:
-          cont = winscreen.click()
+          cont = endscreen.click()
       elif e.button == 3:
         grid.mark(grid.cursor)
 
@@ -69,8 +72,14 @@ while not done:
     complete = grid.Clock()
 
     if complete:
+      endscreen = winscreen
+
+    elif loss:
+      endscreen = lossscreen
+
+    if complete or loss:
       grid.render(False)
-      render_sequence = [winscreen]
+      render_sequence = [endscreen]
       process_stage = 2
 
   if process_stage == 2:
@@ -78,12 +87,16 @@ while not done:
       gui.page.fill((0,0,0))
       process_stage = 0
       startscreen = StartScreen(gui,images)
+      winscreen = WinScreen(gui,images)
+      lossscreen = LossScreen(gui,images)
       render_sequence = [startscreen]
       grid = Grid(gui,images)
       progress = False
       cont = False
       started = False
-      win = False
+      loss = False
+      complete = False
+      endscreen = lossscreen
 
 
   for i in render_sequence:
