@@ -125,7 +125,7 @@ class Grid():
     else:
       return False
 
-  def render(self):
+  def render(self,overlay=True):
     y = 0
     for row in self.array:
       x = 0
@@ -143,13 +143,14 @@ class Grid():
         x += self.pix
       y += self.pix
 
-    try:
-      if self.cursor.getCovered():
-        self.gui.Image(self.images['overlay'],self.pix,self.pix,self.pix*self.cursor.column,self.pix*self.cursor.row)
-      else:
-        self.gui.Image(self.images['overlay_2'],self.pix*3,self.pix*3,self.pix*(self.cursor.column-1),self.pix*(self.cursor.row-1))
-    except:
-      pass
+    if overlay:
+      try:
+        if self.cursor.getCovered():
+          self.gui.Image(self.images['overlay'],self.pix,self.pix,self.pix*self.cursor.column,self.pix*self.cursor.row)
+        else:
+          self.gui.Image(self.images['overlay_2'],self.pix*3,self.pix*3,self.pix*(self.cursor.column-1),self.pix*(self.cursor.row-1))
+      except:
+        pass
 
 class Tile():
   def __init__(self,grid,array,pos_x,pos_y,data):

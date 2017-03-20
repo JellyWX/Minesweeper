@@ -45,7 +45,7 @@ while not done:
             grid.cursor.covered = True
             grid.open(grid.cursor,True)
             started = True
-          done = grid.open(grid.cursor,True)
+          win = grid.open(grid.cursor,True)
         if process_stage == 2:
           cont = winscreen.click()
       elif e.button == 3:
@@ -69,12 +69,13 @@ while not done:
     complete = grid.Clock()
 
     if complete:
-      grid.render()
+      grid.render(False)
       render_sequence = [winscreen]
       process_stage = 2
 
   if process_stage == 2:
     if cont:
+      gui.page.fill((0,0,0))
       process_stage = 0
       startscreen = StartScreen(gui,images)
       render_sequence = [startscreen]
@@ -82,6 +83,7 @@ while not done:
       progress = False
       cont = False
       started = False
+      win = False
 
 
   for i in render_sequence:
