@@ -42,17 +42,30 @@ while not done:
         if process_stage == 0:
           progress = startscreen.click()
         if process_stage == 1:
-          if not started:
-            grid.cursor.covered = False
-            grid.drawMines(int(startscreen.vars['mines']))
-            grid.cursor.covered = True
-            grid.open(grid.cursor,True)
-            started = True
-          loss = grid.open(grid.cursor,True)
+          if not grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):
+            if not started:
+              grid.cursor.covered = False
+              grid.drawMines(int(startscreen.vars['mines']))
+              grid.cursor.covered = True
+              grid.open(grid.cursor,True)
+              started = True
+            loss = grid.open(grid.cursor,True)
+          else:
+            pass
         if process_stage == 2:
           cont = endscreen.click()
       elif e.button == 3:
-        grid.mark(grid.cursor)
+        if process_stage == 1:
+          grid.mark(grid.cursor)
+    if e.type == pygame.MOUSEBUTTONDOWN:
+      if process_stage == 1:
+        if e.button == 1:
+          grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+        if e.button == 4:
+          grid.scale()
+        elif e.button == 5:
+          grid.scale(False)
+
 
   for i in render_sequence:
     i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])

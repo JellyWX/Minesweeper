@@ -16,6 +16,8 @@ class Grid():
     ## data ##
     self.array    = []
     self.cursor = None
+    self.x_shift = 0
+    self.y_shift = 0
 
   def drawGrid(self,x=16,y=16):
     self.size_x = x
@@ -55,10 +57,27 @@ class Grid():
       for item in row:
         item.getBombNeighbours()
 
-  def setCursorPos(self,c_x,c_y):
-    y = 0
+  def getCursorVariation(self,c_x,c_y):
+      if self.cursor == self.last_click:
+        return False
+      else:
+        return True
+
+  def setClickPos(self,c_x,c_y):
+    y = self.y_shift
     for row in self.array:
-      x = 0
+      x = self.x_shift
+      for item in row:
+        if x < c_x <= x + self.pix:
+          if y < c_y <= y + self.pix:
+            self.last_click = item
+        x += self.pix
+      y += self.pix
+
+  def setCursorPos(self,c_x,c_y):
+    y = self.y_shift
+    for row in self.array:
+      x = self.x_shift
       for item in row:
         if x < c_x <= x + self.pix:
           if y < c_y <= y + self.pix:
@@ -111,6 +130,15 @@ class Grid():
     if cell.getCovered():
       cell.mark()
 
+  def scale(self,zoomin=True):
+    if zoomin:
+      self.pix += 2
+    else:
+      self.pix -= 2
+
+  def shift(self,x_shift,y_shift):
+    pass
+
   def Clock(self):
     marked = 0
     covered = 0
@@ -126,9 +154,10 @@ class Grid():
       return False
 
   def render(self,overlay=True):
-    y = 0
+    self.gui.page.fill((0,0,0))
+    y = self.y_shift
     for row in self.array:
-      x = 0
+      x = self.x_shift
       for item in row:
         self.gui.Image(self.images['background'],self.pix,self.pix,x,y)
         if item.getCovered():
