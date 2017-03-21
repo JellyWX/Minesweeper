@@ -138,4 +138,4 @@ while not done:
   for i in render_sequence:
     i.render()
 
-  gui.flip(128)
+  gui.flip(1024)

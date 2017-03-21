@@ -32,11 +32,15 @@ PyDictObject *moduledict___main__;
 
 /* The module constants used, if any. */
 static PyObject *const_str_plain_grid;
+static PyObject *const_str_plain_dict;
 static PyObject *const_str_plain_vars;
 static PyObject *const_str_plain_drawMines;
 static PyObject *const_tuple_false_tuple;
 static PyObject *const_str_plain_i;
 extern PyObject *const_str_plain___file__;
+static PyObject *const_str_plain_mouse_1_down;
+static PyObject *const_str_plain_shift;
+static PyObject *const_tuple_int_pos_1024_tuple;
 static PyObject *const_str_plain_mines;
 static PyObject *const_str_plain_scale;
 static PyObject *const_tuple_str_chr_42_tuple;
@@ -46,6 +50,7 @@ extern PyObject *const_str_plain_site;
 static PyObject *const_str_plain_K_ESCAPE;
 static PyObject *const_slice_int_neg_4_none_none;
 static PyObject *const_str_plain_image;
+static PyObject *const_str_plain_size;
 static PyObject *const_str_chr_42;
 static PyObject *const_str_plain_os;
 static PyObject *const_str_plain_LossScreen;
@@ -53,11 +58,11 @@ static PyObject *const_str_plain_covered;
 static PyObject *const_str_plain_Grid;
 static PyObject *const_int_pos_5;
 static PyObject *const_str_plain_images;
+static PyObject *const_int_pos_1024;
 static PyObject *const_str_plain_progress;
 static PyObject *const_str_plain_setCursorPos;
 static PyObject *const_str_plain_StartScreen;
 extern PyObject *const_str_plain___doc__;
-static PyObject *const_int_pos_32;
 static PyObject *const_str_plain_startscreen;
 static PyObject *const_tuple_int_pos_800_int_pos_800_str_plain_Minesweeper_tuple;
 static PyObject *const_str_plain_keysDown;
@@ -65,10 +70,12 @@ static PyObject *const_str_plain_page;
 static PyObject *const_str_plain___package__;
 static PyObject *const_str_plain_render;
 static PyObject *const_str_plain_click;
+static PyObject *const_str_plain_release;
 static PyObject *const_str_plain_Clock;
 static PyObject *const_slice_int_0_int_neg_4_none;
 static PyObject *const_str_plain_cont;
 static PyObject *const_str_plain_get_pos;
+static PyObject *const_str_plain_first_click;
 static PyObject *const_str_plain_process_stage;
 static PyObject *const_int_neg_4;
 static PyObject *const_str_plain_height;
@@ -79,8 +86,10 @@ static PyObject *const_str_digest_7b561e61e2178dbcf65016959954ac78;
 static PyObject *const_str_plain_load;
 static PyObject *const_str_plain_keys;
 static PyObject *const_str_plain_listdir;
+static PyObject *const_str_plain_display;
 extern PyObject *const_tuple_empty;
 static PyObject *const_str_plain_event;
+static PyObject *const_str_plain_RESIZABLE;
 extern PyObject *const_str_plain___loader__;
 static PyObject *const_str_plain_render_sequence;
 static PyObject *const_str_plain_complete;
@@ -92,7 +101,7 @@ static PyObject *const_str_plain_pygame;
 static PyObject *const_str_plain_MOUSEBUTTONUP;
 static PyObject *const_str_plain_f;
 extern PyObject *const_int_0;
-static PyObject *const_tuple_int_pos_32_tuple;
+static PyObject *const_str_plain_grid_moved;
 static PyObject *const_int_pos_4;
 static PyObject *const_str_plain_GUI;
 extern PyObject *const_str_plain___main__;
@@ -101,6 +110,7 @@ extern PyObject *const_str_plain___cached__;
 static PyObject *const_str_plain_mouse;
 static PyObject *const_str_plain_renderers;
 static PyObject *const_tuple_int_0_int_0_int_0_tuple;
+static PyObject *const_str_plain_set_mode;
 static PyObject *const_tuple_tuple_int_0_int_0_int_0_tuple_tuple;
 static PyObject *const_str_plain_gui;
 extern PyObject *const_int_pos_1;
@@ -117,6 +127,7 @@ static PyObject *const_str_plain_loss;
 static PyObject *const_str_plain_MOUSEBUTTONDOWN;
 static PyObject *const_str_digest_597aa22ca8d12365e694d450c6f2fbdd;
 static PyObject *const_str_plain_done;
+static PyObject *const_str_plain_VIDEORESIZE;
 static PyObject *const_str_angle_module;
 static PyObject *const_str_plain_QUIT;
 static PyObject *const_str_plain_mark;
@@ -139,106 +150,117 @@ static bool constants_created = false;
 static void createModuleConstants( void )
 {
     const_str_plain_grid = UNSTREAM_STRING( &constant_bin[ 0 ], 4, 1 );
-    const_str_plain_vars = UNSTREAM_STRING( &constant_bin[ 4 ], 4, 1 );
-    const_str_plain_drawMines = UNSTREAM_STRING( &constant_bin[ 8 ], 9, 1 );
+    const_str_plain_dict = UNSTREAM_STRING( &constant_bin[ 4 ], 4, 1 );
+    const_str_plain_vars = UNSTREAM_STRING( &constant_bin[ 8 ], 4, 1 );
+    const_str_plain_drawMines = UNSTREAM_STRING( &constant_bin[ 12 ], 9, 1 );
     const_tuple_false_tuple = PyTuple_New( 1 );
     PyTuple_SET_ITEM( const_tuple_false_tuple, 0, Py_False ); Py_INCREF( Py_False );
     const_str_plain_i = UNSTREAM_STRING( &constant_bin[ 2 ], 1, 1 );
-    const_str_plain_mines = UNSTREAM_STRING( &constant_bin[ 17 ], 5, 1 );
-    const_str_plain_scale = UNSTREAM_STRING( &constant_bin[ 22 ], 5, 1 );
+    const_str_plain_mouse_1_down = UNSTREAM_STRING( &constant_bin[ 21 ], 12, 1 );
+    const_str_plain_shift = UNSTREAM_STRING( &constant_bin[ 33 ], 5, 1 );
+    const_tuple_int_pos_1024_tuple = PyTuple_New( 1 );
+    const_int_pos_1024 = PyLong_FromUnsignedLong( 1024ul );
+    PyTuple_SET_ITEM( const_tuple_int_pos_1024_tuple, 0, const_int_pos_1024 ); Py_INCREF( const_int_pos_1024 );
+    const_str_plain_mines = UNSTREAM_STRING( &constant_bin[ 38 ], 5, 1 );
+    const_str_plain_scale = UNSTREAM_STRING( &constant_bin[ 43 ], 5, 1 );
     const_tuple_str_chr_42_tuple = PyTuple_New( 1 );
-    const_str_chr_42 = UNSTREAM_STRING( &constant_bin[ 27 ], 1, 0 );
+    const_str_chr_42 = UNSTREAM_STRING( &constant_bin[ 48 ], 1, 0 );
     PyTuple_SET_ITEM( const_tuple_str_chr_42_tuple, 0, const_str_chr_42 ); Py_INCREF( const_str_chr_42 );
-    const_str_plain_drawGrid = UNSTREAM_STRING( &constant_bin[ 28 ], 8, 1 );
+    const_str_plain_drawGrid = UNSTREAM_STRING( &constant_bin[ 49 ], 8, 1 );
     const_int_pos_800 = PyLong_FromUnsignedLong( 800ul );
-    const_str_plain_K_ESCAPE = UNSTREAM_STRING( &constant_bin[ 36 ], 8, 1 );
+    const_str_plain_K_ESCAPE = UNSTREAM_STRING( &constant_bin[ 57 ], 8, 1 );
     const_int_neg_4 = PyLong_FromLong( -4l );
     const_slice_int_neg_4_none_none = PySlice_New( const_int_neg_4, Py_None, Py_None );
-    const_str_plain_image = UNSTREAM_STRING( &constant_bin[ 44 ], 5, 1 );
-    const_str_plain_os = UNSTREAM_STRING( &constant_bin[ 49 ], 2, 1 );
-    const_str_plain_LossScreen = UNSTREAM_STRING( &constant_bin[ 51 ], 10, 1 );
-    const_str_plain_covered = UNSTREAM_STRING( &constant_bin[ 61 ], 7, 1 );
-    const_str_plain_Grid = UNSTREAM_STRING( &constant_bin[ 32 ], 4, 1 );
+    const_str_plain_image = UNSTREAM_STRING( &constant_bin[ 65 ], 5, 1 );
+    const_str_plain_size = UNSTREAM_STRING( &constant_bin[ 70 ], 4, 1 );
+    const_str_plain_os = UNSTREAM_STRING( &constant_bin[ 74 ], 2, 1 );
+    const_str_plain_LossScreen = UNSTREAM_STRING( &constant_bin[ 76 ], 10, 1 );
+    const_str_plain_covered = UNSTREAM_STRING( &constant_bin[ 86 ], 7, 1 );
+    const_str_plain_Grid = UNSTREAM_STRING( &constant_bin[ 53 ], 4, 1 );
     const_int_pos_5 = PyLong_FromUnsignedLong( 5ul );
-    const_str_plain_images = UNSTREAM_STRING( &constant_bin[ 68 ], 6, 1 );
-    const_str_plain_progress = UNSTREAM_STRING( &constant_bin[ 74 ], 8, 1 );
-    const_str_plain_setCursorPos = UNSTREAM_STRING( &constant_bin[ 82 ], 12, 1 );
-    const_str_plain_StartScreen = UNSTREAM_STRING( &constant_bin[ 94 ], 11, 1 );
-    const_int_pos_32 = PyLong_FromUnsignedLong( 32ul );
-    const_str_plain_startscreen = UNSTREAM_STRING( &constant_bin[ 105 ], 11, 1 );
+    const_str_plain_images = UNSTREAM_STRING( &constant_bin[ 65 ], 6, 1 );
+    const_str_plain_progress = UNSTREAM_STRING( &constant_bin[ 93 ], 8, 1 );
+    const_str_plain_setCursorPos = UNSTREAM_STRING( &constant_bin[ 101 ], 12, 1 );
+    const_str_plain_StartScreen = UNSTREAM_STRING( &constant_bin[ 113 ], 11, 1 );
+    const_str_plain_startscreen = UNSTREAM_STRING( &constant_bin[ 124 ], 11, 1 );
     const_tuple_int_pos_800_int_pos_800_str_plain_Minesweeper_tuple = PyTuple_New( 3 );
     PyTuple_SET_ITEM( const_tuple_int_pos_800_int_pos_800_str_plain_Minesweeper_tuple, 0, const_int_pos_800 ); Py_INCREF( const_int_pos_800 );
     PyTuple_SET_ITEM( const_tuple_int_pos_800_int_pos_800_str_plain_Minesweeper_tuple, 1, const_int_pos_800 ); Py_INCREF( const_int_pos_800 );
-    const_str_plain_Minesweeper = UNSTREAM_STRING( &constant_bin[ 116 ], 11, 1 );
+    const_str_plain_Minesweeper = UNSTREAM_STRING( &constant_bin[ 135 ], 11, 1 );
     PyTuple_SET_ITEM( const_tuple_int_pos_800_int_pos_800_str_plain_Minesweeper_tuple, 2, const_str_plain_Minesweeper ); Py_INCREF( const_str_plain_Minesweeper );
-    const_str_plain_keysDown = UNSTREAM_STRING( &constant_bin[ 127 ], 8, 1 );
-    const_str_plain_page = UNSTREAM_STRING( &constant_bin[ 135 ], 4, 1 );
-    const_str_plain___package__ = UNSTREAM_STRING( &constant_bin[ 139 ], 11, 1 );
-    const_str_plain_render = UNSTREAM_STRING( &constant_bin[ 150 ], 6, 1 );
-    const_str_plain_click = UNSTREAM_STRING( &constant_bin[ 156 ], 5, 1 );
-    const_str_plain_Clock = UNSTREAM_STRING( &constant_bin[ 161 ], 5, 1 );
+    const_str_plain_keysDown = UNSTREAM_STRING( &constant_bin[ 146 ], 8, 1 );
+    const_str_plain_page = UNSTREAM_STRING( &constant_bin[ 154 ], 4, 1 );
+    const_str_plain___package__ = UNSTREAM_STRING( &constant_bin[ 158 ], 11, 1 );
+    const_str_plain_render = UNSTREAM_STRING( &constant_bin[ 169 ], 6, 1 );
+    const_str_plain_click = UNSTREAM_STRING( &constant_bin[ 175 ], 5, 1 );
+    const_str_plain_release = UNSTREAM_STRING( &constant_bin[ 180 ], 7, 1 );
+    const_str_plain_Clock = UNSTREAM_STRING( &constant_bin[ 187 ], 5, 1 );
     const_slice_int_0_int_neg_4_none = PySlice_New( const_int_0, const_int_neg_4, Py_None );
-    const_str_plain_cont = UNSTREAM_STRING( &constant_bin[ 166 ], 4, 1 );
-    const_str_plain_get_pos = UNSTREAM_STRING( &constant_bin[ 170 ], 7, 1 );
-    const_str_plain_process_stage = UNSTREAM_STRING( &constant_bin[ 177 ], 13, 1 );
-    const_str_plain_height = UNSTREAM_STRING( &constant_bin[ 190 ], 6, 1 );
-    const_str_plain_e = UNSTREAM_STRING( &constant_bin[ 15 ], 1, 1 );
-    const_str_plain_endscreen = UNSTREAM_STRING( &constant_bin[ 196 ], 9, 1 );
+    const_str_plain_cont = UNSTREAM_STRING( &constant_bin[ 192 ], 4, 1 );
+    const_str_plain_get_pos = UNSTREAM_STRING( &constant_bin[ 196 ], 7, 1 );
+    const_str_plain_first_click = UNSTREAM_STRING( &constant_bin[ 203 ], 11, 1 );
+    const_str_plain_process_stage = UNSTREAM_STRING( &constant_bin[ 214 ], 13, 1 );
+    const_str_plain_height = UNSTREAM_STRING( &constant_bin[ 227 ], 6, 1 );
+    const_str_plain_e = UNSTREAM_STRING( &constant_bin[ 19 ], 1, 1 );
+    const_str_plain_endscreen = UNSTREAM_STRING( &constant_bin[ 233 ], 9, 1 );
     const_tuple_str_plain_GUI_tuple = PyTuple_New( 1 );
-    const_str_plain_GUI = UNSTREAM_STRING( &constant_bin[ 205 ], 3, 1 );
+    const_str_plain_GUI = UNSTREAM_STRING( &constant_bin[ 242 ], 3, 1 );
     PyTuple_SET_ITEM( const_tuple_str_plain_GUI_tuple, 0, const_str_plain_GUI ); Py_INCREF( const_str_plain_GUI );
-    const_str_digest_7b561e61e2178dbcf65016959954ac78 = UNSTREAM_STRING( &constant_bin[ 208 ], 30, 0 );
-    const_str_plain_load = UNSTREAM_STRING( &constant_bin[ 238 ], 4, 1 );
-    const_str_plain_keys = UNSTREAM_STRING( &constant_bin[ 127 ], 4, 1 );
-    const_str_plain_listdir = UNSTREAM_STRING( &constant_bin[ 242 ], 7, 1 );
-    const_str_plain_event = UNSTREAM_STRING( &constant_bin[ 249 ], 5, 1 );
-    const_str_plain_render_sequence = UNSTREAM_STRING( &constant_bin[ 254 ], 15, 1 );
-    const_str_plain_complete = UNSTREAM_STRING( &constant_bin[ 269 ], 8, 1 );
-    const_str_plain_flip = UNSTREAM_STRING( &constant_bin[ 277 ], 4, 1 );
-    const_str_digest_b347fb7363d8e3e4f0c966958814ce5b = UNSTREAM_STRING( &constant_bin[ 281 ], 4, 0 );
-    const_str_plain_key_hit = UNSTREAM_STRING( &constant_bin[ 285 ], 7, 1 );
-    const_str_plain_pygame = UNSTREAM_STRING( &constant_bin[ 292 ], 6, 1 );
-    const_str_plain_MOUSEBUTTONUP = UNSTREAM_STRING( &constant_bin[ 298 ], 13, 1 );
-    const_str_plain_f = UNSTREAM_STRING( &constant_bin[ 277 ], 1, 1 );
-    const_tuple_int_pos_32_tuple = PyTuple_New( 1 );
-    PyTuple_SET_ITEM( const_tuple_int_pos_32_tuple, 0, const_int_pos_32 ); Py_INCREF( const_int_pos_32 );
+    const_str_digest_7b561e61e2178dbcf65016959954ac78 = UNSTREAM_STRING( &constant_bin[ 245 ], 30, 0 );
+    const_str_plain_load = UNSTREAM_STRING( &constant_bin[ 275 ], 4, 1 );
+    const_str_plain_keys = UNSTREAM_STRING( &constant_bin[ 146 ], 4, 1 );
+    const_str_plain_listdir = UNSTREAM_STRING( &constant_bin[ 279 ], 7, 1 );
+    const_str_plain_display = UNSTREAM_STRING( &constant_bin[ 286 ], 7, 1 );
+    const_str_plain_event = UNSTREAM_STRING( &constant_bin[ 293 ], 5, 1 );
+    const_str_plain_RESIZABLE = UNSTREAM_STRING( &constant_bin[ 298 ], 9, 1 );
+    const_str_plain_render_sequence = UNSTREAM_STRING( &constant_bin[ 307 ], 15, 1 );
+    const_str_plain_complete = UNSTREAM_STRING( &constant_bin[ 322 ], 8, 1 );
+    const_str_plain_flip = UNSTREAM_STRING( &constant_bin[ 330 ], 4, 1 );
+    const_str_digest_b347fb7363d8e3e4f0c966958814ce5b = UNSTREAM_STRING( &constant_bin[ 334 ], 4, 0 );
+    const_str_plain_key_hit = UNSTREAM_STRING( &constant_bin[ 338 ], 7, 1 );
+    const_str_plain_pygame = UNSTREAM_STRING( &constant_bin[ 345 ], 6, 1 );
+    const_str_plain_MOUSEBUTTONUP = UNSTREAM_STRING( &constant_bin[ 351 ], 13, 1 );
+    const_str_plain_f = UNSTREAM_STRING( &constant_bin[ 36 ], 1, 1 );
+    const_str_plain_grid_moved = UNSTREAM_STRING( &constant_bin[ 364 ], 10, 1 );
     const_int_pos_4 = PyLong_FromUnsignedLong( 4ul );
-    const_str_plain_mouse = UNSTREAM_STRING( &constant_bin[ 311 ], 5, 1 );
-    const_str_plain_renderers = UNSTREAM_STRING( &constant_bin[ 316 ], 9, 1 );
+    const_str_plain_mouse = UNSTREAM_STRING( &constant_bin[ 21 ], 5, 1 );
+    const_str_plain_renderers = UNSTREAM_STRING( &constant_bin[ 374 ], 9, 1 );
     const_tuple_int_0_int_0_int_0_tuple = PyTuple_New( 3 );
     PyTuple_SET_ITEM( const_tuple_int_0_int_0_int_0_tuple, 0, const_int_0 ); Py_INCREF( const_int_0 );
     PyTuple_SET_ITEM( const_tuple_int_0_int_0_int_0_tuple, 1, const_int_0 ); Py_INCREF( const_int_0 );
     PyTuple_SET_ITEM( const_tuple_int_0_int_0_int_0_tuple, 2, const_int_0 ); Py_INCREF( const_int_0 );
+    const_str_plain_set_mode = UNSTREAM_STRING( &constant_bin[ 383 ], 8, 1 );
     const_tuple_tuple_int_0_int_0_int_0_tuple_tuple = PyTuple_New( 1 );
     PyTuple_SET_ITEM( const_tuple_tuple_int_0_int_0_int_0_tuple_tuple, 0, const_tuple_int_0_int_0_int_0_tuple ); Py_INCREF( const_tuple_int_0_int_0_int_0_tuple );
-    const_str_plain_gui = UNSTREAM_STRING( &constant_bin[ 325 ], 3, 1 );
+    const_str_plain_gui = UNSTREAM_STRING( &constant_bin[ 391 ], 3, 1 );
     const_tuple_str_digest_0625522eee32cfe3eea9e95e04a07896_tuple = PyTuple_New( 1 );
-    const_str_digest_0625522eee32cfe3eea9e95e04a07896 = UNSTREAM_STRING( &constant_bin[ 328 ], 13, 0 );
+    const_str_digest_0625522eee32cfe3eea9e95e04a07896 = UNSTREAM_STRING( &constant_bin[ 394 ], 13, 0 );
     PyTuple_SET_ITEM( const_tuple_str_digest_0625522eee32cfe3eea9e95e04a07896_tuple, 0, const_str_digest_0625522eee32cfe3eea9e95e04a07896 ); Py_INCREF( const_str_digest_0625522eee32cfe3eea9e95e04a07896 );
-    const_str_plain_winscreen = UNSTREAM_STRING( &constant_bin[ 341 ], 9, 1 );
-    const_str_plain_grid2 = UNSTREAM_STRING( &constant_bin[ 350 ], 5, 1 );
-    const_str_plain_width = UNSTREAM_STRING( &constant_bin[ 355 ], 5, 1 );
-    const_str_plain_lossscreen = UNSTREAM_STRING( &constant_bin[ 360 ], 10, 1 );
+    const_str_plain_winscreen = UNSTREAM_STRING( &constant_bin[ 407 ], 9, 1 );
+    const_str_plain_grid2 = UNSTREAM_STRING( &constant_bin[ 416 ], 5, 1 );
+    const_str_plain_width = UNSTREAM_STRING( &constant_bin[ 421 ], 5, 1 );
+    const_str_plain_lossscreen = UNSTREAM_STRING( &constant_bin[ 426 ], 10, 1 );
     const_int_pos_3 = PyLong_FromUnsignedLong( 3ul );
-    const_str_plain_loss = UNSTREAM_STRING( &constant_bin[ 360 ], 4, 1 );
-    const_str_plain_MOUSEBUTTONDOWN = UNSTREAM_STRING( &constant_bin[ 370 ], 15, 1 );
-    const_str_digest_597aa22ca8d12365e694d450c6f2fbdd = UNSTREAM_STRING( &constant_bin[ 385 ], 14, 0 );
-    const_str_plain_done = UNSTREAM_STRING( &constant_bin[ 399 ], 4, 1 );
-    const_str_angle_module = UNSTREAM_STRING( &constant_bin[ 403 ], 8, 0 );
-    const_str_plain_QUIT = UNSTREAM_STRING( &constant_bin[ 411 ], 4, 1 );
-    const_str_plain_mark = UNSTREAM_STRING( &constant_bin[ 415 ], 4, 1 );
-    const_str_plain_setClickPos = UNSTREAM_STRING( &constant_bin[ 419 ], 11, 1 );
-    const_str_plain_cursor = UNSTREAM_STRING( &constant_bin[ 430 ], 6, 1 );
+    const_str_plain_loss = UNSTREAM_STRING( &constant_bin[ 426 ], 4, 1 );
+    const_str_plain_MOUSEBUTTONDOWN = UNSTREAM_STRING( &constant_bin[ 436 ], 15, 1 );
+    const_str_digest_597aa22ca8d12365e694d450c6f2fbdd = UNSTREAM_STRING( &constant_bin[ 451 ], 14, 0 );
+    const_str_plain_done = UNSTREAM_STRING( &constant_bin[ 465 ], 4, 1 );
+    const_str_plain_VIDEORESIZE = UNSTREAM_STRING( &constant_bin[ 469 ], 11, 1 );
+    const_str_angle_module = UNSTREAM_STRING( &constant_bin[ 480 ], 8, 0 );
+    const_str_plain_QUIT = UNSTREAM_STRING( &constant_bin[ 488 ], 4, 1 );
+    const_str_plain_mark = UNSTREAM_STRING( &constant_bin[ 492 ], 4, 1 );
+    const_str_plain_setClickPos = UNSTREAM_STRING( &constant_bin[ 496 ], 11, 1 );
+    const_str_plain_cursor = UNSTREAM_STRING( &constant_bin[ 507 ], 6, 1 );
     const_int_pos_2 = PyLong_FromUnsignedLong( 2ul );
-    const_str_plain_started = UNSTREAM_STRING( &constant_bin[ 436 ], 7, 1 );
+    const_str_plain_started = UNSTREAM_STRING( &constant_bin[ 513 ], 7, 1 );
     const_tuple_str_plain_Grid_tuple = PyTuple_New( 1 );
     PyTuple_SET_ITEM( const_tuple_str_plain_Grid_tuple, 0, const_str_plain_Grid ); Py_INCREF( const_str_plain_Grid );
-    const_str_digest_e42f2d3f1bcfa1311cdfb007eace7816 = UNSTREAM_STRING( &constant_bin[ 443 ], 14, 0 );
-    const_str_plain_KEYUP = UNSTREAM_STRING( &constant_bin[ 457 ], 5, 1 );
-    const_str_plain_getCursorVariation = UNSTREAM_STRING( &constant_bin[ 462 ], 18, 1 );
-    const_str_plain_fill = UNSTREAM_STRING( &constant_bin[ 480 ], 4, 1 );
-    const_str_plain_button = UNSTREAM_STRING( &constant_bin[ 484 ], 6, 1 );
-    const_str_plain_WinScreen = UNSTREAM_STRING( &constant_bin[ 490 ], 9, 1 );
+    const_str_digest_e42f2d3f1bcfa1311cdfb007eace7816 = UNSTREAM_STRING( &constant_bin[ 520 ], 14, 0 );
+    const_str_plain_KEYUP = UNSTREAM_STRING( &constant_bin[ 534 ], 5, 1 );
+    const_str_plain_getCursorVariation = UNSTREAM_STRING( &constant_bin[ 539 ], 18, 1 );
+    const_str_plain_fill = UNSTREAM_STRING( &constant_bin[ 557 ], 4, 1 );
+    const_str_plain_button = UNSTREAM_STRING( &constant_bin[ 561 ], 6, 1 );
+    const_str_plain_WinScreen = UNSTREAM_STRING( &constant_bin[ 567 ], 9, 1 );
 
     constants_created = true;
 }
@@ -504,13 +526,19 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_args_element_name_32;
     PyObject *tmp_args_element_name_33;
     PyObject *tmp_args_element_name_34;
+    PyObject *tmp_args_element_name_35;
+    PyObject *tmp_args_element_name_36;
+    PyObject *tmp_args_element_name_37;
+    PyObject *tmp_args_element_name_38;
     PyObject *tmp_ass_subscribed_1;
     PyObject *tmp_ass_subscript_1;
     PyObject *tmp_ass_subvalue_1;
     PyObject *tmp_assattr_name_1;
     PyObject *tmp_assattr_name_2;
+    PyObject *tmp_assattr_name_3;
     PyObject *tmp_assattr_target_1;
     PyObject *tmp_assattr_target_2;
+    PyObject *tmp_assattr_target_3;
     PyObject *tmp_assign_source_1;
     PyObject *tmp_assign_source_2;
     PyObject *tmp_assign_source_3;
@@ -575,6 +603,18 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_assign_source_62;
     PyObject *tmp_assign_source_63;
     PyObject *tmp_assign_source_64;
+    PyObject *tmp_assign_source_65;
+    PyObject *tmp_assign_source_66;
+    PyObject *tmp_assign_source_67;
+    PyObject *tmp_assign_source_68;
+    PyObject *tmp_assign_source_69;
+    PyObject *tmp_assign_source_70;
+    PyObject *tmp_assign_source_71;
+    PyObject *tmp_assign_source_72;
+    PyObject *tmp_assign_source_73;
+    PyObject *tmp_assign_source_74;
+    PyObject *tmp_assign_source_75;
+    PyObject *tmp_assign_source_76;
     PyObject *tmp_called_instance_1;
     PyObject *tmp_called_instance_2;
     PyObject *tmp_called_instance_3;
@@ -593,6 +633,10 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_called_instance_16;
     PyObject *tmp_called_instance_17;
     PyObject *tmp_called_instance_18;
+    PyObject *tmp_called_instance_19;
+    PyObject *tmp_called_instance_20;
+    PyObject *tmp_called_instance_21;
+    PyObject *tmp_called_instance_22;
     PyObject *tmp_called_name_1;
     PyObject *tmp_called_name_2;
     PyObject *tmp_called_name_3;
@@ -614,6 +658,8 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_called_name_19;
     PyObject *tmp_called_name_20;
     PyObject *tmp_called_name_21;
+    PyObject *tmp_called_name_22;
+    PyObject *tmp_called_name_23;
     int tmp_cmp_Eq_1;
     int tmp_cmp_Eq_2;
     int tmp_cmp_Eq_3;
@@ -632,6 +678,7 @@ MOD_INIT_DECL( __main__ )
     int tmp_cmp_Eq_16;
     int tmp_cmp_Eq_17;
     int tmp_cmp_Eq_18;
+    int tmp_cmp_Eq_19;
     PyObject *tmp_compare_left_1;
     PyObject *tmp_compare_left_2;
     PyObject *tmp_compare_left_3;
@@ -650,6 +697,7 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_compare_left_16;
     PyObject *tmp_compare_left_17;
     PyObject *tmp_compare_left_18;
+    PyObject *tmp_compare_left_19;
     PyObject *tmp_compare_right_1;
     PyObject *tmp_compare_right_2;
     PyObject *tmp_compare_right_3;
@@ -668,6 +716,7 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_compare_right_16;
     PyObject *tmp_compare_right_17;
     PyObject *tmp_compare_right_18;
+    PyObject *tmp_compare_right_19;
     int tmp_cond_truth_1;
     int tmp_cond_truth_2;
     int tmp_cond_truth_3;
@@ -677,6 +726,8 @@ MOD_INIT_DECL( __main__ )
     int tmp_cond_truth_7;
     int tmp_cond_truth_8;
     int tmp_cond_truth_9;
+    int tmp_cond_truth_10;
+    int tmp_cond_truth_11;
     PyObject *tmp_cond_value_1;
     PyObject *tmp_cond_value_2;
     PyObject *tmp_cond_value_3;
@@ -686,6 +737,8 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_cond_value_7;
     PyObject *tmp_cond_value_8;
     PyObject *tmp_cond_value_9;
+    PyObject *tmp_cond_value_10;
+    PyObject *tmp_cond_value_11;
     PyObject *tmp_import_globals_1;
     PyObject *tmp_import_globals_2;
     PyObject *tmp_import_globals_3;
@@ -707,6 +760,8 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_left_name_1;
     PyObject *tmp_left_name_2;
     PyObject *tmp_left_name_3;
+    PyObject *tmp_left_name_4;
+    PyObject *tmp_left_name_5;
     PyObject *tmp_list_element_1;
     PyObject *tmp_list_element_2;
     PyObject *tmp_list_element_3;
@@ -723,6 +778,8 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_right_name_1;
     PyObject *tmp_right_name_2;
     PyObject *tmp_right_name_3;
+    PyObject *tmp_right_name_4;
+    PyObject *tmp_right_name_5;
     PyObject *tmp_source_name_1;
     PyObject *tmp_source_name_2;
     PyObject *tmp_source_name_3;
@@ -764,6 +821,17 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_source_name_39;
     PyObject *tmp_source_name_40;
     PyObject *tmp_source_name_41;
+    PyObject *tmp_source_name_42;
+    PyObject *tmp_source_name_43;
+    PyObject *tmp_source_name_44;
+    PyObject *tmp_source_name_45;
+    PyObject *tmp_source_name_46;
+    PyObject *tmp_source_name_47;
+    PyObject *tmp_source_name_48;
+    PyObject *tmp_source_name_49;
+    PyObject *tmp_source_name_50;
+    PyObject *tmp_source_name_51;
+    PyObject *tmp_source_name_52;
     PyObject *tmp_star_imported_1;
     PyObject *tmp_subscribed_name_1;
     PyObject *tmp_subscribed_name_2;
@@ -776,6 +844,11 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_subscribed_name_9;
     PyObject *tmp_subscribed_name_10;
     PyObject *tmp_subscribed_name_11;
+    PyObject *tmp_subscribed_name_12;
+    PyObject *tmp_subscribed_name_13;
+    PyObject *tmp_subscribed_name_14;
+    PyObject *tmp_subscribed_name_15;
+    PyObject *tmp_subscribed_name_16;
     PyObject *tmp_subscript_name_1;
     PyObject *tmp_subscript_name_2;
     PyObject *tmp_subscript_name_3;
@@ -787,6 +860,11 @@ MOD_INIT_DECL( __main__ )
     PyObject *tmp_subscript_name_9;
     PyObject *tmp_subscript_name_10;
     PyObject *tmp_subscript_name_11;
+    PyObject *tmp_subscript_name_12;
+    PyObject *tmp_subscript_name_13;
+    PyObject *tmp_subscript_name_14;
+    PyObject *tmp_subscript_name_15;
+    PyObject *tmp_subscript_name_16;
     NUITKA_MAY_BE_UNUSED PyObject *tmp_unused;
     PyFrameObject *frame_module;
 
@@ -1773,6 +1851,14 @@ MOD_INIT_DECL( __main__ )
     UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss, tmp_assign_source_25 );
     tmp_assign_source_26 = PyList_New( 0 );
     UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_keys, tmp_assign_source_26 );
+    tmp_assign_source_27 = const_tuple_empty;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_first_click, tmp_assign_source_27 );
+    tmp_assign_source_28 = const_tuple_empty;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_release, tmp_assign_source_28 );
+    tmp_assign_source_29 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_mouse_1_down, tmp_assign_source_29 );
+    tmp_assign_source_30 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid_moved, tmp_assign_source_30 );
     loop_start_2:;
     tmp_cond_value_1 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_done );
 
@@ -1791,7 +1877,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 32;
+        exception_lineno = 37;
         goto frame_exception_exit_1;
     }
 
@@ -1803,7 +1889,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 32;
+        exception_lineno = 37;
         goto frame_exception_exit_1;
     }
     if ( tmp_cond_truth_1 == 1 )
@@ -1834,11 +1920,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 33;
+        exception_lineno = 38;
         goto frame_exception_exit_1;
     }
 
-    frame_module->f_lineno = 33;
+    frame_module->f_lineno = 38;
     tmp_iter_arg_2 = CALL_METHOD_NO_ARGS( tmp_called_instance_2, const_str_plain_event );
     if ( tmp_iter_arg_2 == NULL )
     {
@@ -1847,24 +1933,24 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 33;
+        exception_lineno = 38;
         goto frame_exception_exit_1;
     }
-    tmp_assign_source_27 = MAKE_ITERATOR( tmp_iter_arg_2 );
+    tmp_assign_source_31 = MAKE_ITERATOR( tmp_iter_arg_2 );
     Py_DECREF( tmp_iter_arg_2 );
-    if ( tmp_assign_source_27 == NULL )
+    if ( tmp_assign_source_31 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 33;
+        exception_lineno = 38;
         goto frame_exception_exit_1;
     }
     {
         PyObject *old = tmp_for_loop_2__for_iterator;
-        tmp_for_loop_2__for_iterator = tmp_assign_source_27;
+        tmp_for_loop_2__for_iterator = tmp_assign_source_31;
         Py_XDECREF( old );
     }
 
@@ -1872,8 +1958,8 @@ MOD_INIT_DECL( __main__ )
     loop_start_3:;
     tmp_next_source_2 = tmp_for_loop_2__for_iterator;
 
-    tmp_assign_source_28 = ITERATOR_NEXT( tmp_next_source_2 );
-    if ( tmp_assign_source_28 == NULL )
+    tmp_assign_source_32 = ITERATOR_NEXT( tmp_next_source_2 );
+    if ( tmp_assign_source_32 == NULL )
     {
         if ( CHECK_AND_CLEAR_STOP_ITERATION_OCCURRED() )
         {
@@ -1884,20 +1970,20 @@ MOD_INIT_DECL( __main__ )
         {
 
             FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-            frame_module->f_lineno = 33;
+            frame_module->f_lineno = 38;
             goto try_except_handler_2;
         }
     }
 
     {
         PyObject *old = tmp_for_loop_2__iter_value;
-        tmp_for_loop_2__iter_value = tmp_assign_source_28;
+        tmp_for_loop_2__iter_value = tmp_assign_source_32;
         Py_XDECREF( old );
     }
 
-    tmp_assign_source_29 = tmp_for_loop_2__iter_value;
+    tmp_assign_source_33 = tmp_for_loop_2__iter_value;
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e, tmp_assign_source_29 );
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e, tmp_assign_source_33 );
     tmp_source_name_3 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
 
     if (unlikely( tmp_source_name_3 == NULL ))
@@ -1915,7 +2001,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 34;
+        exception_lineno = 39;
         goto try_except_handler_2;
     }
 
@@ -1927,7 +2013,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 34;
+        exception_lineno = 39;
         goto try_except_handler_2;
     }
     tmp_source_name_4 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
@@ -1947,7 +2033,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 34;
+        exception_lineno = 39;
         goto try_except_handler_2;
     }
 
@@ -1959,7 +2045,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_2 );
 
-        exception_lineno = 34;
+        exception_lineno = 39;
         goto try_except_handler_2;
     }
     tmp_cmp_Eq_2 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_2, tmp_compare_right_2 );
@@ -1971,7 +2057,7 @@ MOD_INIT_DECL( __main__ )
         Py_DECREF( tmp_compare_left_2 );
         Py_DECREF( tmp_compare_right_2 );
 
-        exception_lineno = 34;
+        exception_lineno = 39;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_2 );
@@ -1985,8 +2071,8 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_3;
     }
     branch_yes_3:;
-    tmp_assign_source_30 = Py_True;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_done, tmp_assign_source_30 );
+    tmp_assign_source_34 = Py_True;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_done, tmp_assign_source_34 );
     goto loop_end_3;
     branch_no_3:;
     tmp_source_name_5 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
@@ -2006,7 +2092,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 37;
+        exception_lineno = 42;
         goto try_except_handler_2;
     }
 
@@ -2018,7 +2104,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 37;
+        exception_lineno = 42;
         goto try_except_handler_2;
     }
     tmp_source_name_6 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
@@ -2038,7 +2124,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 37;
+        exception_lineno = 42;
         goto try_except_handler_2;
     }
 
@@ -2050,7 +2136,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_3 );
 
-        exception_lineno = 37;
+        exception_lineno = 42;
         goto try_except_handler_2;
     }
     tmp_cmp_Eq_3 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_3, tmp_compare_right_3 );
@@ -2062,7 +2148,7 @@ MOD_INIT_DECL( __main__ )
         Py_DECREF( tmp_compare_left_3 );
         Py_DECREF( tmp_compare_right_3 );
 
-        exception_lineno = 37;
+        exception_lineno = 42;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_3 );
@@ -2093,24 +2179,24 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 38;
+        exception_lineno = 43;
         goto try_except_handler_2;
     }
 
-    tmp_assign_source_31 = MAKE_ITERATOR( tmp_iter_arg_3 );
-    if ( tmp_assign_source_31 == NULL )
+    tmp_assign_source_35 = MAKE_ITERATOR( tmp_iter_arg_3 );
+    if ( tmp_assign_source_35 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 38;
+        exception_lineno = 43;
         goto try_except_handler_2;
     }
     {
         PyObject *old = tmp_for_loop_3__for_iterator;
-        tmp_for_loop_3__for_iterator = tmp_assign_source_31;
+        tmp_for_loop_3__for_iterator = tmp_assign_source_35;
         Py_XDECREF( old );
     }
 
@@ -2118,8 +2204,8 @@ MOD_INIT_DECL( __main__ )
     loop_start_4:;
     tmp_next_source_3 = tmp_for_loop_3__for_iterator;
 
-    tmp_assign_source_32 = ITERATOR_NEXT( tmp_next_source_3 );
-    if ( tmp_assign_source_32 == NULL )
+    tmp_assign_source_36 = ITERATOR_NEXT( tmp_next_source_3 );
+    if ( tmp_assign_source_36 == NULL )
     {
         if ( CHECK_AND_CLEAR_STOP_ITERATION_OCCURRED() )
         {
@@ -2130,20 +2216,20 @@ MOD_INIT_DECL( __main__ )
         {
 
             FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-            frame_module->f_lineno = 38;
+            frame_module->f_lineno = 43;
             goto try_except_handler_3;
         }
     }
 
     {
         PyObject *old = tmp_for_loop_3__iter_value;
-        tmp_for_loop_3__iter_value = tmp_assign_source_32;
+        tmp_for_loop_3__iter_value = tmp_assign_source_36;
         Py_XDECREF( old );
     }
 
-    tmp_assign_source_33 = tmp_for_loop_3__iter_value;
+    tmp_assign_source_37 = tmp_for_loop_3__iter_value;
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i, tmp_assign_source_33 );
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i, tmp_assign_source_37 );
     tmp_source_name_7 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i );
 
     if (unlikely( tmp_source_name_7 == NULL ))
@@ -2161,7 +2247,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 39;
+        exception_lineno = 44;
         goto try_except_handler_3;
     }
 
@@ -2173,7 +2259,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 39;
+        exception_lineno = 44;
         goto try_except_handler_3;
     }
     tmp_args_element_name_11 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_keys );
@@ -2193,11 +2279,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 39;
+        exception_lineno = 44;
         goto try_except_handler_3;
     }
 
-    frame_module->f_lineno = 39;
+    frame_module->f_lineno = 44;
     {
         PyObject *call_args[] = { tmp_args_element_name_11 };
         tmp_unused = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_8, call_args );
@@ -2211,7 +2297,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 39;
+        exception_lineno = 44;
         goto try_except_handler_3;
     }
     Py_DECREF( tmp_unused );
@@ -2222,7 +2308,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 38;
+        exception_lineno = 43;
         goto try_except_handler_3;
     }
     goto loop_start_4;
@@ -2278,7 +2364,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 40;
+        exception_lineno = 46;
         goto try_except_handler_2;
     }
 
@@ -2290,7 +2376,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 40;
+        exception_lineno = 46;
         goto try_except_handler_2;
     }
     tmp_source_name_9 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
@@ -2310,7 +2396,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 40;
+        exception_lineno = 46;
         goto try_except_handler_2;
     }
 
@@ -2322,7 +2408,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_4 );
 
-        exception_lineno = 40;
+        exception_lineno = 46;
         goto try_except_handler_2;
     }
     tmp_cmp_Eq_4 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_4, tmp_compare_right_4 );
@@ -2334,7 +2420,7 @@ MOD_INIT_DECL( __main__ )
         Py_DECREF( tmp_compare_left_4 );
         Py_DECREF( tmp_compare_right_4 );
 
-        exception_lineno = 40;
+        exception_lineno = 46;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_4 );
@@ -2348,14 +2434,60 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_5;
     }
     branch_yes_5:;
-    tmp_source_name_10 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+    tmp_source_name_10 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
 
     if (unlikely( tmp_source_name_10 == NULL ))
     {
-        tmp_source_name_10 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+        tmp_source_name_10 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
     }
 
     if ( tmp_source_name_10 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 47;
+        goto try_except_handler_2;
+    }
+
+    tmp_called_instance_3 = LOOKUP_ATTRIBUTE( tmp_source_name_10, const_str_plain_mouse );
+    if ( tmp_called_instance_3 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 47;
+        goto try_except_handler_2;
+    }
+    frame_module->f_lineno = 47;
+    tmp_assign_source_38 = CALL_METHOD_NO_ARGS( tmp_called_instance_3, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_3 );
+    if ( tmp_assign_source_38 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 47;
+        goto try_except_handler_2;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_release, tmp_assign_source_38 );
+    tmp_source_name_11 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+
+    if (unlikely( tmp_source_name_11 == NULL ))
+    {
+        tmp_source_name_11 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+    }
+
+    if ( tmp_source_name_11 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -2365,11 +2497,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 41;
+        exception_lineno = 48;
         goto try_except_handler_2;
     }
 
-    tmp_compare_left_5 = LOOKUP_ATTRIBUTE( tmp_source_name_10, const_str_plain_button );
+    tmp_compare_left_5 = LOOKUP_ATTRIBUTE( tmp_source_name_11, const_str_plain_button );
     if ( tmp_compare_left_5 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -2377,7 +2509,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 41;
+        exception_lineno = 48;
         goto try_except_handler_2;
     }
     tmp_compare_right_5 = const_int_pos_1;
@@ -2389,7 +2521,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_5 );
 
-        exception_lineno = 41;
+        exception_lineno = 48;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_5 );
@@ -2419,7 +2551,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 42;
+        exception_lineno = 50;
         goto try_except_handler_2;
     }
 
@@ -2432,7 +2564,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 42;
+        exception_lineno = 50;
         goto try_except_handler_2;
     }
     if ( tmp_cmp_Eq_6 == 1 )
@@ -2444,14 +2576,14 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_7;
     }
     branch_yes_7:;
-    tmp_called_instance_3 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
+    tmp_called_instance_4 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
 
-    if (unlikely( tmp_called_instance_3 == NULL ))
+    if (unlikely( tmp_called_instance_4 == NULL ))
     {
-        tmp_called_instance_3 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
+        tmp_called_instance_4 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
     }
 
-    if ( tmp_called_instance_3 == NULL )
+    if ( tmp_called_instance_4 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -2461,23 +2593,23 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 43;
+        exception_lineno = 51;
         goto try_except_handler_2;
     }
 
-    frame_module->f_lineno = 43;
-    tmp_assign_source_34 = CALL_METHOD_NO_ARGS( tmp_called_instance_3, const_str_plain_click );
-    if ( tmp_assign_source_34 == NULL )
+    frame_module->f_lineno = 51;
+    tmp_assign_source_39 = CALL_METHOD_NO_ARGS( tmp_called_instance_4, const_str_plain_click );
+    if ( tmp_assign_source_39 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 43;
+        exception_lineno = 51;
         goto try_except_handler_2;
     }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_progress, tmp_assign_source_34 );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_progress, tmp_assign_source_39 );
     branch_no_7:;
     tmp_compare_left_7 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
 
@@ -2496,7 +2628,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 44;
+        exception_lineno = 53;
         goto try_except_handler_2;
     }
 
@@ -2509,7 +2641,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 44;
+        exception_lineno = 53;
         goto try_except_handler_2;
     }
     if ( tmp_cmp_Eq_7 == 1 )
@@ -2521,189 +2653,40 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_8;
     }
     branch_yes_8:;
-    tmp_source_name_11 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+    tmp_assign_source_40 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_mouse_1_down, tmp_assign_source_40 );
+    tmp_cond_value_2 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid_moved );
 
-    if (unlikely( tmp_source_name_11 == NULL ))
+    if (unlikely( tmp_cond_value_2 == NULL ))
     {
-        tmp_source_name_11 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+        tmp_cond_value_2 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid_moved );
     }
 
-    if ( tmp_source_name_11 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-
-    tmp_called_name_9 = LOOKUP_ATTRIBUTE( tmp_source_name_11, const_str_plain_getCursorVariation );
-    if ( tmp_called_name_9 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    tmp_source_name_12 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
-
-    if (unlikely( tmp_source_name_12 == NULL ))
-    {
-        tmp_source_name_12 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
-    }
-
-    if ( tmp_source_name_12 == NULL )
-    {
-        Py_DECREF( tmp_called_name_9 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-
-    tmp_called_instance_4 = LOOKUP_ATTRIBUTE( tmp_source_name_12, const_str_plain_mouse );
-    if ( tmp_called_instance_4 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_9 );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    frame_module->f_lineno = 45;
-    tmp_subscribed_name_3 = CALL_METHOD_NO_ARGS( tmp_called_instance_4, const_str_plain_get_pos );
-    Py_DECREF( tmp_called_instance_4 );
-    if ( tmp_subscribed_name_3 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_9 );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    tmp_subscript_name_3 = const_int_0;
-    tmp_args_element_name_12 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_3, tmp_subscript_name_3 );
-    Py_DECREF( tmp_subscribed_name_3 );
-    if ( tmp_args_element_name_12 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_9 );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    tmp_source_name_13 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
-
-    if (unlikely( tmp_source_name_13 == NULL ))
-    {
-        tmp_source_name_13 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
-    }
-
-    if ( tmp_source_name_13 == NULL )
-    {
-        Py_DECREF( tmp_called_name_9 );
-        Py_DECREF( tmp_args_element_name_12 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-
-    tmp_called_instance_5 = LOOKUP_ATTRIBUTE( tmp_source_name_13, const_str_plain_mouse );
-    if ( tmp_called_instance_5 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_9 );
-        Py_DECREF( tmp_args_element_name_12 );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    frame_module->f_lineno = 45;
-    tmp_subscribed_name_4 = CALL_METHOD_NO_ARGS( tmp_called_instance_5, const_str_plain_get_pos );
-    Py_DECREF( tmp_called_instance_5 );
-    if ( tmp_subscribed_name_4 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_9 );
-        Py_DECREF( tmp_args_element_name_12 );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    tmp_subscript_name_4 = const_int_pos_1;
-    tmp_args_element_name_13 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_4, tmp_subscript_name_4 );
-    Py_DECREF( tmp_subscribed_name_4 );
-    if ( tmp_args_element_name_13 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_9 );
-        Py_DECREF( tmp_args_element_name_12 );
-
-        exception_lineno = 45;
-        goto try_except_handler_2;
-    }
-    frame_module->f_lineno = 45;
-    {
-        PyObject *call_args[] = { tmp_args_element_name_12, tmp_args_element_name_13 };
-        tmp_cond_value_2 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_9, call_args );
-    }
-
-    Py_DECREF( tmp_called_name_9 );
-    Py_DECREF( tmp_args_element_name_12 );
-    Py_DECREF( tmp_args_element_name_13 );
     if ( tmp_cond_value_2 == NULL )
     {
-        assert( ERROR_OCCURRED() );
 
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid_moved" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
 
-
-        exception_lineno = 45;
+        exception_lineno = 55;
         goto try_except_handler_2;
     }
+
     tmp_cond_truth_2 = CHECK_IF_TRUE( tmp_cond_value_2 );
     if ( tmp_cond_truth_2 == -1 )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_cond_value_2 );
 
-        exception_lineno = 45;
+
+        exception_lineno = 55;
         goto try_except_handler_2;
     }
-    Py_DECREF( tmp_cond_value_2 );
     if ( tmp_cond_truth_2 == 1 )
     {
         goto branch_no_9;
@@ -2730,7 +2713,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 46;
+        exception_lineno = 56;
         goto try_except_handler_2;
     }
 
@@ -2742,7 +2725,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 46;
+        exception_lineno = 56;
         goto try_except_handler_2;
     }
     if ( tmp_cond_truth_3 == 1 )
@@ -2755,14 +2738,14 @@ MOD_INIT_DECL( __main__ )
     }
     branch_yes_10:;
     tmp_assattr_name_1 = Py_False;
-    tmp_source_name_14 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+    tmp_source_name_12 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
-    if (unlikely( tmp_source_name_14 == NULL ))
+    if (unlikely( tmp_source_name_12 == NULL ))
     {
-        tmp_source_name_14 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+        tmp_source_name_12 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
     }
 
-    if ( tmp_source_name_14 == NULL )
+    if ( tmp_source_name_12 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -2772,11 +2755,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 47;
+        exception_lineno = 57;
         goto try_except_handler_2;
     }
 
-    tmp_assattr_target_1 = LOOKUP_ATTRIBUTE( tmp_source_name_14, const_str_plain_cursor );
+    tmp_assattr_target_1 = LOOKUP_ATTRIBUTE( tmp_source_name_12, const_str_plain_cursor );
     if ( tmp_assattr_target_1 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -2784,7 +2767,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 47;
+        exception_lineno = 57;
         goto try_except_handler_2;
     }
     tmp_result = SET_ATTRIBUTE( tmp_assattr_target_1, const_str_plain_covered, tmp_assattr_name_1 );
@@ -2795,10 +2778,119 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_assattr_target_1 );
 
-        exception_lineno = 47;
+        exception_lineno = 57;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_assattr_target_1 );
+    tmp_source_name_13 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_source_name_13 == NULL ))
+    {
+        tmp_source_name_13 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_source_name_13 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+
+    tmp_called_name_9 = LOOKUP_ATTRIBUTE( tmp_source_name_13, const_str_plain_drawMines );
+    if ( tmp_called_name_9 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+    tmp_source_name_14 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
+
+    if (unlikely( tmp_source_name_14 == NULL ))
+    {
+        tmp_source_name_14 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
+    }
+
+    if ( tmp_source_name_14 == NULL )
+    {
+        Py_DECREF( tmp_called_name_9 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+
+    tmp_subscribed_name_3 = LOOKUP_ATTRIBUTE( tmp_source_name_14, const_str_plain_vars );
+    if ( tmp_subscribed_name_3 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_9 );
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+    tmp_subscript_name_3 = const_str_plain_mines;
+    tmp_int_arg_1 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_3, tmp_subscript_name_3 );
+    Py_DECREF( tmp_subscribed_name_3 );
+    if ( tmp_int_arg_1 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_9 );
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+    tmp_args_element_name_12 = PyNumber_Int( tmp_int_arg_1 );
+    Py_DECREF( tmp_int_arg_1 );
+    if ( tmp_args_element_name_12 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_9 );
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+    frame_module->f_lineno = 58;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_12 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_9, call_args );
+    }
+
+    Py_DECREF( tmp_called_name_9 );
+    Py_DECREF( tmp_args_element_name_12 );
+    if ( tmp_unused == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 58;
+        goto try_except_handler_2;
+    }
+    Py_DECREF( tmp_unused );
+    tmp_assattr_name_2 = Py_True;
     tmp_source_name_15 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
     if (unlikely( tmp_source_name_15 == NULL ))
@@ -2816,120 +2908,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 48;
+        exception_lineno = 59;
         goto try_except_handler_2;
     }
 
-    tmp_called_name_10 = LOOKUP_ATTRIBUTE( tmp_source_name_15, const_str_plain_drawMines );
-    if ( tmp_called_name_10 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 48;
-        goto try_except_handler_2;
-    }
-    tmp_source_name_16 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
-
-    if (unlikely( tmp_source_name_16 == NULL ))
-    {
-        tmp_source_name_16 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
-    }
-
-    if ( tmp_source_name_16 == NULL )
-    {
-        Py_DECREF( tmp_called_name_10 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 48;
-        goto try_except_handler_2;
-    }
-
-    tmp_subscribed_name_5 = LOOKUP_ATTRIBUTE( tmp_source_name_16, const_str_plain_vars );
-    if ( tmp_subscribed_name_5 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_10 );
-
-        exception_lineno = 48;
-        goto try_except_handler_2;
-    }
-    tmp_subscript_name_5 = const_str_plain_mines;
-    tmp_int_arg_1 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_5, tmp_subscript_name_5 );
-    Py_DECREF( tmp_subscribed_name_5 );
-    if ( tmp_int_arg_1 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_10 );
-
-        exception_lineno = 48;
-        goto try_except_handler_2;
-    }
-    tmp_args_element_name_14 = PyNumber_Int( tmp_int_arg_1 );
-    Py_DECREF( tmp_int_arg_1 );
-    if ( tmp_args_element_name_14 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_10 );
-
-        exception_lineno = 48;
-        goto try_except_handler_2;
-    }
-    frame_module->f_lineno = 48;
-    {
-        PyObject *call_args[] = { tmp_args_element_name_14 };
-        tmp_unused = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_10, call_args );
-    }
-
-    Py_DECREF( tmp_called_name_10 );
-    Py_DECREF( tmp_args_element_name_14 );
-    if ( tmp_unused == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 48;
-        goto try_except_handler_2;
-    }
-    Py_DECREF( tmp_unused );
-    tmp_assattr_name_2 = Py_True;
-    tmp_source_name_17 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
-
-    if (unlikely( tmp_source_name_17 == NULL ))
-    {
-        tmp_source_name_17 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
-    }
-
-    if ( tmp_source_name_17 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 49;
-        goto try_except_handler_2;
-    }
-
-    tmp_assattr_target_2 = LOOKUP_ATTRIBUTE( tmp_source_name_17, const_str_plain_cursor );
+    tmp_assattr_target_2 = LOOKUP_ATTRIBUTE( tmp_source_name_15, const_str_plain_cursor );
     if ( tmp_assattr_target_2 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -2937,7 +2920,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 49;
+        exception_lineno = 59;
         goto try_except_handler_2;
     }
     tmp_result = SET_ATTRIBUTE( tmp_assattr_target_2, const_str_plain_covered, tmp_assattr_name_2 );
@@ -2948,10 +2931,97 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_assattr_target_2 );
 
-        exception_lineno = 49;
+        exception_lineno = 59;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_assattr_target_2 );
+    tmp_source_name_16 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_source_name_16 == NULL ))
+    {
+        tmp_source_name_16 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_source_name_16 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 60;
+        goto try_except_handler_2;
+    }
+
+    tmp_called_name_10 = LOOKUP_ATTRIBUTE( tmp_source_name_16, const_str_plain_open );
+    if ( tmp_called_name_10 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 60;
+        goto try_except_handler_2;
+    }
+    tmp_source_name_17 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_source_name_17 == NULL ))
+    {
+        tmp_source_name_17 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_source_name_17 == NULL )
+    {
+        Py_DECREF( tmp_called_name_10 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 60;
+        goto try_except_handler_2;
+    }
+
+    tmp_args_element_name_13 = LOOKUP_ATTRIBUTE( tmp_source_name_17, const_str_plain_cursor );
+    if ( tmp_args_element_name_13 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_10 );
+
+        exception_lineno = 60;
+        goto try_except_handler_2;
+    }
+    tmp_args_element_name_14 = Py_True;
+    frame_module->f_lineno = 60;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_13, tmp_args_element_name_14 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_10, call_args );
+    }
+
+    Py_DECREF( tmp_called_name_10 );
+    Py_DECREF( tmp_args_element_name_13 );
+    if ( tmp_unused == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 60;
+        goto try_except_handler_2;
+    }
+    Py_DECREF( tmp_unused );
+    tmp_assign_source_41 = Py_True;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_started, tmp_assign_source_41 );
+    branch_no_10:;
     tmp_source_name_18 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
     if (unlikely( tmp_source_name_18 == NULL ))
@@ -2969,7 +3039,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 50;
+        exception_lineno = 62;
         goto try_except_handler_2;
     }
 
@@ -2981,7 +3051,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 50;
+        exception_lineno = 62;
         goto try_except_handler_2;
     }
     tmp_source_name_19 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
@@ -3001,7 +3071,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 50;
+        exception_lineno = 62;
         goto try_except_handler_2;
     }
 
@@ -3013,117 +3083,34 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_called_name_11 );
 
-        exception_lineno = 50;
+        exception_lineno = 62;
         goto try_except_handler_2;
     }
     tmp_args_element_name_16 = Py_True;
-    frame_module->f_lineno = 50;
+    frame_module->f_lineno = 62;
     {
         PyObject *call_args[] = { tmp_args_element_name_15, tmp_args_element_name_16 };
-        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_11, call_args );
+        tmp_assign_source_42 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_11, call_args );
     }
 
     Py_DECREF( tmp_called_name_11 );
     Py_DECREF( tmp_args_element_name_15 );
-    if ( tmp_unused == NULL )
+    if ( tmp_assign_source_42 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 50;
+        exception_lineno = 62;
         goto try_except_handler_2;
     }
-    Py_DECREF( tmp_unused );
-    tmp_assign_source_35 = Py_True;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_started, tmp_assign_source_35 );
-    branch_no_10:;
-    tmp_source_name_20 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
-
-    if (unlikely( tmp_source_name_20 == NULL ))
-    {
-        tmp_source_name_20 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
-    }
-
-    if ( tmp_source_name_20 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 52;
-        goto try_except_handler_2;
-    }
-
-    tmp_called_name_12 = LOOKUP_ATTRIBUTE( tmp_source_name_20, const_str_plain_open );
-    if ( tmp_called_name_12 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 52;
-        goto try_except_handler_2;
-    }
-    tmp_source_name_21 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
-
-    if (unlikely( tmp_source_name_21 == NULL ))
-    {
-        tmp_source_name_21 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
-    }
-
-    if ( tmp_source_name_21 == NULL )
-    {
-        Py_DECREF( tmp_called_name_12 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 52;
-        goto try_except_handler_2;
-    }
-
-    tmp_args_element_name_17 = LOOKUP_ATTRIBUTE( tmp_source_name_21, const_str_plain_cursor );
-    if ( tmp_args_element_name_17 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_12 );
-
-        exception_lineno = 52;
-        goto try_except_handler_2;
-    }
-    tmp_args_element_name_18 = Py_True;
-    frame_module->f_lineno = 52;
-    {
-        PyObject *call_args[] = { tmp_args_element_name_17, tmp_args_element_name_18 };
-        tmp_assign_source_36 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_12, call_args );
-    }
-
-    Py_DECREF( tmp_called_name_12 );
-    Py_DECREF( tmp_args_element_name_17 );
-    if ( tmp_assign_source_36 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 52;
-        goto try_except_handler_2;
-    }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss, tmp_assign_source_36 );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss, tmp_assign_source_42 );
+    goto branch_end_9;
     branch_no_9:;
+    tmp_assign_source_43 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid_moved, tmp_assign_source_43 );
+    branch_end_9:;
     branch_no_8:;
     tmp_compare_left_8 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
 
@@ -3142,7 +3129,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 55;
+        exception_lineno = 66;
         goto try_except_handler_2;
     }
 
@@ -3155,7 +3142,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 55;
+        exception_lineno = 66;
         goto try_except_handler_2;
     }
     if ( tmp_cmp_Eq_8 == 1 )
@@ -3167,14 +3154,14 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_11;
     }
     branch_yes_11:;
-    tmp_called_instance_6 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen );
+    tmp_called_instance_5 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen );
 
-    if (unlikely( tmp_called_instance_6 == NULL ))
+    if (unlikely( tmp_called_instance_5 == NULL ))
     {
-        tmp_called_instance_6 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_endscreen );
+        tmp_called_instance_5 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_endscreen );
     }
 
-    if ( tmp_called_instance_6 == NULL )
+    if ( tmp_called_instance_5 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3184,34 +3171,34 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 56;
+        exception_lineno = 67;
         goto try_except_handler_2;
     }
 
-    frame_module->f_lineno = 56;
-    tmp_assign_source_37 = CALL_METHOD_NO_ARGS( tmp_called_instance_6, const_str_plain_click );
-    if ( tmp_assign_source_37 == NULL )
+    frame_module->f_lineno = 67;
+    tmp_assign_source_44 = CALL_METHOD_NO_ARGS( tmp_called_instance_5, const_str_plain_click );
+    if ( tmp_assign_source_44 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 56;
+        exception_lineno = 67;
         goto try_except_handler_2;
     }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_cont, tmp_assign_source_37 );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_cont, tmp_assign_source_44 );
     branch_no_11:;
     goto branch_end_6;
     branch_no_6:;
-    tmp_source_name_22 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+    tmp_source_name_20 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
 
-    if (unlikely( tmp_source_name_22 == NULL ))
+    if (unlikely( tmp_source_name_20 == NULL ))
     {
-        tmp_source_name_22 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+        tmp_source_name_20 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
     }
 
-    if ( tmp_source_name_22 == NULL )
+    if ( tmp_source_name_20 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3221,11 +3208,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 57;
+        exception_lineno = 68;
         goto try_except_handler_2;
     }
 
-    tmp_compare_left_9 = LOOKUP_ATTRIBUTE( tmp_source_name_22, const_str_plain_button );
+    tmp_compare_left_9 = LOOKUP_ATTRIBUTE( tmp_source_name_20, const_str_plain_button );
     if ( tmp_compare_left_9 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3233,7 +3220,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 57;
+        exception_lineno = 68;
         goto try_except_handler_2;
     }
     tmp_compare_right_9 = const_int_pos_3;
@@ -3245,7 +3232,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_9 );
 
-        exception_lineno = 57;
+        exception_lineno = 68;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_9 );
@@ -3275,7 +3262,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 58;
+        exception_lineno = 69;
         goto try_except_handler_2;
     }
 
@@ -3288,7 +3275,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 58;
+        exception_lineno = 69;
         goto try_except_handler_2;
     }
     if ( tmp_cmp_Eq_10 == 1 )
@@ -3300,14 +3287,14 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_13;
     }
     branch_yes_13:;
-    tmp_source_name_23 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+    tmp_source_name_21 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
-    if (unlikely( tmp_source_name_23 == NULL ))
+    if (unlikely( tmp_source_name_21 == NULL ))
     {
-        tmp_source_name_23 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+        tmp_source_name_21 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
     }
 
-    if ( tmp_source_name_23 == NULL )
+    if ( tmp_source_name_21 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3317,31 +3304,31 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 59;
+        exception_lineno = 70;
         goto try_except_handler_2;
     }
 
-    tmp_called_name_13 = LOOKUP_ATTRIBUTE( tmp_source_name_23, const_str_plain_mark );
-    if ( tmp_called_name_13 == NULL )
+    tmp_called_name_12 = LOOKUP_ATTRIBUTE( tmp_source_name_21, const_str_plain_mark );
+    if ( tmp_called_name_12 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 59;
+        exception_lineno = 70;
         goto try_except_handler_2;
     }
-    tmp_source_name_24 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+    tmp_source_name_22 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
-    if (unlikely( tmp_source_name_24 == NULL ))
+    if (unlikely( tmp_source_name_22 == NULL ))
     {
-        tmp_source_name_24 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+        tmp_source_name_22 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
     }
 
-    if ( tmp_source_name_24 == NULL )
+    if ( tmp_source_name_22 == NULL )
     {
-        Py_DECREF( tmp_called_name_13 );
+        Py_DECREF( tmp_called_name_12 );
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
         exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
@@ -3349,29 +3336,29 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 59;
+        exception_lineno = 70;
         goto try_except_handler_2;
     }
 
-    tmp_args_element_name_19 = LOOKUP_ATTRIBUTE( tmp_source_name_24, const_str_plain_cursor );
-    if ( tmp_args_element_name_19 == NULL )
+    tmp_args_element_name_17 = LOOKUP_ATTRIBUTE( tmp_source_name_22, const_str_plain_cursor );
+    if ( tmp_args_element_name_17 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_13 );
+        Py_DECREF( tmp_called_name_12 );
 
-        exception_lineno = 59;
+        exception_lineno = 70;
         goto try_except_handler_2;
     }
-    frame_module->f_lineno = 59;
+    frame_module->f_lineno = 70;
     {
-        PyObject *call_args[] = { tmp_args_element_name_19 };
-        tmp_unused = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_13, call_args );
+        PyObject *call_args[] = { tmp_args_element_name_17 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_12, call_args );
     }
 
-    Py_DECREF( tmp_called_name_13 );
-    Py_DECREF( tmp_args_element_name_19 );
+    Py_DECREF( tmp_called_name_12 );
+    Py_DECREF( tmp_args_element_name_17 );
     if ( tmp_unused == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3379,7 +3366,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 59;
+        exception_lineno = 70;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_unused );
@@ -3387,14 +3374,14 @@ MOD_INIT_DECL( __main__ )
     branch_no_12:;
     branch_end_6:;
     branch_no_5:;
-    tmp_source_name_25 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+    tmp_source_name_23 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
 
-    if (unlikely( tmp_source_name_25 == NULL ))
+    if (unlikely( tmp_source_name_23 == NULL ))
     {
-        tmp_source_name_25 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+        tmp_source_name_23 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
     }
 
-    if ( tmp_source_name_25 == NULL )
+    if ( tmp_source_name_23 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3404,11 +3391,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 60;
+        exception_lineno = 72;
         goto try_except_handler_2;
     }
 
-    tmp_compare_left_11 = LOOKUP_ATTRIBUTE( tmp_source_name_25, const_str_plain_type );
+    tmp_compare_left_11 = LOOKUP_ATTRIBUTE( tmp_source_name_23, const_str_plain_type );
     if ( tmp_compare_left_11 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3416,17 +3403,17 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 60;
+        exception_lineno = 72;
         goto try_except_handler_2;
     }
-    tmp_source_name_26 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+    tmp_source_name_24 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
 
-    if (unlikely( tmp_source_name_26 == NULL ))
+    if (unlikely( tmp_source_name_24 == NULL ))
     {
-        tmp_source_name_26 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+        tmp_source_name_24 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
     }
 
-    if ( tmp_source_name_26 == NULL )
+    if ( tmp_source_name_24 == NULL )
     {
         Py_DECREF( tmp_compare_left_11 );
         exception_type = PyExc_NameError;
@@ -3436,11 +3423,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 60;
+        exception_lineno = 72;
         goto try_except_handler_2;
     }
 
-    tmp_compare_right_11 = LOOKUP_ATTRIBUTE( tmp_source_name_26, const_str_plain_MOUSEBUTTONDOWN );
+    tmp_compare_right_11 = LOOKUP_ATTRIBUTE( tmp_source_name_24, const_str_plain_MOUSEBUTTONDOWN );
     if ( tmp_compare_right_11 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3448,7 +3435,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_11 );
 
-        exception_lineno = 60;
+        exception_lineno = 72;
         goto try_except_handler_2;
     }
     tmp_cmp_Eq_11 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_11, tmp_compare_right_11 );
@@ -3460,7 +3447,7 @@ MOD_INIT_DECL( __main__ )
         Py_DECREF( tmp_compare_left_11 );
         Py_DECREF( tmp_compare_right_11 );
 
-        exception_lineno = 60;
+        exception_lineno = 72;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_11 );
@@ -3474,6 +3461,52 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_14;
     }
     branch_yes_14:;
+    tmp_source_name_25 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_25 == NULL ))
+    {
+        tmp_source_name_25 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_25 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 73;
+        goto try_except_handler_2;
+    }
+
+    tmp_called_instance_6 = LOOKUP_ATTRIBUTE( tmp_source_name_25, const_str_plain_mouse );
+    if ( tmp_called_instance_6 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 73;
+        goto try_except_handler_2;
+    }
+    frame_module->f_lineno = 73;
+    tmp_assign_source_45 = CALL_METHOD_NO_ARGS( tmp_called_instance_6, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_6 );
+    if ( tmp_assign_source_45 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 73;
+        goto try_except_handler_2;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_first_click, tmp_assign_source_45 );
     tmp_compare_left_12 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
 
     if (unlikely( tmp_compare_left_12 == NULL ))
@@ -3491,7 +3524,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 61;
+        exception_lineno = 74;
         goto try_except_handler_2;
     }
 
@@ -3504,7 +3537,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 61;
+        exception_lineno = 74;
         goto try_except_handler_2;
     }
     if ( tmp_cmp_Eq_12 == 1 )
@@ -3516,14 +3549,14 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_15;
     }
     branch_yes_15:;
-    tmp_source_name_27 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+    tmp_source_name_26 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
 
-    if (unlikely( tmp_source_name_27 == NULL ))
+    if (unlikely( tmp_source_name_26 == NULL ))
     {
-        tmp_source_name_27 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+        tmp_source_name_26 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
     }
 
-    if ( tmp_source_name_27 == NULL )
+    if ( tmp_source_name_26 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3533,11 +3566,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 62;
+        exception_lineno = 75;
         goto try_except_handler_2;
     }
 
-    tmp_compare_left_13 = LOOKUP_ATTRIBUTE( tmp_source_name_27, const_str_plain_button );
+    tmp_compare_left_13 = LOOKUP_ATTRIBUTE( tmp_source_name_26, const_str_plain_button );
     if ( tmp_compare_left_13 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3545,7 +3578,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 62;
+        exception_lineno = 75;
         goto try_except_handler_2;
     }
     tmp_compare_right_13 = const_int_pos_1;
@@ -3557,7 +3590,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_13 );
 
-        exception_lineno = 62;
+        exception_lineno = 75;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_13 );
@@ -3570,14 +3603,16 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_16;
     }
     branch_yes_16:;
-    tmp_source_name_28 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+    tmp_assign_source_46 = Py_True;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_mouse_1_down, tmp_assign_source_46 );
+    tmp_source_name_27 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
-    if (unlikely( tmp_source_name_28 == NULL ))
+    if (unlikely( tmp_source_name_27 == NULL ))
     {
-        tmp_source_name_28 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+        tmp_source_name_27 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
     }
 
-    if ( tmp_source_name_28 == NULL )
+    if ( tmp_source_name_27 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3587,19 +3622,77 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 63;
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
 
-    tmp_called_name_14 = LOOKUP_ATTRIBUTE( tmp_source_name_28, const_str_plain_setClickPos );
-    if ( tmp_called_name_14 == NULL )
+    tmp_called_name_13 = LOOKUP_ATTRIBUTE( tmp_source_name_27, const_str_plain_setClickPos );
+    if ( tmp_called_name_13 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 63;
+        exception_lineno = 77;
+        goto try_except_handler_2;
+    }
+    tmp_source_name_28 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_28 == NULL ))
+    {
+        tmp_source_name_28 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_28 == NULL )
+    {
+        Py_DECREF( tmp_called_name_13 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 77;
+        goto try_except_handler_2;
+    }
+
+    tmp_called_instance_7 = LOOKUP_ATTRIBUTE( tmp_source_name_28, const_str_plain_mouse );
+    if ( tmp_called_instance_7 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_13 );
+
+        exception_lineno = 77;
+        goto try_except_handler_2;
+    }
+    frame_module->f_lineno = 77;
+    tmp_subscribed_name_4 = CALL_METHOD_NO_ARGS( tmp_called_instance_7, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_7 );
+    if ( tmp_subscribed_name_4 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_13 );
+
+        exception_lineno = 77;
+        goto try_except_handler_2;
+    }
+    tmp_subscript_name_4 = const_int_0;
+    tmp_args_element_name_18 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_4, tmp_subscript_name_4 );
+    Py_DECREF( tmp_subscribed_name_4 );
+    if ( tmp_args_element_name_18 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_13 );
+
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
     tmp_source_name_29 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
@@ -3611,7 +3704,8 @@ MOD_INIT_DECL( __main__ )
 
     if ( tmp_source_name_29 == NULL )
     {
-        Py_DECREF( tmp_called_name_14 );
+        Py_DECREF( tmp_called_name_13 );
+        Py_DECREF( tmp_args_element_name_18 );
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
         exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
@@ -3619,118 +3713,59 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 63;
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
 
-    tmp_called_instance_7 = LOOKUP_ATTRIBUTE( tmp_source_name_29, const_str_plain_mouse );
-    if ( tmp_called_instance_7 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_14 );
-
-        exception_lineno = 63;
-        goto try_except_handler_2;
-    }
-    frame_module->f_lineno = 63;
-    tmp_subscribed_name_6 = CALL_METHOD_NO_ARGS( tmp_called_instance_7, const_str_plain_get_pos );
-    Py_DECREF( tmp_called_instance_7 );
-    if ( tmp_subscribed_name_6 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_14 );
-
-        exception_lineno = 63;
-        goto try_except_handler_2;
-    }
-    tmp_subscript_name_6 = const_int_0;
-    tmp_args_element_name_20 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_6, tmp_subscript_name_6 );
-    Py_DECREF( tmp_subscribed_name_6 );
-    if ( tmp_args_element_name_20 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_14 );
-
-        exception_lineno = 63;
-        goto try_except_handler_2;
-    }
-    tmp_source_name_30 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
-
-    if (unlikely( tmp_source_name_30 == NULL ))
-    {
-        tmp_source_name_30 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
-    }
-
-    if ( tmp_source_name_30 == NULL )
-    {
-        Py_DECREF( tmp_called_name_14 );
-        Py_DECREF( tmp_args_element_name_20 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 63;
-        goto try_except_handler_2;
-    }
-
-    tmp_called_instance_8 = LOOKUP_ATTRIBUTE( tmp_source_name_30, const_str_plain_mouse );
+    tmp_called_instance_8 = LOOKUP_ATTRIBUTE( tmp_source_name_29, const_str_plain_mouse );
     if ( tmp_called_instance_8 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_14 );
-        Py_DECREF( tmp_args_element_name_20 );
+        Py_DECREF( tmp_called_name_13 );
+        Py_DECREF( tmp_args_element_name_18 );
 
-        exception_lineno = 63;
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
-    frame_module->f_lineno = 63;
-    tmp_subscribed_name_7 = CALL_METHOD_NO_ARGS( tmp_called_instance_8, const_str_plain_get_pos );
+    frame_module->f_lineno = 77;
+    tmp_subscribed_name_5 = CALL_METHOD_NO_ARGS( tmp_called_instance_8, const_str_plain_get_pos );
     Py_DECREF( tmp_called_instance_8 );
-    if ( tmp_subscribed_name_7 == NULL )
+    if ( tmp_subscribed_name_5 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_14 );
-        Py_DECREF( tmp_args_element_name_20 );
+        Py_DECREF( tmp_called_name_13 );
+        Py_DECREF( tmp_args_element_name_18 );
 
-        exception_lineno = 63;
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
-    tmp_subscript_name_7 = const_int_pos_1;
-    tmp_args_element_name_21 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_7, tmp_subscript_name_7 );
-    Py_DECREF( tmp_subscribed_name_7 );
-    if ( tmp_args_element_name_21 == NULL )
+    tmp_subscript_name_5 = const_int_pos_1;
+    tmp_args_element_name_19 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_5, tmp_subscript_name_5 );
+    Py_DECREF( tmp_subscribed_name_5 );
+    if ( tmp_args_element_name_19 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_14 );
-        Py_DECREF( tmp_args_element_name_20 );
+        Py_DECREF( tmp_called_name_13 );
+        Py_DECREF( tmp_args_element_name_18 );
 
-        exception_lineno = 63;
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
-    frame_module->f_lineno = 63;
+    frame_module->f_lineno = 77;
     {
-        PyObject *call_args[] = { tmp_args_element_name_20, tmp_args_element_name_21 };
-        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_14, call_args );
+        PyObject *call_args[] = { tmp_args_element_name_18, tmp_args_element_name_19 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_13, call_args );
     }
 
-    Py_DECREF( tmp_called_name_14 );
-    Py_DECREF( tmp_args_element_name_20 );
-    Py_DECREF( tmp_args_element_name_21 );
+    Py_DECREF( tmp_called_name_13 );
+    Py_DECREF( tmp_args_element_name_18 );
+    Py_DECREF( tmp_args_element_name_19 );
     if ( tmp_unused == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3738,19 +3773,19 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 63;
+        exception_lineno = 77;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_unused );
     branch_no_16:;
-    tmp_source_name_31 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+    tmp_source_name_30 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
 
-    if (unlikely( tmp_source_name_31 == NULL ))
+    if (unlikely( tmp_source_name_30 == NULL ))
     {
-        tmp_source_name_31 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+        tmp_source_name_30 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
     }
 
-    if ( tmp_source_name_31 == NULL )
+    if ( tmp_source_name_30 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3760,11 +3795,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 64;
+        exception_lineno = 78;
         goto try_except_handler_2;
     }
 
-    tmp_compare_left_14 = LOOKUP_ATTRIBUTE( tmp_source_name_31, const_str_plain_button );
+    tmp_compare_left_14 = LOOKUP_ATTRIBUTE( tmp_source_name_30, const_str_plain_button );
     if ( tmp_compare_left_14 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3772,7 +3807,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 64;
+        exception_lineno = 78;
         goto try_except_handler_2;
     }
     tmp_compare_right_14 = const_int_pos_4;
@@ -3784,7 +3819,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_14 );
 
-        exception_lineno = 64;
+        exception_lineno = 78;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_14 );
@@ -3814,11 +3849,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 65;
+        exception_lineno = 79;
         goto try_except_handler_2;
     }
 
-    frame_module->f_lineno = 65;
+    frame_module->f_lineno = 79;
     tmp_unused = CALL_METHOD_NO_ARGS( tmp_called_instance_9, const_str_plain_scale );
     if ( tmp_unused == NULL )
     {
@@ -3827,20 +3862,20 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 65;
+        exception_lineno = 79;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_unused );
     goto branch_end_17;
     branch_no_17:;
-    tmp_source_name_32 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+    tmp_source_name_31 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
 
-    if (unlikely( tmp_source_name_32 == NULL ))
+    if (unlikely( tmp_source_name_31 == NULL ))
     {
-        tmp_source_name_32 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+        tmp_source_name_31 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
     }
 
-    if ( tmp_source_name_32 == NULL )
+    if ( tmp_source_name_31 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -3850,11 +3885,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 66;
+        exception_lineno = 80;
         goto try_except_handler_2;
     }
 
-    tmp_compare_left_15 = LOOKUP_ATTRIBUTE( tmp_source_name_32, const_str_plain_button );
+    tmp_compare_left_15 = LOOKUP_ATTRIBUTE( tmp_source_name_31, const_str_plain_button );
     if ( tmp_compare_left_15 == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -3862,7 +3897,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 66;
+        exception_lineno = 80;
         goto try_except_handler_2;
     }
     tmp_compare_right_15 = const_int_pos_5;
@@ -3874,7 +3909,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
         Py_DECREF( tmp_compare_left_15 );
 
-        exception_lineno = 66;
+        exception_lineno = 80;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_compare_left_15 );
@@ -3904,11 +3939,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 67;
+        exception_lineno = 81;
         goto try_except_handler_2;
     }
 
-    frame_module->f_lineno = 67;
+    frame_module->f_lineno = 81;
     tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_10, const_str_plain_scale, &PyTuple_GET_ITEM( const_tuple_false_tuple, 0 ) );
 
     if ( tmp_unused == NULL )
@@ -3918,7 +3953,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 67;
+        exception_lineno = 81;
         goto try_except_handler_2;
     }
     Py_DECREF( tmp_unused );
@@ -3926,6 +3961,269 @@ MOD_INIT_DECL( __main__ )
     branch_end_17:;
     branch_no_15:;
     branch_no_14:;
+    tmp_source_name_32 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+
+    if (unlikely( tmp_source_name_32 == NULL ))
+    {
+        tmp_source_name_32 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+    }
+
+    if ( tmp_source_name_32 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "e" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 83;
+        goto try_except_handler_2;
+    }
+
+    tmp_compare_left_16 = LOOKUP_ATTRIBUTE( tmp_source_name_32, const_str_plain_type );
+    if ( tmp_compare_left_16 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 83;
+        goto try_except_handler_2;
+    }
+    tmp_source_name_33 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_33 == NULL ))
+    {
+        tmp_source_name_33 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_33 == NULL )
+    {
+        Py_DECREF( tmp_compare_left_16 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 83;
+        goto try_except_handler_2;
+    }
+
+    tmp_compare_right_16 = LOOKUP_ATTRIBUTE( tmp_source_name_33, const_str_plain_VIDEORESIZE );
+    if ( tmp_compare_right_16 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_compare_left_16 );
+
+        exception_lineno = 83;
+        goto try_except_handler_2;
+    }
+    tmp_cmp_Eq_16 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_16, tmp_compare_right_16 );
+    if ( tmp_cmp_Eq_16 == -1 )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_compare_left_16 );
+        Py_DECREF( tmp_compare_right_16 );
+
+        exception_lineno = 83;
+        goto try_except_handler_2;
+    }
+    Py_DECREF( tmp_compare_left_16 );
+    Py_DECREF( tmp_compare_right_16 );
+    if ( tmp_cmp_Eq_16 == 1 )
+    {
+        goto branch_yes_19;
+    }
+    else
+    {
+        goto branch_no_19;
+    }
+    branch_yes_19:;
+    tmp_source_name_35 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_35 == NULL ))
+    {
+        tmp_source_name_35 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_35 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+
+    tmp_source_name_34 = LOOKUP_ATTRIBUTE( tmp_source_name_35, const_str_plain_display );
+    if ( tmp_source_name_34 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    tmp_called_name_14 = LOOKUP_ATTRIBUTE( tmp_source_name_34, const_str_plain_set_mode );
+    Py_DECREF( tmp_source_name_34 );
+    if ( tmp_called_name_14 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    tmp_source_name_36 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_e );
+
+    if (unlikely( tmp_source_name_36 == NULL ))
+    {
+        tmp_source_name_36 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_e );
+    }
+
+    if ( tmp_source_name_36 == NULL )
+    {
+        Py_DECREF( tmp_called_name_14 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "e" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+
+    tmp_subscribed_name_6 = LOOKUP_ATTRIBUTE( tmp_source_name_36, const_str_plain_dict );
+    if ( tmp_subscribed_name_6 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_14 );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    tmp_subscript_name_6 = const_str_plain_size;
+    tmp_args_element_name_20 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_6, tmp_subscript_name_6 );
+    Py_DECREF( tmp_subscribed_name_6 );
+    if ( tmp_args_element_name_20 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_14 );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    tmp_source_name_37 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_37 == NULL ))
+    {
+        tmp_source_name_37 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_37 == NULL )
+    {
+        Py_DECREF( tmp_called_name_14 );
+        Py_DECREF( tmp_args_element_name_20 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+
+    tmp_args_element_name_21 = LOOKUP_ATTRIBUTE( tmp_source_name_37, const_str_plain_RESIZABLE );
+    if ( tmp_args_element_name_21 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_14 );
+        Py_DECREF( tmp_args_element_name_20 );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    frame_module->f_lineno = 84;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_20, tmp_args_element_name_21 };
+        tmp_assattr_name_3 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_14, call_args );
+    }
+
+    Py_DECREF( tmp_called_name_14 );
+    Py_DECREF( tmp_args_element_name_20 );
+    Py_DECREF( tmp_args_element_name_21 );
+    if ( tmp_assattr_name_3 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    tmp_assattr_target_3 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
+
+    if (unlikely( tmp_assattr_target_3 == NULL ))
+    {
+        tmp_assattr_target_3 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
+    }
+
+    if ( tmp_assattr_target_3 == NULL )
+    {
+        Py_DECREF( tmp_assattr_name_3 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+
+    tmp_result = SET_ATTRIBUTE( tmp_assattr_target_3, const_str_plain_page, tmp_assattr_name_3 );
+    if ( tmp_result == false )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_assattr_name_3 );
+
+        exception_lineno = 84;
+        goto try_except_handler_2;
+    }
+    Py_DECREF( tmp_assattr_name_3 );
+    branch_no_19:;
     if ( CONSIDER_THREADING() == false )
     {
         assert( ERROR_OCCURRED() );
@@ -3933,7 +4231,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 33;
+        exception_lineno = 38;
         goto try_except_handler_2;
     }
     goto loop_start_3;
@@ -3971,6 +4269,554 @@ MOD_INIT_DECL( __main__ )
     Py_XDECREF( tmp_for_loop_2__for_iterator );
     tmp_for_loop_2__for_iterator = NULL;
 
+    tmp_cond_value_4 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_mouse_1_down );
+
+    if (unlikely( tmp_cond_value_4 == NULL ))
+    {
+        tmp_cond_value_4 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_mouse_1_down );
+    }
+
+    if ( tmp_cond_value_4 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "mouse_1_down" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 86;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_cond_truth_4 = CHECK_IF_TRUE( tmp_cond_value_4 );
+    if ( tmp_cond_truth_4 == -1 )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 86;
+        goto frame_exception_exit_1;
+    }
+    if ( tmp_cond_truth_4 == 1 )
+    {
+        goto branch_yes_20;
+    }
+    else
+    {
+        goto branch_no_20;
+    }
+    branch_yes_20:;
+    tmp_source_name_38 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_source_name_38 == NULL ))
+    {
+        tmp_source_name_38 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_source_name_38 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_name_15 = LOOKUP_ATTRIBUTE( tmp_source_name_38, const_str_plain_getCursorVariation );
+    if ( tmp_called_name_15 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    tmp_source_name_39 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_39 == NULL ))
+    {
+        tmp_source_name_39 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_39 == NULL )
+    {
+        Py_DECREF( tmp_called_name_15 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_instance_11 = LOOKUP_ATTRIBUTE( tmp_source_name_39, const_str_plain_mouse );
+    if ( tmp_called_instance_11 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_15 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 87;
+    tmp_subscribed_name_7 = CALL_METHOD_NO_ARGS( tmp_called_instance_11, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_11 );
+    if ( tmp_subscribed_name_7 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_15 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscript_name_7 = const_int_0;
+    tmp_args_element_name_22 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_7, tmp_subscript_name_7 );
+    Py_DECREF( tmp_subscribed_name_7 );
+    if ( tmp_args_element_name_22 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_15 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    tmp_source_name_40 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_40 == NULL ))
+    {
+        tmp_source_name_40 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_40 == NULL )
+    {
+        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_args_element_name_22 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_instance_12 = LOOKUP_ATTRIBUTE( tmp_source_name_40, const_str_plain_mouse );
+    if ( tmp_called_instance_12 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_args_element_name_22 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 87;
+    tmp_subscribed_name_8 = CALL_METHOD_NO_ARGS( tmp_called_instance_12, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_12 );
+    if ( tmp_subscribed_name_8 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_args_element_name_22 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscript_name_8 = const_int_pos_1;
+    tmp_args_element_name_23 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_8, tmp_subscript_name_8 );
+    Py_DECREF( tmp_subscribed_name_8 );
+    if ( tmp_args_element_name_23 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_args_element_name_22 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 87;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_22, tmp_args_element_name_23 };
+        tmp_cond_value_5 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_15, call_args );
+    }
+
+    Py_DECREF( tmp_called_name_15 );
+    Py_DECREF( tmp_args_element_name_22 );
+    Py_DECREF( tmp_args_element_name_23 );
+    if ( tmp_cond_value_5 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    tmp_cond_truth_5 = CHECK_IF_TRUE( tmp_cond_value_5 );
+    if ( tmp_cond_truth_5 == -1 )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_cond_value_5 );
+
+        exception_lineno = 87;
+        goto frame_exception_exit_1;
+    }
+    Py_DECREF( tmp_cond_value_5 );
+    if ( tmp_cond_truth_5 == 1 )
+    {
+        goto branch_yes_21;
+    }
+    else
+    {
+        goto branch_no_21;
+    }
+    branch_yes_21:;
+    tmp_source_name_41 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_41 == NULL ))
+    {
+        tmp_source_name_41 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_41 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 88;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_instance_13 = LOOKUP_ATTRIBUTE( tmp_source_name_41, const_str_plain_mouse );
+    if ( tmp_called_instance_13 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 88;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 88;
+    tmp_assign_source_47 = CALL_METHOD_NO_ARGS( tmp_called_instance_13, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_13 );
+    if ( tmp_assign_source_47 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 88;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_release, tmp_assign_source_47 );
+    tmp_source_name_42 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_source_name_42 == NULL ))
+    {
+        tmp_source_name_42 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_source_name_42 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_name_16 = LOOKUP_ATTRIBUTE( tmp_source_name_42, const_str_plain_shift );
+    if ( tmp_called_name_16 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscribed_name_9 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_first_click );
+
+    if (unlikely( tmp_subscribed_name_9 == NULL ))
+    {
+        tmp_subscribed_name_9 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_first_click );
+    }
+
+    if ( tmp_subscribed_name_9 == NULL )
+    {
+        Py_DECREF( tmp_called_name_16 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "first_click" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_subscript_name_9 = const_int_0;
+    tmp_left_name_3 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_9, tmp_subscript_name_9 );
+    if ( tmp_left_name_3 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_16 );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscribed_name_10 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_release );
+
+    if (unlikely( tmp_subscribed_name_10 == NULL ))
+    {
+        tmp_subscribed_name_10 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_release );
+    }
+
+    if ( tmp_subscribed_name_10 == NULL )
+    {
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_left_name_3 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "release" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_subscript_name_10 = const_int_0;
+    tmp_right_name_3 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_10, tmp_subscript_name_10 );
+    if ( tmp_right_name_3 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_left_name_3 );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    tmp_args_element_name_24 = BINARY_OPERATION_SUB( tmp_left_name_3, tmp_right_name_3 );
+    Py_DECREF( tmp_left_name_3 );
+    Py_DECREF( tmp_right_name_3 );
+    if ( tmp_args_element_name_24 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_16 );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscribed_name_11 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_first_click );
+
+    if (unlikely( tmp_subscribed_name_11 == NULL ))
+    {
+        tmp_subscribed_name_11 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_first_click );
+    }
+
+    if ( tmp_subscribed_name_11 == NULL )
+    {
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_args_element_name_24 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "first_click" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_subscript_name_11 = const_int_pos_1;
+    tmp_left_name_4 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_11, tmp_subscript_name_11 );
+    if ( tmp_left_name_4 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_args_element_name_24 );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscribed_name_12 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_release );
+
+    if (unlikely( tmp_subscribed_name_12 == NULL ))
+    {
+        tmp_subscribed_name_12 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_release );
+    }
+
+    if ( tmp_subscribed_name_12 == NULL )
+    {
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_args_element_name_24 );
+        Py_DECREF( tmp_left_name_4 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "release" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_subscript_name_12 = const_int_pos_1;
+    tmp_right_name_4 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_12, tmp_subscript_name_12 );
+    if ( tmp_right_name_4 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_args_element_name_24 );
+        Py_DECREF( tmp_left_name_4 );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    tmp_args_element_name_25 = BINARY_OPERATION_SUB( tmp_left_name_4, tmp_right_name_4 );
+    Py_DECREF( tmp_left_name_4 );
+    Py_DECREF( tmp_right_name_4 );
+    if ( tmp_args_element_name_25 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_args_element_name_24 );
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 89;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_24, tmp_args_element_name_25 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_16, call_args );
+    }
+
+    Py_DECREF( tmp_called_name_16 );
+    Py_DECREF( tmp_args_element_name_24 );
+    Py_DECREF( tmp_args_element_name_25 );
+    if ( tmp_unused == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 89;
+        goto frame_exception_exit_1;
+    }
+    Py_DECREF( tmp_unused );
+    tmp_source_name_43 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+
+    if (unlikely( tmp_source_name_43 == NULL ))
+    {
+        tmp_source_name_43 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+    }
+
+    if ( tmp_source_name_43 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 90;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_instance_14 = LOOKUP_ATTRIBUTE( tmp_source_name_43, const_str_plain_mouse );
+    if ( tmp_called_instance_14 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 90;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 90;
+    tmp_assign_source_48 = CALL_METHOD_NO_ARGS( tmp_called_instance_14, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_14 );
+    if ( tmp_assign_source_48 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 90;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_first_click, tmp_assign_source_48 );
+    tmp_assign_source_49 = Py_True;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid_moved, tmp_assign_source_49 );
+    branch_no_21:;
+    branch_no_20:;
     tmp_iter_arg_4 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence );
 
     if (unlikely( tmp_iter_arg_4 == NULL ))
@@ -3988,24 +4834,24 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 70;
+        exception_lineno = 93;
         goto frame_exception_exit_1;
     }
 
-    tmp_assign_source_38 = MAKE_ITERATOR( tmp_iter_arg_4 );
-    if ( tmp_assign_source_38 == NULL )
+    tmp_assign_source_50 = MAKE_ITERATOR( tmp_iter_arg_4 );
+    if ( tmp_assign_source_50 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 70;
+        exception_lineno = 93;
         goto frame_exception_exit_1;
     }
     {
         PyObject *old = tmp_for_loop_4__for_iterator;
-        tmp_for_loop_4__for_iterator = tmp_assign_source_38;
+        tmp_for_loop_4__for_iterator = tmp_assign_source_50;
         Py_XDECREF( old );
     }
 
@@ -4013,8 +4859,8 @@ MOD_INIT_DECL( __main__ )
     loop_start_5:;
     tmp_next_source_4 = tmp_for_loop_4__for_iterator;
 
-    tmp_assign_source_39 = ITERATOR_NEXT( tmp_next_source_4 );
-    if ( tmp_assign_source_39 == NULL )
+    tmp_assign_source_51 = ITERATOR_NEXT( tmp_next_source_4 );
+    if ( tmp_assign_source_51 == NULL )
     {
         if ( CHECK_AND_CLEAR_STOP_ITERATION_OCCURRED() )
         {
@@ -4025,28 +4871,28 @@ MOD_INIT_DECL( __main__ )
         {
 
             FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-            frame_module->f_lineno = 70;
+            frame_module->f_lineno = 93;
             goto try_except_handler_4;
         }
     }
 
     {
         PyObject *old = tmp_for_loop_4__iter_value;
-        tmp_for_loop_4__iter_value = tmp_assign_source_39;
+        tmp_for_loop_4__iter_value = tmp_assign_source_51;
         Py_XDECREF( old );
     }
 
-    tmp_assign_source_40 = tmp_for_loop_4__iter_value;
+    tmp_assign_source_52 = tmp_for_loop_4__iter_value;
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i, tmp_assign_source_40 );
-    tmp_source_name_33 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i );
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i, tmp_assign_source_52 );
+    tmp_source_name_44 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i );
 
-    if (unlikely( tmp_source_name_33 == NULL ))
+    if (unlikely( tmp_source_name_44 == NULL ))
     {
-        tmp_source_name_33 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_i );
+        tmp_source_name_44 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_i );
     }
 
-    if ( tmp_source_name_33 == NULL )
+    if ( tmp_source_name_44 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -4056,31 +4902,31 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
 
-    tmp_called_name_15 = LOOKUP_ATTRIBUTE( tmp_source_name_33, const_str_plain_setCursorPos );
-    if ( tmp_called_name_15 == NULL )
+    tmp_called_name_17 = LOOKUP_ATTRIBUTE( tmp_source_name_44, const_str_plain_setCursorPos );
+    if ( tmp_called_name_17 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    tmp_source_name_34 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+    tmp_source_name_45 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
 
-    if (unlikely( tmp_source_name_34 == NULL ))
+    if (unlikely( tmp_source_name_45 == NULL ))
     {
-        tmp_source_name_34 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+        tmp_source_name_45 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
     }
 
-    if ( tmp_source_name_34 == NULL )
+    if ( tmp_source_name_45 == NULL )
     {
-        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_called_name_17 );
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
         exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
@@ -4088,58 +4934,58 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
 
-    tmp_called_instance_11 = LOOKUP_ATTRIBUTE( tmp_source_name_34, const_str_plain_mouse );
-    if ( tmp_called_instance_11 == NULL )
+    tmp_called_instance_15 = LOOKUP_ATTRIBUTE( tmp_source_name_45, const_str_plain_mouse );
+    if ( tmp_called_instance_15 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_called_name_17 );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    frame_module->f_lineno = 71;
-    tmp_subscribed_name_8 = CALL_METHOD_NO_ARGS( tmp_called_instance_11, const_str_plain_get_pos );
-    Py_DECREF( tmp_called_instance_11 );
-    if ( tmp_subscribed_name_8 == NULL )
+    frame_module->f_lineno = 94;
+    tmp_subscribed_name_13 = CALL_METHOD_NO_ARGS( tmp_called_instance_15, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_15 );
+    if ( tmp_subscribed_name_13 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_called_name_17 );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    tmp_subscript_name_8 = const_int_0;
-    tmp_args_element_name_22 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_8, tmp_subscript_name_8 );
-    Py_DECREF( tmp_subscribed_name_8 );
-    if ( tmp_args_element_name_22 == NULL )
+    tmp_subscript_name_13 = const_int_0;
+    tmp_args_element_name_26 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_13, tmp_subscript_name_13 );
+    Py_DECREF( tmp_subscribed_name_13 );
+    if ( tmp_args_element_name_26 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_15 );
+        Py_DECREF( tmp_called_name_17 );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    tmp_source_name_35 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+    tmp_source_name_46 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
 
-    if (unlikely( tmp_source_name_35 == NULL ))
+    if (unlikely( tmp_source_name_46 == NULL ))
     {
-        tmp_source_name_35 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+        tmp_source_name_46 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
     }
 
-    if ( tmp_source_name_35 == NULL )
+    if ( tmp_source_name_46 == NULL )
     {
-        Py_DECREF( tmp_called_name_15 );
-        Py_DECREF( tmp_args_element_name_22 );
+        Py_DECREF( tmp_called_name_17 );
+        Py_DECREF( tmp_args_element_name_26 );
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
         exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
@@ -4147,59 +4993,59 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
 
-    tmp_called_instance_12 = LOOKUP_ATTRIBUTE( tmp_source_name_35, const_str_plain_mouse );
-    if ( tmp_called_instance_12 == NULL )
+    tmp_called_instance_16 = LOOKUP_ATTRIBUTE( tmp_source_name_46, const_str_plain_mouse );
+    if ( tmp_called_instance_16 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_15 );
-        Py_DECREF( tmp_args_element_name_22 );
+        Py_DECREF( tmp_called_name_17 );
+        Py_DECREF( tmp_args_element_name_26 );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    frame_module->f_lineno = 71;
-    tmp_subscribed_name_9 = CALL_METHOD_NO_ARGS( tmp_called_instance_12, const_str_plain_get_pos );
-    Py_DECREF( tmp_called_instance_12 );
-    if ( tmp_subscribed_name_9 == NULL )
+    frame_module->f_lineno = 94;
+    tmp_subscribed_name_14 = CALL_METHOD_NO_ARGS( tmp_called_instance_16, const_str_plain_get_pos );
+    Py_DECREF( tmp_called_instance_16 );
+    if ( tmp_subscribed_name_14 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_15 );
-        Py_DECREF( tmp_args_element_name_22 );
+        Py_DECREF( tmp_called_name_17 );
+        Py_DECREF( tmp_args_element_name_26 );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    tmp_subscript_name_9 = const_int_pos_1;
-    tmp_args_element_name_23 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_9, tmp_subscript_name_9 );
-    Py_DECREF( tmp_subscribed_name_9 );
-    if ( tmp_args_element_name_23 == NULL )
+    tmp_subscript_name_14 = const_int_pos_1;
+    tmp_args_element_name_27 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_14, tmp_subscript_name_14 );
+    Py_DECREF( tmp_subscribed_name_14 );
+    if ( tmp_args_element_name_27 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_15 );
-        Py_DECREF( tmp_args_element_name_22 );
+        Py_DECREF( tmp_called_name_17 );
+        Py_DECREF( tmp_args_element_name_26 );
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
-    frame_module->f_lineno = 71;
+    frame_module->f_lineno = 94;
     {
-        PyObject *call_args[] = { tmp_args_element_name_22, tmp_args_element_name_23 };
-        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_15, call_args );
+        PyObject *call_args[] = { tmp_args_element_name_26, tmp_args_element_name_27 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_17, call_args );
     }
 
-    Py_DECREF( tmp_called_name_15 );
-    Py_DECREF( tmp_args_element_name_22 );
-    Py_DECREF( tmp_args_element_name_23 );
+    Py_DECREF( tmp_called_name_17 );
+    Py_DECREF( tmp_args_element_name_26 );
+    Py_DECREF( tmp_args_element_name_27 );
     if ( tmp_unused == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -4207,7 +5053,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 71;
+        exception_lineno = 94;
         goto try_except_handler_4;
     }
     Py_DECREF( tmp_unused );
@@ -4218,7 +5064,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 70;
+        exception_lineno = 93;
         goto try_except_handler_4;
     }
     goto loop_start_5;
@@ -4256,14 +5102,14 @@ MOD_INIT_DECL( __main__ )
     Py_XDECREF( tmp_for_loop_4__for_iterator );
     tmp_for_loop_4__for_iterator = NULL;
 
-    tmp_source_name_36 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
+    tmp_source_name_47 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
 
-    if (unlikely( tmp_source_name_36 == NULL ))
+    if (unlikely( tmp_source_name_47 == NULL ))
     {
-        tmp_source_name_36 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
+        tmp_source_name_47 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
     }
 
-    if ( tmp_source_name_36 == NULL )
+    if ( tmp_source_name_47 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -4273,31 +5119,31 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 73;
+        exception_lineno = 96;
         goto frame_exception_exit_1;
     }
 
-    tmp_called_name_16 = LOOKUP_ATTRIBUTE( tmp_source_name_36, const_str_plain_keysDown );
-    if ( tmp_called_name_16 == NULL )
+    tmp_called_name_18 = LOOKUP_ATTRIBUTE( tmp_source_name_47, const_str_plain_keysDown );
+    if ( tmp_called_name_18 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 73;
+        exception_lineno = 96;
         goto frame_exception_exit_1;
     }
-    tmp_source_name_37 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
+    tmp_source_name_48 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_pygame );
 
-    if (unlikely( tmp_source_name_37 == NULL ))
+    if (unlikely( tmp_source_name_48 == NULL ))
     {
-        tmp_source_name_37 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
+        tmp_source_name_48 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_pygame );
     }
 
-    if ( tmp_source_name_37 == NULL )
+    if ( tmp_source_name_48 == NULL )
     {
-        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_called_name_18 );
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
         exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "pygame" );
@@ -4305,411 +5151,63 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 73;
+        exception_lineno = 96;
         goto frame_exception_exit_1;
     }
 
-    tmp_args_element_name_24 = LOOKUP_ATTRIBUTE( tmp_source_name_37, const_str_plain_K_ESCAPE );
-    if ( tmp_args_element_name_24 == NULL )
+    tmp_args_element_name_28 = LOOKUP_ATTRIBUTE( tmp_source_name_48, const_str_plain_K_ESCAPE );
+    if ( tmp_args_element_name_28 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_16 );
+        Py_DECREF( tmp_called_name_18 );
 
-        exception_lineno = 73;
+        exception_lineno = 96;
         goto frame_exception_exit_1;
     }
-    frame_module->f_lineno = 73;
+    frame_module->f_lineno = 96;
     {
-        PyObject *call_args[] = { tmp_args_element_name_24 };
-        tmp_cond_value_4 = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_16, call_args );
+        PyObject *call_args[] = { tmp_args_element_name_28 };
+        tmp_cond_value_6 = CALL_FUNCTION_WITH_ARGS1( tmp_called_name_18, call_args );
     }
 
-    Py_DECREF( tmp_called_name_16 );
-    Py_DECREF( tmp_args_element_name_24 );
-    if ( tmp_cond_value_4 == NULL )
+    Py_DECREF( tmp_called_name_18 );
+    Py_DECREF( tmp_args_element_name_28 );
+    if ( tmp_cond_value_6 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 73;
+        exception_lineno = 96;
         goto frame_exception_exit_1;
     }
-    tmp_cond_truth_4 = CHECK_IF_TRUE( tmp_cond_value_4 );
-    if ( tmp_cond_truth_4 == -1 )
+    tmp_cond_truth_6 = CHECK_IF_TRUE( tmp_cond_value_6 );
+    if ( tmp_cond_truth_6 == -1 )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_cond_value_4 );
+        Py_DECREF( tmp_cond_value_6 );
 
-        exception_lineno = 73;
+        exception_lineno = 96;
         goto frame_exception_exit_1;
     }
-    Py_DECREF( tmp_cond_value_4 );
-    if ( tmp_cond_truth_4 == 1 )
+    Py_DECREF( tmp_cond_value_6 );
+    if ( tmp_cond_truth_6 == 1 )
     {
-        goto branch_yes_19;
+        goto branch_yes_22;
     }
     else
     {
-        goto branch_no_19;
+        goto branch_no_22;
     }
-    branch_yes_19:;
-    tmp_assign_source_41 = Py_True;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_done, tmp_assign_source_41 );
-    branch_no_19:;
-    tmp_compare_left_16 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
-
-    if (unlikely( tmp_compare_left_16 == NULL ))
-    {
-        tmp_compare_left_16 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_process_stage );
-    }
-
-    if ( tmp_compare_left_16 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "process_stage" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 76;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_compare_right_16 = const_int_0;
-    tmp_cmp_Eq_16 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_16, tmp_compare_right_16 );
-    if ( tmp_cmp_Eq_16 == -1 )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 76;
-        goto frame_exception_exit_1;
-    }
-    if ( tmp_cmp_Eq_16 == 1 )
-    {
-        goto branch_yes_20;
-    }
-    else
-    {
-        goto branch_no_20;
-    }
-    branch_yes_20:;
-    tmp_called_instance_13 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
-
-    if (unlikely( tmp_called_instance_13 == NULL ))
-    {
-        tmp_called_instance_13 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
-    }
-
-    if ( tmp_called_instance_13 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 77;
-        goto frame_exception_exit_1;
-    }
-
-    frame_module->f_lineno = 77;
-    tmp_assign_source_42 = CALL_METHOD_NO_ARGS( tmp_called_instance_13, const_str_plain_keysDown );
-    if ( tmp_assign_source_42 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 77;
-        goto frame_exception_exit_1;
-    }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_keys, tmp_assign_source_42 );
-    tmp_cond_value_5 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_progress );
-
-    if (unlikely( tmp_cond_value_5 == NULL ))
-    {
-        tmp_cond_value_5 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_progress );
-    }
-
-    if ( tmp_cond_value_5 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "progress" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 79;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_cond_truth_5 = CHECK_IF_TRUE( tmp_cond_value_5 );
-    if ( tmp_cond_truth_5 == -1 )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 79;
-        goto frame_exception_exit_1;
-    }
-    if ( tmp_cond_truth_5 == 1 )
-    {
-        goto branch_yes_21;
-    }
-    else
-    {
-        goto branch_no_21;
-    }
-    branch_yes_21:;
-    tmp_source_name_38 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
-
-    if (unlikely( tmp_source_name_38 == NULL ))
-    {
-        tmp_source_name_38 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
-    }
-
-    if ( tmp_source_name_38 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_called_name_17 = LOOKUP_ATTRIBUTE( tmp_source_name_38, const_str_plain_drawGrid );
-    if ( tmp_called_name_17 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    tmp_source_name_39 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
-
-    if (unlikely( tmp_source_name_39 == NULL ))
-    {
-        tmp_source_name_39 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
-    }
-
-    if ( tmp_source_name_39 == NULL )
-    {
-        Py_DECREF( tmp_called_name_17 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_subscribed_name_10 = LOOKUP_ATTRIBUTE( tmp_source_name_39, const_str_plain_vars );
-    if ( tmp_subscribed_name_10 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_17 );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    tmp_subscript_name_10 = const_str_plain_width;
-    tmp_int_arg_2 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_10, tmp_subscript_name_10 );
-    Py_DECREF( tmp_subscribed_name_10 );
-    if ( tmp_int_arg_2 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_17 );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    tmp_args_element_name_25 = PyNumber_Int( tmp_int_arg_2 );
-    Py_DECREF( tmp_int_arg_2 );
-    if ( tmp_args_element_name_25 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_17 );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    tmp_source_name_40 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
-
-    if (unlikely( tmp_source_name_40 == NULL ))
-    {
-        tmp_source_name_40 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
-    }
-
-    if ( tmp_source_name_40 == NULL )
-    {
-        Py_DECREF( tmp_called_name_17 );
-        Py_DECREF( tmp_args_element_name_25 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_subscribed_name_11 = LOOKUP_ATTRIBUTE( tmp_source_name_40, const_str_plain_vars );
-    if ( tmp_subscribed_name_11 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_17 );
-        Py_DECREF( tmp_args_element_name_25 );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    tmp_subscript_name_11 = const_str_plain_height;
-    tmp_int_arg_3 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_11, tmp_subscript_name_11 );
-    Py_DECREF( tmp_subscribed_name_11 );
-    if ( tmp_int_arg_3 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_17 );
-        Py_DECREF( tmp_args_element_name_25 );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    tmp_args_element_name_26 = PyNumber_Int( tmp_int_arg_3 );
-    Py_DECREF( tmp_int_arg_3 );
-    if ( tmp_args_element_name_26 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-        Py_DECREF( tmp_called_name_17 );
-        Py_DECREF( tmp_args_element_name_25 );
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    frame_module->f_lineno = 80;
-    {
-        PyObject *call_args[] = { tmp_args_element_name_25, tmp_args_element_name_26 };
-        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_17, call_args );
-    }
-
-    Py_DECREF( tmp_called_name_17 );
-    Py_DECREF( tmp_args_element_name_25 );
-    Py_DECREF( tmp_args_element_name_26 );
-    if ( tmp_unused == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 80;
-        goto frame_exception_exit_1;
-    }
-    Py_DECREF( tmp_unused );
-    tmp_assign_source_43 = PyList_New( 1 );
-    tmp_list_element_2 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
-
-    if (unlikely( tmp_list_element_2 == NULL ))
-    {
-        tmp_list_element_2 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
-    }
-
-    if ( tmp_list_element_2 == NULL )
-    {
-        Py_DECREF( tmp_assign_source_43 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 81;
-        goto frame_exception_exit_1;
-    }
-
-    Py_INCREF( tmp_list_element_2 );
-    PyList_SET_ITEM( tmp_assign_source_43, 0, tmp_list_element_2 );
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence, tmp_assign_source_43 );
-    tmp_left_name_3 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
-
-    if (unlikely( tmp_left_name_3 == NULL ))
-    {
-        tmp_left_name_3 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_process_stage );
-    }
-
-    if ( tmp_left_name_3 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "process_stage" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 82;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_right_name_3 = const_int_pos_1;
-    tmp_assign_source_44 = BINARY_OPERATION( PyNumber_InPlaceAdd, tmp_left_name_3, tmp_right_name_3 );
-    if ( tmp_assign_source_44 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 82;
-        goto frame_exception_exit_1;
-    }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage, tmp_assign_source_44 );
-    branch_no_21:;
-    branch_no_20:;
+    branch_yes_22:;
+    tmp_assign_source_53 = Py_True;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_done, tmp_assign_source_53 );
+    branch_no_22:;
     tmp_compare_left_17 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
 
     if (unlikely( tmp_compare_left_17 == NULL ))
@@ -4727,11 +5225,11 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 84;
+        exception_lineno = 99;
         goto frame_exception_exit_1;
     }
 
-    tmp_compare_right_17 = const_int_pos_1;
+    tmp_compare_right_17 = const_int_0;
     tmp_cmp_Eq_17 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_17, tmp_compare_right_17 );
     if ( tmp_cmp_Eq_17 == -1 )
     {
@@ -4740,85 +5238,10 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 84;
+        exception_lineno = 99;
         goto frame_exception_exit_1;
     }
     if ( tmp_cmp_Eq_17 == 1 )
-    {
-        goto branch_yes_22;
-    }
-    else
-    {
-        goto branch_no_22;
-    }
-    branch_yes_22:;
-    tmp_called_instance_14 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
-
-    if (unlikely( tmp_called_instance_14 == NULL ))
-    {
-        tmp_called_instance_14 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
-    }
-
-    if ( tmp_called_instance_14 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 85;
-        goto frame_exception_exit_1;
-    }
-
-    frame_module->f_lineno = 85;
-    tmp_assign_source_45 = CALL_METHOD_NO_ARGS( tmp_called_instance_14, const_str_plain_Clock );
-    if ( tmp_assign_source_45 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 85;
-        goto frame_exception_exit_1;
-    }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete, tmp_assign_source_45 );
-    tmp_cond_value_6 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete );
-
-    if (unlikely( tmp_cond_value_6 == NULL ))
-    {
-        tmp_cond_value_6 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_complete );
-    }
-
-    if ( tmp_cond_value_6 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "complete" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 87;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_cond_truth_6 = CHECK_IF_TRUE( tmp_cond_value_6 );
-    if ( tmp_cond_truth_6 == -1 )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 87;
-        goto frame_exception_exit_1;
-    }
-    if ( tmp_cond_truth_6 == 1 )
     {
         goto branch_yes_23;
     }
@@ -4827,35 +5250,45 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_23;
     }
     branch_yes_23:;
-    tmp_assign_source_46 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_winscreen );
+    tmp_called_instance_17 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
 
-    if (unlikely( tmp_assign_source_46 == NULL ))
+    if (unlikely( tmp_called_instance_17 == NULL ))
     {
-        tmp_assign_source_46 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_winscreen );
+        tmp_called_instance_17 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
     }
 
-    if ( tmp_assign_source_46 == NULL )
+    if ( tmp_called_instance_17 == NULL )
     {
 
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "winscreen" );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
         exception_tb = NULL;
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 88;
+        exception_lineno = 100;
         goto frame_exception_exit_1;
     }
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen, tmp_assign_source_46 );
-    goto branch_end_23;
-    branch_no_23:;
-    tmp_cond_value_7 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss );
+    frame_module->f_lineno = 100;
+    tmp_assign_source_54 = CALL_METHOD_NO_ARGS( tmp_called_instance_17, const_str_plain_keysDown );
+    if ( tmp_assign_source_54 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 100;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_keys, tmp_assign_source_54 );
+    tmp_cond_value_7 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_progress );
 
     if (unlikely( tmp_cond_value_7 == NULL ))
     {
-        tmp_cond_value_7 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_loss );
+        tmp_cond_value_7 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_progress );
     }
 
     if ( tmp_cond_value_7 == NULL )
@@ -4863,12 +5296,12 @@ MOD_INIT_DECL( __main__ )
 
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "loss" );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "progress" );
         exception_tb = NULL;
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 90;
+        exception_lineno = 102;
         goto frame_exception_exit_1;
     }
 
@@ -4880,7 +5313,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 90;
+        exception_lineno = 102;
         goto frame_exception_exit_1;
     }
     if ( tmp_cond_truth_7 == 1 )
@@ -4892,14 +5325,427 @@ MOD_INIT_DECL( __main__ )
         goto branch_no_24;
     }
     branch_yes_24:;
-    tmp_assign_source_47 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_lossscreen );
+    tmp_source_name_49 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
-    if (unlikely( tmp_assign_source_47 == NULL ))
+    if (unlikely( tmp_source_name_49 == NULL ))
     {
-        tmp_assign_source_47 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_lossscreen );
+        tmp_source_name_49 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
     }
 
-    if ( tmp_assign_source_47 == NULL )
+    if ( tmp_source_name_49 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_called_name_19 = LOOKUP_ATTRIBUTE( tmp_source_name_49, const_str_plain_drawGrid );
+    if ( tmp_called_name_19 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    tmp_source_name_50 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
+
+    if (unlikely( tmp_source_name_50 == NULL ))
+    {
+        tmp_source_name_50 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
+    }
+
+    if ( tmp_source_name_50 == NULL )
+    {
+        Py_DECREF( tmp_called_name_19 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_subscribed_name_15 = LOOKUP_ATTRIBUTE( tmp_source_name_50, const_str_plain_vars );
+    if ( tmp_subscribed_name_15 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_19 );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscript_name_15 = const_str_plain_width;
+    tmp_int_arg_2 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_15, tmp_subscript_name_15 );
+    Py_DECREF( tmp_subscribed_name_15 );
+    if ( tmp_int_arg_2 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_19 );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    tmp_args_element_name_29 = PyNumber_Int( tmp_int_arg_2 );
+    Py_DECREF( tmp_int_arg_2 );
+    if ( tmp_args_element_name_29 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_19 );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    tmp_source_name_51 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
+
+    if (unlikely( tmp_source_name_51 == NULL ))
+    {
+        tmp_source_name_51 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
+    }
+
+    if ( tmp_source_name_51 == NULL )
+    {
+        Py_DECREF( tmp_called_name_19 );
+        Py_DECREF( tmp_args_element_name_29 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_subscribed_name_16 = LOOKUP_ATTRIBUTE( tmp_source_name_51, const_str_plain_vars );
+    if ( tmp_subscribed_name_16 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_19 );
+        Py_DECREF( tmp_args_element_name_29 );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    tmp_subscript_name_16 = const_str_plain_height;
+    tmp_int_arg_3 = LOOKUP_SUBSCRIPT( tmp_subscribed_name_16, tmp_subscript_name_16 );
+    Py_DECREF( tmp_subscribed_name_16 );
+    if ( tmp_int_arg_3 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_19 );
+        Py_DECREF( tmp_args_element_name_29 );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    tmp_args_element_name_30 = PyNumber_Int( tmp_int_arg_3 );
+    Py_DECREF( tmp_int_arg_3 );
+    if ( tmp_args_element_name_30 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+        Py_DECREF( tmp_called_name_19 );
+        Py_DECREF( tmp_args_element_name_29 );
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    frame_module->f_lineno = 103;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_29, tmp_args_element_name_30 };
+        tmp_unused = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_19, call_args );
+    }
+
+    Py_DECREF( tmp_called_name_19 );
+    Py_DECREF( tmp_args_element_name_29 );
+    Py_DECREF( tmp_args_element_name_30 );
+    if ( tmp_unused == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 103;
+        goto frame_exception_exit_1;
+    }
+    Py_DECREF( tmp_unused );
+    tmp_assign_source_55 = PyList_New( 1 );
+    tmp_list_element_2 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_list_element_2 == NULL ))
+    {
+        tmp_list_element_2 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_list_element_2 == NULL )
+    {
+        Py_DECREF( tmp_assign_source_55 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 104;
+        goto frame_exception_exit_1;
+    }
+
+    Py_INCREF( tmp_list_element_2 );
+    PyList_SET_ITEM( tmp_assign_source_55, 0, tmp_list_element_2 );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence, tmp_assign_source_55 );
+    tmp_left_name_5 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
+
+    if (unlikely( tmp_left_name_5 == NULL ))
+    {
+        tmp_left_name_5 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_process_stage );
+    }
+
+    if ( tmp_left_name_5 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "process_stage" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 105;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_right_name_5 = const_int_pos_1;
+    tmp_assign_source_56 = BINARY_OPERATION( PyNumber_InPlaceAdd, tmp_left_name_5, tmp_right_name_5 );
+    if ( tmp_assign_source_56 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 105;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage, tmp_assign_source_56 );
+    branch_no_24:;
+    branch_no_23:;
+    tmp_compare_left_18 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
+
+    if (unlikely( tmp_compare_left_18 == NULL ))
+    {
+        tmp_compare_left_18 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_process_stage );
+    }
+
+    if ( tmp_compare_left_18 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "process_stage" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 107;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_compare_right_18 = const_int_pos_1;
+    tmp_cmp_Eq_18 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_18, tmp_compare_right_18 );
+    if ( tmp_cmp_Eq_18 == -1 )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 107;
+        goto frame_exception_exit_1;
+    }
+    if ( tmp_cmp_Eq_18 == 1 )
+    {
+        goto branch_yes_25;
+    }
+    else
+    {
+        goto branch_no_25;
+    }
+    branch_yes_25:;
+    tmp_called_instance_18 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+
+    if (unlikely( tmp_called_instance_18 == NULL ))
+    {
+        tmp_called_instance_18 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+    }
+
+    if ( tmp_called_instance_18 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 108;
+        goto frame_exception_exit_1;
+    }
+
+    frame_module->f_lineno = 108;
+    tmp_assign_source_57 = CALL_METHOD_NO_ARGS( tmp_called_instance_18, const_str_plain_Clock );
+    if ( tmp_assign_source_57 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 108;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete, tmp_assign_source_57 );
+    tmp_cond_value_8 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete );
+
+    if (unlikely( tmp_cond_value_8 == NULL ))
+    {
+        tmp_cond_value_8 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_complete );
+    }
+
+    if ( tmp_cond_value_8 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "complete" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 110;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_cond_truth_8 = CHECK_IF_TRUE( tmp_cond_value_8 );
+    if ( tmp_cond_truth_8 == -1 )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 110;
+        goto frame_exception_exit_1;
+    }
+    if ( tmp_cond_truth_8 == 1 )
+    {
+        goto branch_yes_26;
+    }
+    else
+    {
+        goto branch_no_26;
+    }
+    branch_yes_26:;
+    tmp_assign_source_58 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_winscreen );
+
+    if (unlikely( tmp_assign_source_58 == NULL ))
+    {
+        tmp_assign_source_58 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_winscreen );
+    }
+
+    if ( tmp_assign_source_58 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "winscreen" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 111;
+        goto frame_exception_exit_1;
+    }
+
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen, tmp_assign_source_58 );
+    goto branch_end_26;
+    branch_no_26:;
+    tmp_cond_value_9 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss );
+
+    if (unlikely( tmp_cond_value_9 == NULL ))
+    {
+        tmp_cond_value_9 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_loss );
+    }
+
+    if ( tmp_cond_value_9 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "loss" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 113;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_cond_truth_9 = CHECK_IF_TRUE( tmp_cond_value_9 );
+    if ( tmp_cond_truth_9 == -1 )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 113;
+        goto frame_exception_exit_1;
+    }
+    if ( tmp_cond_truth_9 == 1 )
+    {
+        goto branch_yes_27;
+    }
+    else
+    {
+        goto branch_no_27;
+    }
+    branch_yes_27:;
+    tmp_assign_source_59 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_lossscreen );
+
+    if (unlikely( tmp_assign_source_59 == NULL ))
+    {
+        tmp_assign_source_59 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_lossscreen );
+    }
+
+    if ( tmp_assign_source_59 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -4909,13 +5755,13 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 91;
+        exception_lineno = 114;
         goto frame_exception_exit_1;
     }
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen, tmp_assign_source_47 );
-    branch_no_24:;
-    branch_end_23:;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen, tmp_assign_source_59 );
+    branch_no_27:;
+    branch_end_26:;
     tmp_or_left_value_1 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete );
 
     if (unlikely( tmp_or_left_value_1 == NULL ))
@@ -4933,7 +5779,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 93;
+        exception_lineno = 116;
         goto frame_exception_exit_1;
     }
 
@@ -4945,7 +5791,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 93;
+        exception_lineno = 116;
         goto frame_exception_exit_1;
     }
     if ( tmp_or_left_truth_1 == 1 )
@@ -4974,43 +5820,43 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 93;
+        exception_lineno = 116;
         goto frame_exception_exit_1;
     }
 
-    tmp_cond_value_8 = tmp_or_right_value_1;
+    tmp_cond_value_10 = tmp_or_right_value_1;
     goto or_end_1;
     or_left_1:;
-    tmp_cond_value_8 = tmp_or_left_value_1;
+    tmp_cond_value_10 = tmp_or_left_value_1;
     or_end_1:;
-    tmp_cond_truth_8 = CHECK_IF_TRUE( tmp_cond_value_8 );
-    if ( tmp_cond_truth_8 == -1 )
+    tmp_cond_truth_10 = CHECK_IF_TRUE( tmp_cond_value_10 );
+    if ( tmp_cond_truth_10 == -1 )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 93;
+        exception_lineno = 116;
         goto frame_exception_exit_1;
     }
-    if ( tmp_cond_truth_8 == 1 )
+    if ( tmp_cond_truth_10 == 1 )
     {
-        goto branch_yes_25;
+        goto branch_yes_28;
     }
     else
     {
-        goto branch_no_25;
+        goto branch_no_28;
     }
-    branch_yes_25:;
-    tmp_called_instance_15 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
+    branch_yes_28:;
+    tmp_called_instance_19 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid );
 
-    if (unlikely( tmp_called_instance_15 == NULL ))
+    if (unlikely( tmp_called_instance_19 == NULL ))
     {
-        tmp_called_instance_15 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
+        tmp_called_instance_19 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_grid );
     }
 
-    if ( tmp_called_instance_15 == NULL )
+    if ( tmp_called_instance_19 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5020,12 +5866,12 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 94;
+        exception_lineno = 117;
         goto frame_exception_exit_1;
     }
 
-    frame_module->f_lineno = 94;
-    tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_15, const_str_plain_render, &PyTuple_GET_ITEM( const_tuple_false_tuple, 0 ) );
+    frame_module->f_lineno = 117;
+    tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_19, const_str_plain_render, &PyTuple_GET_ITEM( const_tuple_false_tuple, 0 ) );
 
     if ( tmp_unused == NULL )
     {
@@ -5034,11 +5880,11 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 94;
+        exception_lineno = 117;
         goto frame_exception_exit_1;
     }
     Py_DECREF( tmp_unused );
-    tmp_assign_source_48 = PyList_New( 1 );
+    tmp_assign_source_60 = PyList_New( 1 );
     tmp_list_element_3 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen );
 
     if (unlikely( tmp_list_element_3 == NULL ))
@@ -5048,7 +5894,7 @@ MOD_INIT_DECL( __main__ )
 
     if ( tmp_list_element_3 == NULL )
     {
-        Py_DECREF( tmp_assign_source_48 );
+        Py_DECREF( tmp_assign_source_60 );
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
         exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "endscreen" );
@@ -5056,25 +5902,25 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 95;
+        exception_lineno = 118;
         goto frame_exception_exit_1;
     }
 
     Py_INCREF( tmp_list_element_3 );
-    PyList_SET_ITEM( tmp_assign_source_48, 0, tmp_list_element_3 );
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence, tmp_assign_source_48 );
-    tmp_assign_source_49 = const_int_pos_2;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage, tmp_assign_source_49 );
+    PyList_SET_ITEM( tmp_assign_source_60, 0, tmp_list_element_3 );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence, tmp_assign_source_60 );
+    tmp_assign_source_61 = const_int_pos_2;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage, tmp_assign_source_61 );
+    branch_no_28:;
     branch_no_25:;
-    branch_no_22:;
-    tmp_compare_left_18 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
+    tmp_compare_left_19 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage );
 
-    if (unlikely( tmp_compare_left_18 == NULL ))
+    if (unlikely( tmp_compare_left_19 == NULL ))
     {
-        tmp_compare_left_18 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_process_stage );
+        tmp_compare_left_19 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_process_stage );
     }
 
-    if ( tmp_compare_left_18 == NULL )
+    if ( tmp_compare_left_19 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5084,39 +5930,39 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 98;
+        exception_lineno = 121;
         goto frame_exception_exit_1;
     }
 
-    tmp_compare_right_18 = const_int_pos_2;
-    tmp_cmp_Eq_18 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_18, tmp_compare_right_18 );
-    if ( tmp_cmp_Eq_18 == -1 )
+    tmp_compare_right_19 = const_int_pos_2;
+    tmp_cmp_Eq_19 = RICH_COMPARE_BOOL_EQ_NORECURSE( tmp_compare_left_19, tmp_compare_right_19 );
+    if ( tmp_cmp_Eq_19 == -1 )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 98;
+        exception_lineno = 121;
         goto frame_exception_exit_1;
     }
-    if ( tmp_cmp_Eq_18 == 1 )
+    if ( tmp_cmp_Eq_19 == 1 )
     {
-        goto branch_yes_26;
+        goto branch_yes_29;
     }
     else
     {
-        goto branch_no_26;
+        goto branch_no_29;
     }
-    branch_yes_26:;
-    tmp_cond_value_9 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_cont );
+    branch_yes_29:;
+    tmp_cond_value_11 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_cont );
 
-    if (unlikely( tmp_cond_value_9 == NULL ))
+    if (unlikely( tmp_cond_value_11 == NULL ))
     {
-        tmp_cond_value_9 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_cont );
+        tmp_cond_value_11 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_cont );
     }
 
-    if ( tmp_cond_value_9 == NULL )
+    if ( tmp_cond_value_11 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5126,38 +5972,38 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 99;
+        exception_lineno = 122;
         goto frame_exception_exit_1;
     }
 
-    tmp_cond_truth_9 = CHECK_IF_TRUE( tmp_cond_value_9 );
-    if ( tmp_cond_truth_9 == -1 )
+    tmp_cond_truth_11 = CHECK_IF_TRUE( tmp_cond_value_11 );
+    if ( tmp_cond_truth_11 == -1 )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 99;
+        exception_lineno = 122;
         goto frame_exception_exit_1;
     }
-    if ( tmp_cond_truth_9 == 1 )
+    if ( tmp_cond_truth_11 == 1 )
     {
-        goto branch_yes_27;
+        goto branch_yes_30;
     }
     else
     {
-        goto branch_no_27;
+        goto branch_no_30;
     }
-    branch_yes_27:;
-    tmp_source_name_41 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
+    branch_yes_30:;
+    tmp_source_name_52 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
 
-    if (unlikely( tmp_source_name_41 == NULL ))
+    if (unlikely( tmp_source_name_52 == NULL ))
     {
-        tmp_source_name_41 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
+        tmp_source_name_52 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
     }
 
-    if ( tmp_source_name_41 == NULL )
+    if ( tmp_source_name_52 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5167,25 +6013,25 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 100;
+        exception_lineno = 123;
         goto frame_exception_exit_1;
     }
 
-    tmp_called_instance_16 = LOOKUP_ATTRIBUTE( tmp_source_name_41, const_str_plain_page );
-    if ( tmp_called_instance_16 == NULL )
+    tmp_called_instance_20 = LOOKUP_ATTRIBUTE( tmp_source_name_52, const_str_plain_page );
+    if ( tmp_called_instance_20 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 100;
+        exception_lineno = 123;
         goto frame_exception_exit_1;
     }
-    frame_module->f_lineno = 100;
-    tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_16, const_str_plain_fill, &PyTuple_GET_ITEM( const_tuple_tuple_int_0_int_0_int_0_tuple_tuple, 0 ) );
+    frame_module->f_lineno = 123;
+    tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_20, const_str_plain_fill, &PyTuple_GET_ITEM( const_tuple_tuple_int_0_int_0_int_0_tuple_tuple, 0 ) );
 
-    Py_DECREF( tmp_called_instance_16 );
+    Py_DECREF( tmp_called_instance_20 );
     if ( tmp_unused == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -5193,20 +6039,20 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 100;
+        exception_lineno = 123;
         goto frame_exception_exit_1;
     }
     Py_DECREF( tmp_unused );
-    tmp_assign_source_50 = const_int_0;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage, tmp_assign_source_50 );
-    tmp_called_name_18 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_StartScreen );
+    tmp_assign_source_62 = const_int_0;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_process_stage, tmp_assign_source_62 );
+    tmp_called_name_20 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_StartScreen );
 
-    if (unlikely( tmp_called_name_18 == NULL ))
+    if (unlikely( tmp_called_name_20 == NULL ))
     {
-        tmp_called_name_18 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_StartScreen );
+        tmp_called_name_20 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_StartScreen );
     }
 
-    if ( tmp_called_name_18 == NULL )
+    if ( tmp_called_name_20 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5216,167 +6062,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 102;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_args_element_name_27 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
-
-    if (unlikely( tmp_args_element_name_27 == NULL ))
-    {
-        tmp_args_element_name_27 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
-    }
-
-    if ( tmp_args_element_name_27 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 102;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_args_element_name_28 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_images );
-
-    if (unlikely( tmp_args_element_name_28 == NULL ))
-    {
-        tmp_args_element_name_28 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_images );
-    }
-
-    if ( tmp_args_element_name_28 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "images" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 102;
-        goto frame_exception_exit_1;
-    }
-
-    frame_module->f_lineno = 102;
-    {
-        PyObject *call_args[] = { tmp_args_element_name_27, tmp_args_element_name_28 };
-        tmp_assign_source_51 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_18, call_args );
-    }
-
-    if ( tmp_assign_source_51 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 102;
-        goto frame_exception_exit_1;
-    }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen, tmp_assign_source_51 );
-    tmp_called_name_19 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_WinScreen );
-
-    if (unlikely( tmp_called_name_19 == NULL ))
-    {
-        tmp_called_name_19 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_WinScreen );
-    }
-
-    if ( tmp_called_name_19 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "WinScreen" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 103;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_args_element_name_29 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
-
-    if (unlikely( tmp_args_element_name_29 == NULL ))
-    {
-        tmp_args_element_name_29 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
-    }
-
-    if ( tmp_args_element_name_29 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 103;
-        goto frame_exception_exit_1;
-    }
-
-    tmp_args_element_name_30 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_images );
-
-    if (unlikely( tmp_args_element_name_30 == NULL ))
-    {
-        tmp_args_element_name_30 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_images );
-    }
-
-    if ( tmp_args_element_name_30 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "images" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 103;
-        goto frame_exception_exit_1;
-    }
-
-    frame_module->f_lineno = 103;
-    {
-        PyObject *call_args[] = { tmp_args_element_name_29, tmp_args_element_name_30 };
-        tmp_assign_source_52 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_19, call_args );
-    }
-
-    if ( tmp_assign_source_52 == NULL )
-    {
-        assert( ERROR_OCCURRED() );
-
-        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-
-
-        exception_lineno = 103;
-        goto frame_exception_exit_1;
-    }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_winscreen, tmp_assign_source_52 );
-    tmp_called_name_20 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_LossScreen );
-
-    if (unlikely( tmp_called_name_20 == NULL ))
-    {
-        tmp_called_name_20 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_LossScreen );
-    }
-
-    if ( tmp_called_name_20 == NULL )
-    {
-
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "LossScreen" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 104;
+        exception_lineno = 125;
         goto frame_exception_exit_1;
     }
 
@@ -5397,7 +6083,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 104;
+        exception_lineno = 125;
         goto frame_exception_exit_1;
     }
 
@@ -5418,57 +6104,32 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 104;
+        exception_lineno = 125;
         goto frame_exception_exit_1;
     }
 
-    frame_module->f_lineno = 104;
+    frame_module->f_lineno = 125;
     {
         PyObject *call_args[] = { tmp_args_element_name_31, tmp_args_element_name_32 };
-        tmp_assign_source_53 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_20, call_args );
+        tmp_assign_source_63 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_20, call_args );
     }
 
-    if ( tmp_assign_source_53 == NULL )
+    if ( tmp_assign_source_63 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 104;
+        exception_lineno = 125;
         goto frame_exception_exit_1;
     }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_lossscreen, tmp_assign_source_53 );
-    tmp_assign_source_54 = PyList_New( 1 );
-    tmp_list_element_4 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
-
-    if (unlikely( tmp_list_element_4 == NULL ))
-    {
-        tmp_list_element_4 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
-    }
-
-    if ( tmp_list_element_4 == NULL )
-    {
-        Py_DECREF( tmp_assign_source_54 );
-        exception_type = PyExc_NameError;
-        Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
-        exception_tb = NULL;
-        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
-        CHAIN_EXCEPTION( exception_value );
-
-        exception_lineno = 105;
-        goto frame_exception_exit_1;
-    }
-
-    Py_INCREF( tmp_list_element_4 );
-    PyList_SET_ITEM( tmp_assign_source_54, 0, tmp_list_element_4 );
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence, tmp_assign_source_54 );
-    tmp_called_name_21 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_Grid );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen, tmp_assign_source_63 );
+    tmp_called_name_21 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_WinScreen );
 
     if (unlikely( tmp_called_name_21 == NULL ))
     {
-        tmp_called_name_21 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_Grid );
+        tmp_called_name_21 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_WinScreen );
     }
 
     if ( tmp_called_name_21 == NULL )
@@ -5476,12 +6137,12 @@ MOD_INIT_DECL( __main__ )
 
         exception_type = PyExc_NameError;
         Py_INCREF( exception_type );
-        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "Grid" );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "WinScreen" );
         exception_tb = NULL;
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 106;
+        exception_lineno = 126;
         goto frame_exception_exit_1;
     }
 
@@ -5502,7 +6163,7 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 106;
+        exception_lineno = 126;
         goto frame_exception_exit_1;
     }
 
@@ -5523,45 +6184,230 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 106;
+        exception_lineno = 126;
         goto frame_exception_exit_1;
     }
 
-    frame_module->f_lineno = 106;
+    frame_module->f_lineno = 126;
     {
         PyObject *call_args[] = { tmp_args_element_name_33, tmp_args_element_name_34 };
-        tmp_assign_source_55 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_21, call_args );
+        tmp_assign_source_64 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_21, call_args );
     }
 
-    if ( tmp_assign_source_55 == NULL )
+    if ( tmp_assign_source_64 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 106;
+        exception_lineno = 126;
         goto frame_exception_exit_1;
     }
-    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid, tmp_assign_source_55 );
-    tmp_assign_source_56 = Py_False;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_progress, tmp_assign_source_56 );
-    tmp_assign_source_57 = Py_False;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_cont, tmp_assign_source_57 );
-    tmp_assign_source_58 = Py_False;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_started, tmp_assign_source_58 );
-    tmp_assign_source_59 = Py_False;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss, tmp_assign_source_59 );
-    tmp_assign_source_60 = Py_False;
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete, tmp_assign_source_60 );
-    tmp_assign_source_61 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_lossscreen );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_winscreen, tmp_assign_source_64 );
+    tmp_called_name_22 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_LossScreen );
 
-    if (unlikely( tmp_assign_source_61 == NULL ))
+    if (unlikely( tmp_called_name_22 == NULL ))
     {
-        tmp_assign_source_61 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_lossscreen );
+        tmp_called_name_22 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_LossScreen );
     }
 
-    if ( tmp_assign_source_61 == NULL )
+    if ( tmp_called_name_22 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "LossScreen" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 127;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_args_element_name_35 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
+
+    if (unlikely( tmp_args_element_name_35 == NULL ))
+    {
+        tmp_args_element_name_35 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
+    }
+
+    if ( tmp_args_element_name_35 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 127;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_args_element_name_36 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_images );
+
+    if (unlikely( tmp_args_element_name_36 == NULL ))
+    {
+        tmp_args_element_name_36 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_images );
+    }
+
+    if ( tmp_args_element_name_36 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "images" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 127;
+        goto frame_exception_exit_1;
+    }
+
+    frame_module->f_lineno = 127;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_35, tmp_args_element_name_36 };
+        tmp_assign_source_65 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_22, call_args );
+    }
+
+    if ( tmp_assign_source_65 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 127;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_lossscreen, tmp_assign_source_65 );
+    tmp_assign_source_66 = PyList_New( 1 );
+    tmp_list_element_4 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_startscreen );
+
+    if (unlikely( tmp_list_element_4 == NULL ))
+    {
+        tmp_list_element_4 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_startscreen );
+    }
+
+    if ( tmp_list_element_4 == NULL )
+    {
+        Py_DECREF( tmp_assign_source_66 );
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "startscreen" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 128;
+        goto frame_exception_exit_1;
+    }
+
+    Py_INCREF( tmp_list_element_4 );
+    PyList_SET_ITEM( tmp_assign_source_66, 0, tmp_list_element_4 );
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence, tmp_assign_source_66 );
+    tmp_called_name_23 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_Grid );
+
+    if (unlikely( tmp_called_name_23 == NULL ))
+    {
+        tmp_called_name_23 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_Grid );
+    }
+
+    if ( tmp_called_name_23 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "Grid" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 129;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_args_element_name_37 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
+
+    if (unlikely( tmp_args_element_name_37 == NULL ))
+    {
+        tmp_args_element_name_37 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
+    }
+
+    if ( tmp_args_element_name_37 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "gui" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 129;
+        goto frame_exception_exit_1;
+    }
+
+    tmp_args_element_name_38 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_images );
+
+    if (unlikely( tmp_args_element_name_38 == NULL ))
+    {
+        tmp_args_element_name_38 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_images );
+    }
+
+    if ( tmp_args_element_name_38 == NULL )
+    {
+
+        exception_type = PyExc_NameError;
+        Py_INCREF( exception_type );
+        exception_value = PyUnicode_FromFormat( "name '%s' is not defined", "images" );
+        exception_tb = NULL;
+        NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
+        CHAIN_EXCEPTION( exception_value );
+
+        exception_lineno = 129;
+        goto frame_exception_exit_1;
+    }
+
+    frame_module->f_lineno = 129;
+    {
+        PyObject *call_args[] = { tmp_args_element_name_37, tmp_args_element_name_38 };
+        tmp_assign_source_67 = CALL_FUNCTION_WITH_ARGS2( tmp_called_name_23, call_args );
+    }
+
+    if ( tmp_assign_source_67 == NULL )
+    {
+        assert( ERROR_OCCURRED() );
+
+        FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
+
+
+        exception_lineno = 129;
+        goto frame_exception_exit_1;
+    }
+    UPDATE_STRING_DICT1( moduledict___main__, (Nuitka_StringObject *)const_str_plain_grid, tmp_assign_source_67 );
+    tmp_assign_source_68 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_progress, tmp_assign_source_68 );
+    tmp_assign_source_69 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_cont, tmp_assign_source_69 );
+    tmp_assign_source_70 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_started, tmp_assign_source_70 );
+    tmp_assign_source_71 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_loss, tmp_assign_source_71 );
+    tmp_assign_source_72 = Py_False;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_complete, tmp_assign_source_72 );
+    tmp_assign_source_73 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_lossscreen );
+
+    if (unlikely( tmp_assign_source_73 == NULL ))
+    {
+        tmp_assign_source_73 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_lossscreen );
+    }
+
+    if ( tmp_assign_source_73 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5571,13 +6417,13 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 112;
+        exception_lineno = 135;
         goto frame_exception_exit_1;
     }
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen, tmp_assign_source_61 );
-    branch_no_27:;
-    branch_no_26:;
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_endscreen, tmp_assign_source_73 );
+    branch_no_30:;
+    branch_no_29:;
     tmp_iter_arg_5 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_render_sequence );
 
     if (unlikely( tmp_iter_arg_5 == NULL ))
@@ -5595,24 +6441,24 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 115;
+        exception_lineno = 138;
         goto frame_exception_exit_1;
     }
 
-    tmp_assign_source_62 = MAKE_ITERATOR( tmp_iter_arg_5 );
-    if ( tmp_assign_source_62 == NULL )
+    tmp_assign_source_74 = MAKE_ITERATOR( tmp_iter_arg_5 );
+    if ( tmp_assign_source_74 == NULL )
     {
         assert( ERROR_OCCURRED() );
 
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 115;
+        exception_lineno = 138;
         goto frame_exception_exit_1;
     }
     {
         PyObject *old = tmp_for_loop_5__for_iterator;
-        tmp_for_loop_5__for_iterator = tmp_assign_source_62;
+        tmp_for_loop_5__for_iterator = tmp_assign_source_74;
         Py_XDECREF( old );
     }
 
@@ -5620,8 +6466,8 @@ MOD_INIT_DECL( __main__ )
     loop_start_6:;
     tmp_next_source_5 = tmp_for_loop_5__for_iterator;
 
-    tmp_assign_source_63 = ITERATOR_NEXT( tmp_next_source_5 );
-    if ( tmp_assign_source_63 == NULL )
+    tmp_assign_source_75 = ITERATOR_NEXT( tmp_next_source_5 );
+    if ( tmp_assign_source_75 == NULL )
     {
         if ( CHECK_AND_CLEAR_STOP_ITERATION_OCCURRED() )
         {
@@ -5632,28 +6478,28 @@ MOD_INIT_DECL( __main__ )
         {
 
             FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
-            frame_module->f_lineno = 115;
+            frame_module->f_lineno = 138;
             goto try_except_handler_5;
         }
     }
 
     {
         PyObject *old = tmp_for_loop_5__iter_value;
-        tmp_for_loop_5__iter_value = tmp_assign_source_63;
+        tmp_for_loop_5__iter_value = tmp_assign_source_75;
         Py_XDECREF( old );
     }
 
-    tmp_assign_source_64 = tmp_for_loop_5__iter_value;
+    tmp_assign_source_76 = tmp_for_loop_5__iter_value;
 
-    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i, tmp_assign_source_64 );
-    tmp_called_instance_17 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i );
+    UPDATE_STRING_DICT0( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i, tmp_assign_source_76 );
+    tmp_called_instance_21 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_i );
 
-    if (unlikely( tmp_called_instance_17 == NULL ))
+    if (unlikely( tmp_called_instance_21 == NULL ))
     {
-        tmp_called_instance_17 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_i );
+        tmp_called_instance_21 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_i );
     }
 
-    if ( tmp_called_instance_17 == NULL )
+    if ( tmp_called_instance_21 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5663,12 +6509,12 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 116;
+        exception_lineno = 139;
         goto try_except_handler_5;
     }
 
-    frame_module->f_lineno = 116;
-    tmp_unused = CALL_METHOD_NO_ARGS( tmp_called_instance_17, const_str_plain_render );
+    frame_module->f_lineno = 139;
+    tmp_unused = CALL_METHOD_NO_ARGS( tmp_called_instance_21, const_str_plain_render );
     if ( tmp_unused == NULL )
     {
         assert( ERROR_OCCURRED() );
@@ -5676,7 +6522,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 116;
+        exception_lineno = 139;
         goto try_except_handler_5;
     }
     Py_DECREF( tmp_unused );
@@ -5687,7 +6533,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 115;
+        exception_lineno = 138;
         goto try_except_handler_5;
     }
     goto loop_start_6;
@@ -5725,14 +6571,14 @@ MOD_INIT_DECL( __main__ )
     Py_XDECREF( tmp_for_loop_5__for_iterator );
     tmp_for_loop_5__for_iterator = NULL;
 
-    tmp_called_instance_18 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
+    tmp_called_instance_22 = GET_STRING_DICT_VALUE( moduledict___main__, (Nuitka_StringObject *)const_str_plain_gui );
 
-    if (unlikely( tmp_called_instance_18 == NULL ))
+    if (unlikely( tmp_called_instance_22 == NULL ))
     {
-        tmp_called_instance_18 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
+        tmp_called_instance_22 = GET_STRING_DICT_VALUE( dict_builtin, (Nuitka_StringObject *)const_str_plain_gui );
     }
 
-    if ( tmp_called_instance_18 == NULL )
+    if ( tmp_called_instance_22 == NULL )
     {
 
         exception_type = PyExc_NameError;
@@ -5742,12 +6588,12 @@ MOD_INIT_DECL( __main__ )
         NORMALIZE_EXCEPTION( &exception_type, &exception_value, &exception_tb );
         CHAIN_EXCEPTION( exception_value );
 
-        exception_lineno = 118;
+        exception_lineno = 141;
         goto frame_exception_exit_1;
     }
 
-    frame_module->f_lineno = 118;
-    tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_18, const_str_plain_flip, &PyTuple_GET_ITEM( const_tuple_int_pos_32_tuple, 0 ) );
+    frame_module->f_lineno = 141;
+    tmp_unused = CALL_METHOD_WITH_ARGS1( tmp_called_instance_22, const_str_plain_flip, &PyTuple_GET_ITEM( const_tuple_int_pos_1024_tuple, 0 ) );
 
     if ( tmp_unused == NULL )
     {
@@ -5756,7 +6602,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 118;
+        exception_lineno = 141;
         goto frame_exception_exit_1;
     }
     Py_DECREF( tmp_unused );
@@ -5767,7 +6613,7 @@ MOD_INIT_DECL( __main__ )
         FETCH_ERROR_OCCURRED( &exception_type, &exception_value, &exception_tb );
 
 
-        exception_lineno = 32;
+        exception_lineno = 37;
         goto frame_exception_exit_1;
     }
     goto loop_start_2;
