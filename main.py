@@ -80,6 +80,9 @@ while not done:
         elif e.button == 5:
           grid.scale(False)
 
+    if e.type == pygame.VIDEORESIZE:
+      gui.page = pygame.display.set_mode(e.dict['size'],pygame.RESIZABLE)
+
   if mouse_1_down:
     if grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):
       release = pygame.mouse.get_pos()
@@ -135,4 +138,4 @@ while not done:
   for i in render_sequence:
     i.render()
 
-  gui.flip(32)
+  gui.flip(128)
