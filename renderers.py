@@ -121,15 +121,19 @@ class WinScreen(Title):
   def click(self):
     if 60 < self.cursor_y < 80:
       if 0 < self.cursor_x < 100:
-        return True
-      elif 105 < self.cursor_x < 145:
-        exit()
+        return 0
+      elif 105 < self.cursor_x < 195:
+        return 1
+    if 85 < self.cursor_y < 105:
+      if 0 < self.cursor_x < 40:
+        sys.exit()
   def render(self):
     self.gui.Color('FFFFFF')
     self.gui.Rect(60,0,100,20)
 
     self.gui.Rect(0,60,100,20)
-    self.gui.Rect(105,60,40,20)
+    self.gui.Rect(105,60,90,20)
+    self.gui.Rect(0,85,40,20)
 
     self.gui.Color('000000')
     self.gui.Text('Well Done!',16,True)
@@ -138,8 +142,11 @@ class WinScreen(Title):
     self.gui.Text('Play Again',16,True)
     self.gui.showText(0,60)
 
-    self.gui.Text('Exit',16,True)
+    self.gui.Text('View Grid',16,True)
     self.gui.showText(105,60)
+
+    self.gui.Text('Exit',16,True)
+    self.gui.showText(0,85)
 
 class LossScreen(Title):
   def click(self):
