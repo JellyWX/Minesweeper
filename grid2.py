@@ -16,6 +16,7 @@ class Grid():
     ## data ##
     self.array    = []
     self.cursor = None
+    self.last_click = 0
     self.x_shift = 0
     self.y_shift = 0
 
@@ -35,22 +36,32 @@ class Grid():
       randRow = randint(0,self.size_y - 1)
       randCol = randint(0,self.size_x - 1)
       local_arr = []
-      for i in range(-1,2):
-        for j in range(-1,2):
-          try:
-            local_arr.append(self.array[randRow+i][randCol+j].getCovered())
-          except IndexError:
-            pass
-      while False in local_arr or self.array[randRow][randCol].getMine():
-        randRow = randint(0,self.size_y - 1)
-        randCol = randint(0,self.size_x - 1)
-        local_arr = []
+      checks = False
+
+      if self.mines < ((self.size_x * self.size_y) - 9):
+        checks = True
         for i in range(-1,2):
           for j in range(-1,2):
             try:
               local_arr.append(self.array[randRow+i][randCol+j].getCovered())
             except IndexError:
               pass
+      else:
+        local_arr = [self.array[randRow][randCol].getCovered()]
+
+      while False in local_arr or self.array[randRow][randCol].getMine():
+        randRow = randint(0,self.size_y - 1)
+        randCol = randint(0,self.size_x - 1)
+        local_arr = []
+        if checks:
+          for i in range(-1,2):
+            for j in range(-1,2):
+              try:
+                local_arr.append(self.array[randRow+i][randCol+j].getCovered())
+              except IndexError:
+                pass
+        else:
+          local_arr = [self.array[randRow][randCol].getCovered()]
       self.array[randRow][randCol].mine = True
 
     for row in self.array:

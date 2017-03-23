@@ -65,9 +65,6 @@ while not done:
 
         if process_stage == 2:
           cont = endscreen.click()
-      elif e.button == 3:
-        if process_stage == 1:
-          grid.mark(grid.cursor)
 
     if e.type == pygame.MOUSEBUTTONDOWN:
       first_click = pygame.mouse.get_pos()
@@ -75,13 +72,16 @@ while not done:
         if e.button == 1:
           mouse_1_down = True
           grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+        elif e.button == 3:
+          if process_stage == 1:
+            grid.mark(grid.cursor)
         if e.button == 4:
           grid.scale()
         elif e.button == 5:
           grid.scale(False)
 
     if e.type == pygame.VIDEORESIZE:
-      gui.page = pygame.display.set_mode(e.dict['size'],pygame.RESIZABLE)
+      gui.resize(e.dict['size'][0],e.dict['size'][1])
 
   if mouse_1_down:
     if grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):

@@ -17,6 +17,11 @@ class GUI(object):
 
     self.f = None
 
+  def resize(self,w,h):
+    self.page = self.display.set_mode((w,h),pygame.RESIZABLE)
+    self.width = w
+    self.height = h
+
   def Color(self,hexa):
     if type(hexa) is str:
       self.color = struct.unpack('BBB',bytes.fromhex(hexa))

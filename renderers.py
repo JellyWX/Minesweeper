@@ -93,8 +93,8 @@ class StartScreen(Title):
     if len(self.vars['mines']) > 3:
       self.vars['mines'] = self.vars['mines'][:3]
     try:
-      if int(self.vars['mines']) > ((int(self.vars['width']) * int(self.vars['height'])) - 9):
-        self.vars['mines'] = str(int(self.vars['width'])*int(self.vars['height']) - 9)
+      if int(self.vars['mines']) > ((int(self.vars['width']) * int(self.vars['height'])) - 1):
+        self.vars['mines'] = str(int(self.vars['width'])*int(self.vars['height']) - 1)
     except ValueError:
       pass
 
