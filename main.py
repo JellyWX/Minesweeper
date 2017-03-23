@@ -18,13 +18,14 @@ grid = Grid(gui,images)
 startscreen = StartScreen(gui,images)
 winscreen = WinScreen(gui,images)
 lossscreen = LossScreen(gui,images)
+gridscreen = GridScreen(gui,images)
 endscreen = lossscreen
 
 render_sequence = [startscreen]
 process_stage = 0
 
 progress = False
-cont = False
+cont = -1
 loss = False
 
 keys = []
@@ -63,8 +64,11 @@ while not done:
           else:
             grid_moved = False
 
-        if process_stage == 2:
+        elif process_stage == 2:
           cont = endscreen.click()
+
+        elif process_stage == 3:
+          mouse_1_down = False
 
     if e.type == pygame.MOUSEBUTTONDOWN:
       first_click = pygame.mouse.get_pos()
@@ -73,8 +77,15 @@ while not done:
           mouse_1_down = True
           grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
         elif e.button == 3:
-          if process_stage == 1:
-            grid.mark(grid.cursor)
+          grid.mark(grid.cursor)
+        if e.button == 4:
+          grid.scale()
+        elif e.button == 5:
+          grid.scale(False)
+      elif process_stage == 3:
+        if e.button == 1:
+          mouse_1_down = True
+          grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
         if e.button == 4:
           grid.scale()
         elif e.button == 5:
@@ -96,7 +107,7 @@ while not done:
   if gui.keysDown(pygame.K_ESCAPE):
     done = True
 
-  if process_stage == 0:
+  if process_stage == 0: #if the main menu is open
     keys = gui.keysDown()
 
     if progress:
@@ -104,7 +115,7 @@ while not done:
       render_sequence = [grid]
       process_stage += 1
 
-  if process_stage == 1:
+  if process_stage == 1: #if the game is running
     complete = grid.Clock()
 
     if complete:
@@ -114,12 +125,18 @@ while not done:
       endscreen = lossscreen
 
     if complete or loss:
-      grid.render(False)
+      gui.page.fill((0,0,0))
       render_sequence = [endscreen]
       process_stage = 2
 
-  if process_stage == 2:
-    if cont:
+  if process_stage == 2: #if the game has ended, due to win or loss
+    if cont == -1:
+      gui.page.fill((0,0,0))
+      render_sequence = [endscreen]
+    if cont == 1: #show grid again
+      render_sequence = [grid,gridscreen]
+      process_stage = 3
+    if cont == 0: #replay
       gui.page.fill((0,0,0))
       process_stage = 0
       startscreen = StartScreen(gui,images)
@@ -128,14 +145,21 @@ while not done:
       render_sequence = [startscreen]
       grid = Grid(gui,images)
       progress = False
-      cont = False
+      cont = -1
       started = False
       loss = False
       complete = False
       endscreen = lossscreen
 
+  if process_stage == 3: #if the player chooses to review the grid
+    cont = -1
+    if gui.keysDown(pygame.K_BACKSPACE):
+      gui.page.fill((0,0,0))
+      process_stage = 2
 
   for i in render_sequence:
     i.render()
+    if process_stage == 3 and i == grid:
+      grid.render(True,True)
 
   gui.flip(64)

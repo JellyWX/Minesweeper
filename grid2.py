@@ -144,7 +144,7 @@ class Grid():
   def scale(self,zoomin=True):
     if zoomin:
       self.pix += 2
-    else:
+    elif not self.pix < 4:
       self.pix -= 2
 
   def shift(self,x_shift,y_shift):
@@ -165,7 +165,7 @@ class Grid():
     else:
       return False
 
-  def render(self,overlay=True):
+  def render(self,overlay=True,showMines=False):
     self.gui.page.fill((0,0,0))
     y = self.y_shift
     for row in self.array:
@@ -181,6 +181,9 @@ class Grid():
             self.gui.Image(self.images['mine'],self.pix,self.pix,x,y)
           else:
             self.gui.Image(self.images[str(item)],self.pix,self.pix,x,y)
+        if showMines:
+          if item.getMine():
+            self.gui.Image(self.images['mine'],self.pix,self.pix,x,y)
         x += self.pix
       y += self.pix
 
