@@ -29,6 +29,9 @@ class Grid():
       for item in range(x):
         self.array[row].append(Tile(self,self.array,row,item,0))
 
+  def key_hit(self,k):
+    print('Key actions have no effect in grid mode')
+
   def drawMines(self,mines=40):
     self.mines = mines
 
