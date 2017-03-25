@@ -20,12 +20,9 @@ done = False
 started = False
 grid = Grid(gui,images)
 startscreen = StartScreen(gui,images)
-winscreen = WinScreen(gui,images)
-lossscreen = LossScreen(gui,images)
+endscreen = WinScreen(gui,images,'')
 gridscreen = GridScreen(gui,images)
 stats = GridStats(gui,images,timer)
-
-endscreen = lossscreen
 
 render_sequence = [startscreen]
 process_stage = 0
@@ -118,6 +115,7 @@ while not done:
 
   if process_stage == 0: #if the main menu is open
     keys = gui.keysDown()
+    startscreen.checkBoxes()
 
     if progress == 0:
       grid.drawGrid(int(startscreen.vars['width']),int(startscreen.vars['height']))
@@ -130,10 +128,9 @@ while not done:
     complete = grid.Clock()
 
     if complete:
-      endscreen = winscreen
-
+      endscreen.display_text = 'Well Done!'
     elif loss:
-      endscreen = lossscreen
+      endscreen.display_text = '    RIP   '
 
     if complete or loss:
       gui.page.fill((0,0,0))
@@ -153,8 +150,6 @@ while not done:
       gui.page.fill((0,0,0))
       process_stage = 0
       startscreen = StartScreen(gui,images)
-      winscreen = WinScreen(gui,images)
-      lossscreen = LossScreen(gui,images)
       render_sequence = [startscreen]
       grid = Grid(gui,images)
       progress = False
@@ -162,7 +157,6 @@ while not done:
       started = False
       loss = False
       complete = False
-      endscreen = lossscreen
     elif cont == 2:
       done = True
 
