@@ -1,5 +1,5 @@
 class Title():
-  def __init__(self,gui,im):
+  def __init__(self,gui,im,extras=0):
     ## rendering components ##
     self.gui = gui
     self.im = im
@@ -7,9 +7,9 @@ class Title():
     ## metadata ##
     self.cursor_x = 0
     self.cursor_y = 0
-    self.post_init()
+    self.post_init(extras)
 
-  def post_init(self):
+  def post_init(self,extras):
     pass
 
   def setCursorPos(self,x,y):

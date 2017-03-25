@@ -3,7 +3,7 @@ from title import Title
 import pygame
 
 class StartScreen(Title):
-  def post_init(self):
+  def post_init(self,ex=None):
     self.active_box = None
     self.vars = {'width':'16','height':'16','mines':'40'}
 
@@ -42,11 +42,13 @@ class StartScreen(Title):
         self.active_box = 'mines'
       elif 50 < self.cursor_y < 78:
         self.gui.page.fill((0,0,0))
-        return True
+        self.active_box = None
+        self.checkBoxes()
+        return 0
     if 80 < self.cursor_x < 170:
       if 180 < self.cursor_y < 200:
-        exit()
-    return False
+        return 1
+    return -1
 
   def render(self):
     self.gui.Color('FFFFFF')
@@ -87,6 +89,8 @@ class StartScreen(Title):
     self.gui.Text('Exit',16,True)
     self.gui.showText(80,180)
 
+
+  def checkBoxes(self):
     if len(self.vars['width']) > 2:
       self.vars['width'] = self.vars['width'][:2]
     if len(self.vars['height']) > 2:
@@ -100,13 +104,13 @@ class StartScreen(Title):
       pass
 
     try:
-      if int(self.vars['height']) < 4:
+      if int(self.vars['height']) < 4 and self.active_box != 'height':
         self.vars['height'] = '4'
     except ValueError:
       pass
 
     try:
-      if int(self.vars['width']) < 4:
+      if int(self.vars['width']) < 4 and self.active_box != 'width':
         self.vars['width'] = '4'
     except ValueError:
       pass
@@ -126,7 +130,7 @@ class WinScreen(Title):
         return 1
     if 85 < self.cursor_y < 105:
       if 0 < self.cursor_x < 40:
-        sys.exit()
+        return 2
   def render(self):
     self.gui.Color('FFFFFF')
     self.gui.Rect(60,0,100,20)
@@ -157,7 +161,7 @@ class LossScreen(Title):
         return 1
     if 85 < self.cursor_y < 105:
       if 0 < self.cursor_x < 40:
-        sys.exit()
+        return 2
   def render(self):
     self.gui.Color('FFFFFF')
     self.gui.Rect(60,0,100,20)
@@ -178,6 +182,15 @@ class LossScreen(Title):
 
     self.gui.Text('Exit',16,True)
     self.gui.showText(0,85)
+
+class GridStats(Title):
+  def post_init(self,timer):
+    self.timer = timer
+  def render(self):
+    self.gui.Color('FF0000')
+    self.timer.count = round(self.timer.count,1)
+    self.gui.Text(str(self.timer.count),16,True)
+    self.gui.showText(0,0)
 
 class GridScreen(Title):
   def render(self):
