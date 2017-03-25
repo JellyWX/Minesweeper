@@ -2,7 +2,7 @@
 Pygame Minesweeper _for Python Pygame 3.x_
 
 ## Running Minesweeper
-This game can be run on Linux by executing the executable file `main`. Either do this from a terminal (recommended) by doing `./main` from the directory, or by right-clicking and selecting `run` from the options. If you want to run it in Python (for debugging or modification), read below:
+This game can be run on Linux by executing the executable file `main`. Either do this from a terminal (recommended) by doing `./main` from the directory, or by right-clicking and selecting `run` from the options. On Windows, execute `main.exe` with either a double click or by opening a shell and typing `main.exe` from the directory. On Mac OS X, it can be run with the latest version of Wine. Install Wine and run `main.exe` using Wine. If you want to run it in Python (for debugging or modification), read below:
 
 ## Installing Pygame
 You can install pygame using `pip3`.
