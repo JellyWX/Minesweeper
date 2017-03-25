@@ -97,6 +97,12 @@ class StartScreen(Title):
       self.vars['height'] = self.vars['height'][:2]
     if len(self.vars['mines']) > 3:
       self.vars['mines'] = self.vars['mines'][:3]
+    if len(self.vars['width']) < 1 and self.active_box != 'width':
+      self.vars['width'] = '4'
+    if len(self.vars['height']) < 1 and self.active_box != 'height':
+      self.vars['height'] = '4'
+    if len(self.vars['mines']) < 1 and self.active_box != 'mines':
+      self.vars['mines'] = '1'
     try:
       if int(self.vars['mines']) > ((int(self.vars['width']) * int(self.vars['height'])) - 1):
         self.vars['mines'] = str(int(self.vars['width']) * int(self.vars['height']) - 1)
@@ -163,7 +169,9 @@ class GridStats(Title):
     self.gui.showText(0,0)
 
 class GridScreen(Title):
+  def post_init(self,timer):
+    self.timer = timer
   def render(self):
     self.gui.Color('FF0000')
-    self.gui.Text('Press backspace to return',16,True)
+    self.gui.Text('Press backspace to return. Game time: ' + str(round(self.timer.get('endgame'),1)) + ' seconds.',16,True)
     self.gui.showText(0,0)

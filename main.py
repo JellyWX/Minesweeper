@@ -21,7 +21,7 @@ started = False
 grid = Grid(gui,images)
 startscreen = StartScreen(gui,images)
 endscreen = WinScreen(gui,images,'')
-gridscreen = GridScreen(gui,images)
+gridscreen = GridScreen(gui,images,timer)
 stats = GridStats(gui,images,timer)
 
 render_sequence = [startscreen]
