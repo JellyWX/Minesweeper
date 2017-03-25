@@ -1,10 +1,9 @@
 import pygame
 import os
 import time
-import threading
 from renderers import *
 from gui import GUI
-from grid2 import Grid
+from grid import Grid
 from timer import Timer
 
 gui = GUI(800,800,'Minesweeper')
@@ -15,200 +14,167 @@ for f in os.listdir('assets/images'):
     print('Loading asset ' + f)
     images[f[0:-4]] = pygame.image.load('assets/images/' + f)
 
-timer = Timer(0.1)
+timer = Timer(True)
 done = False
 
-def process():
-  global timer
-  global done
+started = False
+grid = Grid(gui,images)
+startscreen = StartScreen(gui,images)
+winscreen = WinScreen(gui,images)
+lossscreen = LossScreen(gui,images)
+gridscreen = GridScreen(gui,images)
+stats = GridStats(gui,images,timer)
 
-  timer.stop()
-  started = False
-  grid = Grid(gui,images)
-  startscreen = StartScreen(gui,images)
-  winscreen = WinScreen(gui,images)
-  lossscreen = LossScreen(gui,images)
-  gridscreen = GridScreen(gui,images)
-  stats = GridStats(gui,images,timer)
+endscreen = lossscreen
 
-  endscreen = lossscreen
+render_sequence = [startscreen]
+process_stage = 0
 
-  render_sequence = [startscreen]
-  process_stage = 0
+progress = -1
+cont = -1
+loss = False
 
-  progress = -1
-  cont = -1
-  loss = False
+keys = []
 
-  keys = []
+first_click = ()
+release = ()
+mouse_1_down = False
+grid_moved = False
 
-  first_click = ()
-  release = ()
-  mouse_1_down = False
-  grid_moved = False
+while not done:
+  for e in gui.event():
+    if e.type == pygame.QUIT:
+      done = True
+      break
+    if e.type == pygame.KEYUP:
+      for i in render_sequence:
+        i.key_hit(keys)
 
-  while not done:
-    for e in gui.event():
-      if e.type == pygame.QUIT:
-        timer.stop()
-        done = True
-        break
-      if e.type == pygame.KEYUP:
-        for i in render_sequence:
-          i.key_hit(keys)
+    if e.type == pygame.MOUSEBUTTONUP:
+      release = pygame.mouse.get_pos()
+      if e.button == 1:
 
-      if e.type == pygame.MOUSEBUTTONUP:
-        release = pygame.mouse.get_pos()
+        if process_stage == 0:
+          progress = startscreen.click()
+
+        if process_stage == 1:
+          mouse_1_down = False
+          if not grid_moved:
+            if not started:
+              grid.cursor.covered = False
+              grid.drawMines(int(startscreen.vars['mines']))
+              grid.cursor.covered = True
+              grid.open(grid.cursor,True)
+              timer.Reset(True)
+              started = True
+            loss = grid.open(grid.cursor,True)
+          else:
+            grid_moved = False
+
+        elif process_stage == 2:
+          cont = endscreen.click()
+
+        elif process_stage == 3:
+          mouse_1_down = False
+
+    if e.type == pygame.MOUSEBUTTONDOWN:
+      first_click = pygame.mouse.get_pos()
+
+      if process_stage == 1: #if game is ongoing
         if e.button == 1:
+          mouse_1_down = True
+          grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+        elif e.button == 3:
+          grid.mark(grid.cursor)
+        if e.button == 4:
+          grid.scale()
+        elif e.button == 5:
+          grid.scale(False)
 
-          if process_stage == 0:
-            progress = startscreen.click()
+      elif process_stage == 3: #if the player reopens the grid
+        if e.button == 1:
+          mouse_1_down = True
+          grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+        if e.button == 4:
+          grid.scale()
+        elif e.button == 5:
+          grid.scale(False)
 
-          if process_stage == 1:
-            mouse_1_down = False
-            if not grid_moved:
-              if not started:
-                grid.cursor.covered = False
-                grid.drawMines(int(startscreen.vars['mines']))
-                grid.cursor.covered = True
-                grid.open(grid.cursor,True)
-                timer.paused = False
-                started = True
-              loss = grid.open(grid.cursor,True)
-            else:
-              grid_moved = False
+    if e.type == pygame.VIDEORESIZE:
+      gui.resize(e.dict['size'][0],e.dict['size'][1])
 
-          elif process_stage == 2:
-            cont = endscreen.click()
+  if mouse_1_down:
+    if grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):
+      release = pygame.mouse.get_pos()
+      grid.shift(first_click[0]-release[0],first_click[1]-release[1])
+      first_click = pygame.mouse.get_pos()
+      grid_moved = True
 
-          elif process_stage == 3:
-            mouse_1_down = False
+  for i in render_sequence:
+    i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
-      if e.type == pygame.MOUSEBUTTONDOWN:
-        first_click = pygame.mouse.get_pos()
+  if gui.keysDown(pygame.K_ESCAPE):
+    done = True
 
-        if process_stage == 1: #if game is ongoing
-          if e.button == 1:
-            mouse_1_down = True
-            grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
-          elif e.button == 3:
-            grid.mark(grid.cursor)
-          if e.button == 4:
-            grid.scale()
-          elif e.button == 5:
-            grid.scale(False)
+  if process_stage == 0: #if the main menu is open
+    keys = gui.keysDown()
 
-        elif process_stage == 3: #if the player reopens the grid
-          if e.button == 1:
-            mouse_1_down = True
-            grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
-          if e.button == 4:
-            grid.scale()
-          elif e.button == 5:
-            grid.scale(False)
-
-      if e.type == pygame.VIDEORESIZE:
-        gui.resize(e.dict['size'][0],e.dict['size'][1])
-
-    if mouse_1_down:
-      if grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):
-        release = pygame.mouse.get_pos()
-        grid.shift(first_click[0]-release[0],first_click[1]-release[1])
-        first_click = pygame.mouse.get_pos()
-        grid_moved = True
-
-    for i in render_sequence:
-      i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
-
-    if gui.keysDown(pygame.K_ESCAPE):
+    if progress == 0:
+      grid.drawGrid(int(startscreen.vars['width']),int(startscreen.vars['height']))
+      render_sequence = [grid,stats]
+      process_stage += 1
+    elif progress == 1:
       done = True
 
-    if process_stage == 0: #if the main menu is open
-      keys = gui.keysDown()
+  if process_stage == 1: #if the game is running
+    complete = grid.Clock()
 
-      if progress == 0:
-        grid.drawGrid(int(startscreen.vars['width']),int(startscreen.vars['height']))
-        render_sequence = [grid,stats]
-        process_stage += 1
-      elif progress == 1:
-        timer.stop()
-        done = True
+    if complete:
+      endscreen = winscreen
 
-    if process_stage == 1: #if the game is running
-      complete = grid.Clock()
+    elif loss:
+      endscreen = lossscreen
 
-      if complete:
-        endscreen = winscreen
+    if complete or loss:
+      gui.page.fill((0,0,0))
+      timer.Bookmark('endgame')
+      print(timer.get('endgame'))
+      render_sequence = [endscreen]
+      process_stage = 2
 
-      elif loss:
-        endscreen = lossscreen
-
-      if complete or loss:
-        gui.page.fill((0,0,0))
-        time = timer.stop()
-        print(time)
-        render_sequence = [endscreen]
-        process_stage = 2
-
-    if process_stage == 2: #if the game has ended, due to win or loss
-      if cont == -1:
-        gui.page.fill((0,0,0))
-        render_sequence = [endscreen]
-      elif cont == 1: #show grid again
-        render_sequence = [grid,gridscreen]
-        process_stage = 3
-      elif cont == 0: #replay
-        gui.page.fill((0,0,0))
-        process_stage = 0
-        startscreen = StartScreen(gui,images)
-        winscreen = WinScreen(gui,images)
-        lossscreen = LossScreen(gui,images)
-        render_sequence = [startscreen]
-        grid = Grid(gui,images)
-        progress = False
-        cont = -1
-        started = False
-        loss = False
-        complete = False
-        endscreen = lossscreen
-      elif cont == 2:
-        timer.stop()
-        done = True
-
-    if process_stage == 3: #if the player chooses to review the grid
+  if process_stage == 2: #if the game has ended, due to win or loss
+    if cont == -1:
+      gui.page.fill((0,0,0))
+      render_sequence = [endscreen]
+    elif cont == 1: #show grid again
+      render_sequence = [grid,gridscreen]
+      process_stage = 3
+    elif cont == 0: #replay
+      gui.page.fill((0,0,0))
+      process_stage = 0
+      startscreen = StartScreen(gui,images)
+      winscreen = WinScreen(gui,images)
+      lossscreen = LossScreen(gui,images)
+      render_sequence = [startscreen]
+      grid = Grid(gui,images)
+      progress = False
       cont = -1
-      if gui.keysDown(pygame.K_BACKSPACE):
-        gui.page.fill((0,0,0))
-        process_stage = 2
+      started = False
+      loss = False
+      complete = False
+      endscreen = lossscreen
+    elif cont == 2:
+      done = True
 
-    for i in render_sequence:
-      i.render()
-      if process_stage == 3 and i == grid:
-        grid.render(True,True)
+  if process_stage == 3: #if the player chooses to review the grid
+    cont = -1
+    if gui.keysDown(pygame.K_BACKSPACE):
+      gui.page.fill((0,0,0))
+      process_stage = 2
 
-    gui.flip(64)
+  for i in render_sequence:
+    i.render()
+    if process_stage == 3 and i == grid:
+      grid.render(True,True)
 
-def time_():
-  global timer
-  global done
-
-  while not done:
-    timer.Time()
-    time.sleep(1/64)
-
-
-class main(threading.Thread):
-  def __init__(self,threadID,func):
-    threading.Thread.__init__(self)
-    self.threadID = threadID
-    self.func = func
-  def run(self):
-    self.func()
-
-thread1 = main(0,process)
-thread2 = main(1,time_)
-
-thread1.start()
-thread2.start()
-thread1.join()
-thread2.join()
+  gui.flip(64)

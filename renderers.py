@@ -183,13 +183,15 @@ class LossScreen(Title):
     self.gui.Text('Exit',16,True)
     self.gui.showText(0,85)
 
+    self.gui.Color('FF0000')
+    self.gui.Text()
+
 class GridStats(Title):
   def post_init(self,timer):
     self.timer = timer
   def render(self):
     self.gui.Color('FF0000')
-    self.timer.count = round(self.timer.count,1)
-    self.gui.Text(str(self.timer.count),16,True)
+    self.gui.Text(str(round(self.timer.Time(),1)),16,True)
     self.gui.showText(0,0)
 
 class GridScreen(Title):
