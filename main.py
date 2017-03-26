@@ -127,6 +127,12 @@ while not done:
     startscreen.checkBoxes()
 
     if progress == 0:
+      try:
+        os.mkdir('assets/data')
+      except FileExistsError:
+        pass
+      with open('assets/data/last_size','w') as f:
+        f.write(startscreen.vars['width'] + ',' + startscreen.vars['height'] + ',' + startscreen.vars['mines'])
       grid.drawGrid(int(startscreen.vars['width']),int(startscreen.vars['height']))
       render_sequence = [grid,stats]
       process_stage += 1
@@ -180,4 +186,4 @@ while not done:
     if process_stage == 3 and i == grid:
       grid.render(True,True)
 
-  gui.flip(64)
+  gui.flip(128)

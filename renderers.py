@@ -5,7 +5,12 @@ import pygame
 class StartScreen(Title):
   def post_init(self,ex=None):
     self.active_box = None
-    self.vars = {'width':'16','height':'16','mines':'40'}
+    try:
+      with open('assets/data/last_size','r') as f:
+        var_li = f.read().split(',')
+        self.vars = {'width':var_li[0],'height':var_li[1],'mines':var_li[2]}
+    except FileNotFoundError:
+      self.vars = {'width':'16','height':'16','mines':'40'}
 
   def key_hit(self,k):
     if self.active_box != None:
