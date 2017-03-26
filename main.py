@@ -36,6 +36,7 @@ keys = []
 first_click = ()
 release = ()
 mouse_1_down = False
+mark_down = False
 grid_moved = False
 
 while not done:
@@ -74,6 +75,10 @@ while not done:
         elif process_stage == 3:
           mouse_1_down = False
 
+      if e.button == 3:
+        if process_stage == 1:
+          mark_down = False
+
     if e.type == pygame.MOUSEBUTTONDOWN:
       first_click = pygame.mouse.get_pos()
 
@@ -82,7 +87,8 @@ while not done:
           mouse_1_down = True
           grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
         elif e.button == 3:
-          grid.mark(grid.cursor)
+          mark_down = True
+          marking = not grid.marked(grid.cursor)
         if e.button == 4:
           grid.scale()
         elif e.button == 5:
@@ -106,6 +112,9 @@ while not done:
       grid.shift(first_click[0]-release[0],first_click[1]-release[1])
       first_click = pygame.mouse.get_pos()
       grid_moved = True
+
+  if mark_down:
+    grid.mark(grid.cursor,marking)
 
   for i in render_sequence:
     i.setCursorPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])

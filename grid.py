@@ -140,9 +140,11 @@ class Grid():
     else:
       return False
 
-  def mark(self,cell):
-    if cell.getCovered():
-      cell.mark()
+  def mark(self,cell,m):
+    cell.marked = m
+
+  def marked(self,cell):
+    return cell.getMarked()
 
   def scale(self,zoomin=True):
     if zoomin:
