@@ -15,11 +15,11 @@ def download(url,filename):
 
   CHUNK = 16 * 1024
   with open(filename,'wb') as f:
-  while True:
-    chunk = r.read(CHUNK)
-    if not chunk:
-      break
-    f.write(chunk)
+    while True:
+      chunk = r.read(CHUNK)
+      if not chunk:
+        break
+      f.write(chunk)
 
 if sys.platform == 'linux':
   print('Auto-detected Linux client.')
@@ -30,6 +30,7 @@ else:
 
 print('Beginning directory formation...')
 try:
+  os.mkdir('assets')
   os.mkdir('assets/images')
   print('Created directory structure. Finding meta files...')
 except FileExistsError:
@@ -38,8 +39,8 @@ except FileExistsError:
 try:
   with open('.meta','r') as f:
     version_list_old = f.read().split(',')
-    binary_version = int(version_list[0])
-    asset_version = int(version_list[1])
+    binary_version = int(version_list_old[0])
+    asset_version = int(version_list_old[1])
   clean_install = False
 except FileNotFoundError:
   print('No meta files found. This version is old or non-existant. Will perform full install')
