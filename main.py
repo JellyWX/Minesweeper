@@ -167,11 +167,13 @@ while not done:
       startscreen = StartScreen(gui,images)
       render_sequence = [startscreen]
       grid = Grid(gui,images)
-      progress = False
+      progress = -1
       cont = -1
       started = False
       loss = False
       complete = False
+
+      timer.Reset(True)
     elif cont == 2:
       done = True
 
