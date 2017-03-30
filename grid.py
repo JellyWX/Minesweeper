@@ -137,6 +137,9 @@ class Grid():
           return False
       else:
         return False
+    elif cell.getMarked():
+      cell.question = not cell.question
+
     else:
       return False
 
@@ -180,7 +183,10 @@ class Grid():
         if item.getCovered():
           self.gui.Image(self.images['tile'],self.pix,self.pix,x,y)
           if item.getMarked():
-            self.gui.Image(self.images['mark'],self.pix,self.pix,x,y)
+            if item.question:
+              self.gui.Image(self.images['question'],self.pix,self.pix,x,y)
+            else:
+              self.gui.Image(self.images['mark'],self.pix,self.pix,x,y)
         else:
           if item.getMine():
             self.gui.Image(self.images['mine'],self.pix,self.pix,x,y)
@@ -217,6 +223,7 @@ class Tile():
     self.covered = True
     self.mine = False
     self.marked = False
+    self.question = False
 
   def getCovered(self):
     return self.covered
