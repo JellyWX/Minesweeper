@@ -1,10 +1,13 @@
 import sys
 from title import Title
 import pygame
+import time
 
 class StartScreen(Title):
   def post_init(self,ex=None):
     self.active_box = None
+    self.clicker = time.time()
+    self.on = True
     try:
       with open('assets/data/last_size','r') as f:
         var_li = f.read().split(',')
@@ -79,11 +82,17 @@ class StartScreen(Title):
     self.gui.Text(self.vars['width'],16,True)
     self.gui.showText(130,100)
 
+    if self.active_box == 'width' and self.on:
+      self.gui.Rect(130 + 10 * len(self.vars['width']),102,2,16)
+
     self.gui.Text('Height:',16,True)
     self.gui.showText(60,125)
 
     self.gui.Text(self.vars['height'],16,True)
     self.gui.showText(130,125)
+
+    if self.active_box == 'height' and self.on:
+      self.gui.Rect(130 + 10 * len(self.vars['height']),127,2,16)
 
     self.gui.Text('Mines :',16,True)
     self.gui.showText(60,150)
@@ -91,8 +100,15 @@ class StartScreen(Title):
     self.gui.Text(self.vars['mines'],16,True)
     self.gui.showText(130,150)
 
+    if self.active_box == 'mines' and self.on:
+      self.gui.Rect(130 + 10 * len(self.vars['mines']),152,2,16)
+
     self.gui.Text('Exit',16,True)
     self.gui.showText(80,180)
+
+    if time.time() - self.clicker > 0.5:
+      self.clicker = time.time()
+      self.on = not self.on
 
 
   def checkBoxes(self):
