@@ -22,7 +22,7 @@ grid = Grid(gui,images)
 startscreen = StartScreen(gui,images)
 endscreen = WinScreen(gui,images,'')
 gridscreen = GridScreen(gui,images,timer)
-stats = GridStats(gui,images,timer)
+stats = GridStats(gui,images,[grid,timer])
 
 render_sequence = [startscreen]
 process_stage = 0
@@ -85,7 +85,7 @@ while not done:
       if process_stage == 1: #if game is ongoing
         if e.button == 1:
           mouse_1_down = True
-          grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+          mouse_pos_init = pygame.mouse.get_pos()
         elif e.button == 3:
           mark_down = True
           marking = not grid.marked(grid.cursor)
@@ -107,7 +107,7 @@ while not done:
       gui.resize(e.dict['size'][0],e.dict['size'][1])
 
   if mouse_1_down:
-    if grid.getCursorVariation(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]):
+    if mouse_pos_init !:
       release = pygame.mouse.get_pos()
       grid.shift(first_click[0]-release[0],first_click[1]-release[1])
       first_click = pygame.mouse.get_pos()

@@ -76,6 +76,7 @@ class StartScreen(Title):
     self.gui.Text('New Game',22,True)
     self.gui.showText(74,52)
 
+    ## Wdith Boxes ##
     self.gui.Text('Width :',16,True)
     self.gui.showText(60,100)
 
@@ -85,6 +86,7 @@ class StartScreen(Title):
     if self.active_box == 'width' and self.on:
       self.gui.Rect(130 + 10 * len(self.vars['width']),102,2,16)
 
+    ## Height Boxes ##
     self.gui.Text('Height:',16,True)
     self.gui.showText(60,125)
 
@@ -94,6 +96,7 @@ class StartScreen(Title):
     if self.active_box == 'height' and self.on:
       self.gui.Rect(130 + 10 * len(self.vars['height']),127,2,16)
 
+    ## Mines Boxes ##
     self.gui.Text('Mines :',16,True)
     self.gui.showText(60,150)
 
@@ -102,6 +105,7 @@ class StartScreen(Title):
 
     if self.active_box == 'mines' and self.on:
       self.gui.Rect(130 + 10 * len(self.vars['mines']),152,2,16)
+
 
     self.gui.Text('Exit',16,True)
     self.gui.showText(80,180)
@@ -182,12 +186,19 @@ class WinScreen(Title):
     self.gui.showText(0,85)
 
 class GridStats(Title):
-  def post_init(self,timer):
-    self.timer = timer
+  def post_init(self,gridtime):
+    self.grid = gridtime[0]
+    self.timer = gridtime[1]
   def render(self):
+    self.gui.Color('aaaaaa')
+    self.gui.Rect(0,self.gui.height*0.95,self.gui.width,self.gui.height*0.05)
+
+    self.gui.Color('555555')
+    self.gui.Rect(0,self.gui.height*0.945,self.gui.width,self.gui.height*0.005)
+
     self.gui.Color('FF0000')
-    self.gui.Text(str(round(self.timer.Time(),1)),16,True)
-    self.gui.showText(0,0)
+    self.gui.Text(str(round(self.timer.Time(),1)),round(self.gui.height*0.05),True)
+    self.gui.showText(0,round(self.gui.height*0.95))
 
 class GridScreen(Title):
   def post_init(self,timer):
