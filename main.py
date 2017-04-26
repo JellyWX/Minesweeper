@@ -6,7 +6,7 @@ from gui import GUI
 from grid import Grid
 from timer import Timer
 
-gui = GUI(800,800,'Minesweeper')
+gui = GUI(500,500,'Minesweeper')
 images = {}
 
 for f in os.listdir('assets/images'):
@@ -36,6 +36,7 @@ keys = []
 first_click = ()
 release = ()
 mouse_1_down = False
+mouse_pos_init = (0,0)
 mark_down = False
 grid_moved = False
 
@@ -85,6 +86,7 @@ while not done:
       if process_stage == 1: #if game is ongoing
         if e.button == 1:
           mouse_1_down = True
+          mouse_pos_old = mouse_pos_init
           mouse_pos_init = pygame.mouse.get_pos()
         elif e.button == 3:
           mark_down = True
@@ -97,7 +99,8 @@ while not done:
       elif process_stage == 3: #if the player reopens the grid
         if e.button == 1:
           mouse_1_down = True
-          grid.setClickPos(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+          mouse_pos_old = mouse_pos_init
+          mouse_pos_init = pygame.mouse.get_pos()
         if e.button == 4:
           grid.scale()
         elif e.button == 5:
@@ -107,7 +110,7 @@ while not done:
       gui.resize(e.dict['size'][0],e.dict['size'][1])
 
   if mouse_1_down:
-    if mouse_pos_init !:
+    if mouse_pos_old != pygame.mouse.get_pos():
       release = pygame.mouse.get_pos()
       grid.shift(first_click[0]-release[0],first_click[1]-release[1])
       first_click = pygame.mouse.get_pos()
@@ -141,6 +144,7 @@ while not done:
 
   if process_stage == 1: #if the game is running
     complete = grid.Clock()
+    mouse_pos_init = pygame.mouse.get_pos()
 
     if complete:
       endscreen.display_text = 'Well Done!'
