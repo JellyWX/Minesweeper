@@ -137,7 +137,7 @@ class Grid():
           return False
       else:
         return False
-    elif cell.getMarked():
+    elif cell.getMarked() and auto:
       cell.question = not cell.question
 
     else:
